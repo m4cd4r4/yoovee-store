@@ -104,15 +104,15 @@ img {
     padding: 0 var(--spacing-4);
 }
 
+/* ===== Shipping Banner ===== */
 .shipping-banner {
-    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+    background-color: var(--primary);
     color: var(--white);
     text-align: center;
-    padding: 0.2rem 0;
-    font-size: 0.75rem;
+    padding: 0.6rem 0;
+    font-size: 0.85rem;
     font-weight: 400;
     letter-spacing: 0.05em;
-    width: 100%;
 }
 
 .shipping-banner p {
@@ -208,36 +208,22 @@ img {
     box-shadow: none !important;
 }
 
-/* 2. Reduce header padding and height */
+/* ===== Header & Navigation ===== */
 .header {
     position: fixed;
-    top: 0;
+    top: 38px; /* Height of the banner plus its padding */
     left: 0;
     width: 100%;
     background-color: var(--white);
     box-shadow: var(--shadow-sm);
     z-index: 1000;
-    padding: 0 0 0.5rem; /* Reduced bottom padding (was 1.2rem) */
+    padding: 1.2rem 0;
     transition: var(--transition-base);
 }
 
 .header-content {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-top: 0.5rem;
-    padding: 0.2rem 0;
-    min-height: 50px; /* Add minimum height to accommodate logo */
-}
-
-.logo img {
-    height: auto; /* Remove fixed height */
-    width: 150px; /* Set a proper width */
-    max-height: 40px; /* Ensure it's not too tall */
-}
-
-.logo {
-    display: flex;
     align-items: center;
 }
 
@@ -253,13 +239,12 @@ img {
     margin-left: var(--spacing-4);
 }
 
-/* 5. Reduce navigation item padding */
 .nav-menu a {
     color: var(--gray-700);
     font-weight: 400;
-    font-size: 0.85rem; /* Slightly smaller font */
+    font-size: 0.9rem;
     letter-spacing: 0.05em;
-    padding: 0.3rem 0; /* Reduced vertical padding */
+    padding: 0.5rem 0;
     position: relative;
     text-transform: uppercase;
 }
@@ -329,10 +314,10 @@ img {
     transition: var(--transition-base);
 }
 
-/* 7. Adjust hero section to account for smaller header */
+/* ===== Hero Section ===== */
 .hero {
     position: relative;
-    padding: 8rem 0 6rem; /* Reduced top padding (was 12rem) */
+    padding: 12rem 0 8rem;
     background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
     color: var(--white);
     overflow: hidden;
@@ -540,7 +525,7 @@ img {
     border-radius: var(--border-radius-sm);
     white-space: nowrap;
     top: -15px;
-    left: 60%; /* Changed from 50% to 60% to move it more to the right */
+    left: 50%;
     transform: translateX(-50%);
     z-index: 1;
     letter-spacing: 0.03em;
@@ -548,7 +533,6 @@ img {
 
 .color-option.out-of-stock .stock-label {
     top: -20px;
-    left: 70%; /* Moved even further right for color options */
 }
 
 .size-options {
@@ -1220,85 +1204,4 @@ img {
 
 .close-modal:hover, .close-sidebar:hover {
     color: var(--danger);
-}
-
-/* ===== Responsive Styles ===== */
-@media (max-width: 1200px) {
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-}
-
-@media (max-width: 992px) {
-    .product-showcase {
-        grid-template-columns: 1fr;
-    }
-    
-    .footer-content {
-        grid-template-columns: 1fr 2fr;
-    }
-    
-    .footer-social {
-        grid-column: span 2;
-        margin-top: var(--spacing-4);
-    }
-}
-
-@media (max-width: 768px) {
-    html {
-        font-size: 15px;
-    }
-    
-    .hero h1 {
-        font-size: 2rem;
-    }
-    
-    .hero p {
-        font-size: 1rem;
-    }
-    
-    .nav-menu {
-        position: fixed;
-        top: 4rem; /* Substantially reduced to match smaller header */
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 4rem);
-        background-color: var(--white);
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        padding-top: var(--spacing-5);
-        transition: left 0.4s ease;
-        box-shadow: var(--shadow);
-        z-index: 900;
-    }   
-    .nav-menu.active {
-        left: 0;
-    }
-    
-    .nav-menu ul {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .nav-menu li {
-        margin: 0 0 var(--spacing-4) 0;
-    }
-    
-    .mobile-menu-toggle {
-        display: flex;
-    }
-    
-    .footer-content {
-        grid-template-columns: 1fr;
-    }
-    
-    .footer-links {
-        margin-top: var(--spacing-4);
-    }
-    
-    .footer-social {
-        grid-column: auto;
-        margin-top: var(--spacing-4);
-    }
 }
