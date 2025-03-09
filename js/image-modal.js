@@ -2,15 +2,28 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Product gallery modal functionality
     const productImages = document.querySelectorAll('.main-image img, .thumbnail img');
-    const modal = document.createElement('div');
-    modal.className = 'image-modal';
-    modal.innerHTML = `
-        <span class="close-image-modal">&times;</span>
-        <img class="image-modal-content">
-        <div class="modal-nav modal-prev"><i class="fas fa-chevron-left"></i></div>
-        <div class="modal-nav modal-next"><i class="fas fa-chevron-right"></i></div>
-    `;
-    document.body.appendChild(modal);
+    
+    // Exit if no product images found
+    if (!productImages || productImages.length === 0) {
+        console.warn('No product images found for image modal');
+        return;
+    }
+    
+    // Check if modal already exists
+    let modal = document.querySelector('.image-modal');
+    
+    // Create modal if it doesn't exist
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.className = 'image-modal';
+        modal.innerHTML = `
+            <span class="close-image-modal">&times;</span>
+            <img class="image-modal-content">
+            <div class="modal-nav modal-prev"><i class="fas fa-chevron-left"></i></div>
+            <div class="modal-nav modal-next"><i class="fas fa-chevron-right"></i></div>
+        `;
+        document.body.appendChild(modal);
+    }
     
     const modalImg = modal.querySelector('.image-modal-content');
     const closeBtn = modal.querySelector('.close-image-modal');

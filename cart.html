@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - YooVee® Premium Fingerless Gloves</title>
+    <meta name="description" content="Review and checkout your cart items from YooVee® Premium Fingerless Gloves.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <style>
+        /* Additional styles specific to the cart page */
+        .cart-page {
+            padding: 120px 0 60px;
+        }
+        
+        .cart-page-title {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .cart-page-title h1 {
+            font-size: 2.2rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            margin-bottom: 10px;
+        }
+        
+        .cart-page-title p {
+            color: var(--gray-600);
+        }
+        
+        .cart-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        .cart-items-container {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            padding: 20px;
+        }
+        
+        .cart-summary-container {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            padding: 20px;
+            align-self: start;
+        }
+        
+        .cart-summary-title {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .cart-page-item {
+            display: grid;
+            grid-template-columns: 100px 1fr auto;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .cart-page-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-page-item-image {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            background-color: var(--gray-100);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .cart-page-item-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .cart-page-item-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .cart-page-item-details h3 {
+            margin: 0 0 10px;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+        
+        .cart-page-item-details p {
+            margin: 0 0 10px;
+            font-size: 0.9rem;
+            color: var(--gray-600);
+        }
+        
+        .cart-page-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .cart-page-item-price {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+        
+        .cart-page-item-price span {
+            font-weight: 400;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        .cart-page-empty {
+            text-align: center;
+            padding: 50px 0;
+        }
+        
+        .cart-page-empty i {
+            font-size: 4rem;
+            color: var(--gray-400);
+            margin-bottom: 20px;
+        }
+        
+        .cart-page-empty p {
+            font-size: 1.2rem;
+            color: var(--gray-600);
+            margin-bottom: 30px;
+        }
+        
+        .promo-code {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        .promo-code-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .promo-code-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--border-radius);
+        }
+        
+        .promo-code-btn {
+            padding: 10px 15px;
+            background-color: var(--gray-800);
+            color: var(--white);
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition-base);
+        }
+        
+        .promo-code-btn:hover {
+            background-color: var(--gray-700);
+        }
+        
+        .checkout-btn {
+            margin-top: 20px;
+            width: 100%;
+            padding: 15px;
+        }
+        
+        .continue-shopping-btn {
+            display: inline-block;
+            margin-top: 10px;
+            text-align: center;
+            width: 100%;
+            color: var(--gray-700);
+            text-decoration: underline;
+            transition: var(--transition-base);
+        }
+        
+        .continue-shopping-btn:hover {
+            color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .cart-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-page-item {
+                grid-template-columns: 80px 1fr auto;
+                gap: 15px;
+            }
+            
+            .cart-page-item-image {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Shipping Banner -->
+    <div class="shipping-banner">
+        <div class="container">
+            <p>Free Express Shipping Australia-wide</p>
+        </div>
+    </div>
+    
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/yoovee-logo-black.jpg" alt="YooVee Logo" width="150" height="40">
+                    </a>
+                </div>
+                <nav class="nav-menu">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#product">Product</a></li>
+                        <li><a href="index.html#skincare">Skincare</a></li>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#testimonials">Reviews</a></li>
+                        <li><a href="index.html#faq">FAQ</a></li>
+                    </ul>
+                </nav>
+                <div class="cart-icon">
+                    <a href="cart.html" class="active">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+                <div class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cart Page Content -->
+    <section class="cart-page">
+        <div class="container">
+            <div class="cart-page-title">
+                <h1>Your Cart</h1>
+                <p>Review your items and proceed to checkout</p>
+            </div>
+            
+            <!-- Cart content will be dynamically generated here -->
+            <div id="cart-page-content">
+                <!-- This will be populated by JavaScript -->
+                <div class="cart-page-empty">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Your cart is empty</p>
+                    <a href="index.html#product" class="btn btn-primary">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html">
+                        <img src="images/yoovee-logo-baby-blue.jpg" alt="YooVee Logo" width="120" height="32">
+                    </a>
+                    <p>YooVee® designs premium fingerless gloves that combine comfort, support, and freedom for a variety of activities and needs.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Our Story</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Press</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Shipping Info</a></li>
+                            <li><a href="#">Returns</a></li>
+                            <li><a href="#">Size Guide</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Accessibility</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <h3>Connect With Us</h3>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 YooVee®. All rights reserved. YooVee® is a registered trademark.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Overlay -->
+    <div id="overlay"></div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize cart page functionality
+            initCartPage();
+        });
+
+        /**
+         * Initialize Cart Page
+         */
+        function initCartPage() {
+            // Get cart from localStorage
+            const savedCart = localStorage.getItem('yooveeCart');
+            let cartItems = [];
+            
+            if (savedCart) {
+                try {
+                    const cartData = JSON.parse(savedCart);
+                    cartItems = cartData.items || [];
+                } catch (e) {
+                    console.error('Error loading cart from localStorage:', e);
+                }
+            }
+            
+            // Update cart count
+            updateCartCount(cartItems);
+            
+            // Render cart content
+            renderCartPage(cartItems);
+        }
+
+        /**
+         * Update Cart Count
+         */
+        function updateCartCount(items) {
+            const count = items.reduce((total, item) => total + item.quantity, 0);
+            const cartCount = document.querySelector('.cart-count');
+            
+            if (cartCount) {
+                cartCount.textContent = count;
+            }
+        }
+
+        /**
+         * Render Cart Page
+         */
+        function renderCartPage(items) {
+            const cartPageContent = document.getElementById('cart-page-content');
+            
+            if (!cartPageContent) return;
+            
+            // If cart is empty, show empty message
+            if (items.length === 0) {
+                cartPageContent.innerHTML = `
+                    <div class="cart-page-empty">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Your cart is empty</p>
+                        <a href="index.html#product" class="btn btn-primary">Shop Now</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Calculate totals
+            const subtotal = items.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const shipping = 0; // Free shipping
+            const total = subtotal + shipping;
+            
+            // Create cart content
+            let cartHTML = `
+                <div class="cart-container">
+                    <div class="cart-items-container">
+            `;
+            
+            // Add cart items
+            items.forEach((item, index) => {
+                cartHTML += `
+                    <div class="cart-page-item" data-index="${index}">
+                        <div class="cart-page-item-image">
+                            <img src="${item.image}" alt="${item.name}" width="100" height="100">
+                        </div>
+                        <div class="cart-page-item-details">
+                            <div>
+                                <h3>${item.name}</h3>
+                                <p>Color: ${item.color}, Size: ${item.size}</p>
+                            </div>
+                            <div class="cart-page-item-quantity">
+                                <button class="quantity-btn minus" data-index="${index}">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="quantity-btn plus" data-index="${index}">+</button>
+                            </div>
+                        </div>
+                        <div class="cart-page-item-price">
+                            <button class="remove-item" data-index="${index}">×</button>
+                            <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            // Close cart items container and add summary
+            cartHTML += `
+                    </div>
+                    <div class="cart-summary-container">
+                        <h3 class="cart-summary-title">Order Summary</h3>
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span>$${subtotal.toFixed(2)}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping</span>
+                            <span>${shipping === 0 ? 'Free' : '$' + shipping.toFixed(2)}</span>
+                        </div>
+                        <div class="promo-code">
+                            <p>Have a promo code?</p>
+                            <div class="promo-code-form">
+                                <input type="text" class="promo-code-input" placeholder="Enter code">
+                                <button class="promo-code-btn">Apply</button>
+                            </div>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span>$${total.toFixed(2)}</span>
+                        </div>
+                        <button class="btn btn-primary checkout-btn">Proceed to Checkout</button>
+                        <a href="index.html#product" class="continue-shopping-btn">Continue Shopping</a>
+                    </div>
+                </div>
+            `;
+            
+            // Update cart content
+            cartPageContent.innerHTML = cartHTML;
+            
+            // Add event listeners
+            addCartPageEventListeners();
+        }
+
+        /**
+         * Add Cart Page Event Listeners
+         */
+        function addCartPageEventListeners() {
+            // Quantity buttons
+            const minusButtons = document.querySelectorAll('.cart-page-item .minus');
+            const plusButtons = document.querySelectorAll('.cart-page-item .plus');
+            const removeButtons = document.querySelectorAll('.cart-page-item .remove-item');
+            
+            minusButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    updateCartItemQuantity(button.dataset.index, 'decrease');
+                });
+            });
+            
+            plusButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    updateCartItemQuantity(button.dataset.index, 'increase');
+                });
+            });
+            
+            removeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    removeCartItem(button.dataset.index);
+                });
+            });
+            
+            // Promo code button
+            const promoCodeBtn = document.querySelector('.promo-code-btn');
+            if (promoCodeBtn) {
+                promoCodeBtn.addEventListener('click', () => {
+                    const promoCode = document.querySelector('.promo-code-input').value;
+                    if (promoCode) {
+                        alert('Promo code applied: ' + promoCode);
+                    }
+                });
+            }
+            
+            // Checkout button
+            const checkoutBtn = document.querySelector('.checkout-btn');
+            if (checkoutBtn) {
+                checkoutBtn.addEventListener('click', () => {
+                    alert('Proceeding to checkout...');
+                    // Here you would redirect to checkout page
+                });
+            }
+        }
+
+        /**
+         * Update Cart Item Quantity
+         */
+        function updateCartItemQuantity(index, action) {
+            // Get cart from localStorage
+            const savedCart = localStorage.getItem('yooveeCart');
+            let cartData;
+            
+            if (savedCart) {
+                try {
+                    cartData = JSON.parse(savedCart);
+                    
+                    // Update quantity
+                    const item = cartData.items[index];
+                    if (action === 'increase') {
+                        if (item.quantity < 10) {
+                            item.quantity++;
+                        }
+                    } else {
+                        if (item.quantity > 1) {
+                            item.quantity--;
+                        }
+                    }
+                    
+                    // Save updated cart
+                    localStorage.setItem('yooveeCart', JSON.stringify(cartData));
+                    
+                    // Re-render cart page
+                    renderCartPage(cartData.items);
+                    
+                    // Update cart count
+                    updateCartCount(cartData.items);
+                } catch (e) {
+                    console.error('Error updating cart item quantity:', e);
+                }
+            }
+        }
+
+        /**
+         * Remove Cart Item
+         */
+        function removeCartItem(index) {
+            // Get cart from localStorage
+            const savedCart = localStorage.getItem('yooveeCart');
+            let cartData;
+            
+            if (savedCart) {
+                try {
+                    cartData = JSON.parse(savedCart);
+                    
+                    // Remove item
+                    cartData.items.splice(index, 1);
+                    
+                    // Save updated cart
+                    localStorage.setItem('yooveeCart', JSON.stringify(cartData));
+                    
+                    // Re-render cart page
+                    renderCartPage(cartData.items);
+                    
+                    // Update cart count
+                    updateCartCount(cartData.items);
+                } catch (e) {
+                    console.error('Error removing cart item:', e);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

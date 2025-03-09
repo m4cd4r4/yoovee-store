@@ -125,62 +125,11 @@ function initQuantitySelector() {
 
 /**
  * Add to Cart Functionality
+ * Note: This functionality has been moved to cart.js
  */
 function initAddToCart() {
-    const addToCartBtn = document.querySelector('.add-to-cart');
-    
-    if (!addToCartBtn) return;
-    
-    addToCartBtn.addEventListener('click', function() {
-        // Get product details
-        const productName = document.querySelector('.product-details h3').textContent;
-        const productPrice = parseFloat(document.querySelector('.price').textContent.replace('$', ''));
-        
-        // Get product image from current view
-        let productImage = '';
-        const mainImage = document.getElementById('main-product-image');
-        if (mainImage) {
-            // Get the current image filename from active thumbnail
-            const activeThumb = document.querySelector('.thumbnail.active');
-            const imageFile = activeThumb ? activeThumb.getAttribute('data-image') : 'glove-1.jpg';
-            productImage = `images/${imageFile}`;
-        }
-        
-        // Get selected color
-        const selectedColor = document.querySelector('.color-option.active');
-        const color = selectedColor ? selectedColor.getAttribute('data-color') : 'Light Gray';
-        
-        // Get selected size
-        const selectedSize = document.querySelector('.size-option.active');
-        const size = selectedSize ? selectedSize.getAttribute('data-size') : 'M';
-        
-        // Get quantity
-        const quantity = parseInt(document.querySelector('.quantity-input').value);
-        
-        // Create product object
-        const product = {
-            id: 'yoovee-gloves',
-            name: productName,
-            price: productPrice,
-            image: productImage,
-            color: color,
-            size: size,
-            quantity: quantity
-        };
-        
-        // Add to cart
-        if (typeof cart !== 'undefined') {
-            cart.addItem(product);
-            
-            // Show success message
-            showNotification('Product added to cart!');
-            
-            // Open cart sidebar
-            document.getElementById('cart-sidebar').classList.add('active');
-            document.getElementById('overlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-    });
+    // This function is now handled by cart.js
+    console.log('Add to cart functionality moved to cart.js');
 }
 
 /**
