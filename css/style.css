@@ -208,7 +208,6 @@ img {
     box-shadow: none !important;
 }
 
-/* 2. Reduce header padding and height */
 .header {
     position: fixed;
     top: 0;
@@ -217,7 +216,7 @@ img {
     background-color: var(--white);
     box-shadow: var(--shadow-sm);
     z-index: 1000;
-    padding: 0 0 0.5rem; /* Reduced bottom padding (was 1.2rem) */
+    padding: 0;
     transition: var(--transition-base);
 }
 
@@ -225,15 +224,24 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 0.5rem;
-    padding: 0.2rem 0;
-    min-height: 50px; /* Add minimum height to accommodate logo */
+    padding: 0.75rem 0;
+    min-height: 50px;
 }
 
+/* Create a dedicated logo container */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+/* Adjust the logo size */
 .logo img {
-    height: auto; /* Remove fixed height */
-    width: 150px; /* Set a proper width */
-    max-height: 40px; /* Ensure it's not too tall */
+    height: auto;
+    width: 130px;
+    max-height: none;
 }
 
 .logo {
@@ -245,21 +253,29 @@ img {
     display: block;
 }
 
+/* Navigation Menu - Desktop View */
+.nav-menu {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
 .nav-menu ul {
     display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .nav-menu li {
-    margin-left: var(--spacing-4);
+    margin: 0 var(--spacing-3);
 }
 
-/* 5. Reduce navigation item padding */
 .nav-menu a {
     color: var(--gray-700);
     font-weight: 400;
-    font-size: 0.85rem; /* Slightly smaller font */
+    font-size: 0.85rem;
     letter-spacing: 0.05em;
-    padding: 0.3rem 0; /* Reduced vertical padding */
+    padding: 0.3rem 0;
     position: relative;
     text-transform: uppercase;
 }
@@ -283,8 +299,40 @@ img {
     width: 100%;
 }
 
+/* Mobile Navigation Menu */
+@media (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        top: 7.5rem; /* Adjusted for the logo container height */
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 7.5rem);
+        background-color: var(--white);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: var(--spacing-5);
+        transition: left 0.4s ease;
+        box-shadow: var(--shadow);
+        z-index: 900;
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    .nav-menu ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .nav-menu li {
+        margin: 0 0 var(--spacing-4) 0;
+    }
+}
+
 .cart-icon {
-    position: relative;
+    margin-left: 1.5rem;
 }
 
 .cart-icon a {
@@ -332,7 +380,7 @@ img {
 /* 7. Adjust hero section to account for smaller header */
 .hero {
     position: relative;
-    padding: 8rem 0 6rem; /* Reduced top padding (was 12rem) */
+    padding: 14rem 0 6rem; /* Reduced top padding (was 12rem) */
     background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
     color: var(--white);
     overflow: hidden;
@@ -1249,6 +1297,10 @@ img {
         font-size: 15px;
     }
     
+    .logo-container {
+        padding: 0.75rem 0;
+    }
+
     .hero h1 {
         font-size: 2rem;
     }
@@ -1272,6 +1324,7 @@ img {
         box-shadow: var(--shadow);
         z-index: 900;
     }   
+
     .nav-menu.active {
         left: 0;
     }
