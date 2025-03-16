@@ -63,9 +63,12 @@ function initColorOptions() {
     
     colorOptions.forEach(option => {
         option.addEventListener('click', function() {
-            // Update active color
-            colorOptions.forEach(o => o.classList.remove('active'));
-            this.classList.add('active');
+            // Only allow clicking on options that are not out of stock
+            if (!this.classList.contains('out-of-stock')) {
+                // Update active color
+                colorOptions.forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+            }
         });
     });
 }
@@ -80,9 +83,12 @@ function initSizeOptions() {
     
     sizeOptions.forEach(option => {
         option.addEventListener('click', function() {
-            // Update active size
-            sizeOptions.forEach(o => o.classList.remove('active'));
-            this.classList.add('active');
+            // Only allow clicking on options that are not out of stock
+            if (!this.classList.contains('out-of-stock')) {
+                // Update active size
+                sizeOptions.forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+            }
         });
     });
 }
