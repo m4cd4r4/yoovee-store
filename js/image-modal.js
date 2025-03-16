@@ -19,8 +19,12 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.innerHTML = `
             <span class="close-image-modal">&times;</span>
             <img class="image-modal-content">
-            <div class="modal-nav modal-prev"><i class="fas fa-chevron-left"></i></div>
-            <div class="modal-nav modal-next"><i class="fas fa-chevron-right"></i></div>
+            <div class="modal-nav modal-prev" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.4); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2001;">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="modal-nav modal-next" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.4); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2001;">
+                <i class="fas fa-chevron-right"></i>
+            </div>
         `;
         document.body.appendChild(modal);
     }
