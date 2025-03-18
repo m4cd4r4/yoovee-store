@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Sitemap: https://yoovee.com.au/sitemap.xml
+
+# Allow all bots to access all content
+User-agent: *
+Disallow:
+
+# Specific rules for Googlebot
+User-agent: Googlebot
+Allow: /
+
+# Specific rules for Bingbot
+User-agent: Bingbot
+Allow: /
