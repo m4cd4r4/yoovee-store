@@ -466,6 +466,40 @@ img {
     background-color: var(--gray-100);
 }
 
+/* Product Gallery Navigation Arrows */
+.product-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    color: var(--gray-800);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    border: none;
+    transition: var(--transition-base);
+    opacity: 0.8;
+}
+
+.product-nav:hover {
+    background-color: var(--white);
+    opacity: 1;
+    box-shadow: var(--shadow);
+}
+
+.product-prev {
+    left: 20px;
+}
+
+.product-next {
+    right: 20px;
+}
+
 .main-image img {
     display: block;
     max-width: 100%;

@@ -18,22 +18,71 @@ document.addEventListener('DOMContentLoaded', function() {
 function initProductGallery() {
     const mainImage = document.getElementById('main-product-image');
     const thumbnails = document.querySelectorAll('.thumbnail');
+    const prevBtn = document.querySelector('.product-prev');
+    const nextBtn = document.querySelector('.product-next');
     
     if (!mainImage || thumbnails.length === 0) return;
     
-    thumbnails.forEach(thumbnail => {
+    // Keep track of current image index
+    let currentImageIndex = 0;
+    
+    // Function to navigate to a specific image
+    function navigateTo(index) {
+        // Ensure index is within bounds
+        if (index < 0) index = thumbnails.length - 1;
+        if (index >= thumbnails.length) index = 0;
+        
+        // Update active thumbnail
+        thumbnails.forEach(t => t.classList.remove('active'));
+        thumbnails[index].classList.add('active');
+        
+        // Get image filename
+        const imageFile = thumbnails[index].getAttribute('data-image');
+        
+        // Update main image
+        updateMainImage(imageFile);
+        
+        // Update current index
+        currentImageIndex = index;
+    }
+    
+    // Function to go to previous image
+    function goToPrevImage() {
+        navigateTo(currentImageIndex - 1);
+    }
+    
+    // Function to go to next image
+    function goToNextImage() {
+        navigateTo(currentImageIndex + 1);
+    }
+    
+    // Add click events to previous and next buttons
+    if (prevBtn) {
+        prevBtn.addEventListener('click', goToPrevImage);
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', goToNextImage);
+    }
+    
+    // Add click events to thumbnails
+    thumbnails.forEach((thumbnail, index) => {
         thumbnail.addEventListener('click', function() {
-            // Update active thumbnail
-            thumbnails.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Get image filename
-            const imageFile = this.getAttribute('data-image');
-            
-            // Update main image
-            updateMainImage(imageFile);
+            navigateTo(index);
         });
     });
+    
+    // Add keyboard navigation when gallery is in focus
+    const productGallery = document.querySelector('.product-gallery');
+    if (productGallery) {
+        productGallery.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                goToPrevImage();
+            } else if (e.key === 'ArrowRight') {
+                goToNextImage();
+            }
+        });
+    }
     
     // Function to update main image
     function updateMainImage(imageFile) {
@@ -215,28 +264,76 @@ function initProductZoom() {
     const modalImg = document.createElement('img');
     modalImg.className = 'image-modal-content';
     
+    // Create navigation arrows for the modal
+    const prevModalBtn = document.createElement('div');
+    prevModalBtn.className = 'modal-nav modal-prev';
+    prevModalBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    prevModalBtn.setAttribute('aria-label', 'Previous image');
+    
+    const nextModalBtn = document.createElement('div');
+    nextModalBtn.className = 'modal-nav modal-next';
+    nextModalBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+    nextModalBtn.setAttribute('aria-label', 'Next image');
+    
     imageModal.appendChild(closeBtn);
     imageModal.appendChild(modalImg);
+    imageModal.appendChild(prevModalBtn);
+    imageModal.appendChild(nextModalBtn);
     document.body.appendChild(imageModal);
+    
+    // Keep track of current image index for modal navigation
+    let currentModalIndex = 0;
+    const imageFiles = Array.from(thumbnails).map(thumbnail => 
+        thumbnail.parentElement.getAttribute('data-image')
+    );
+    
+    // Function to navigate modal images
+    function navigateModalImage(direction) {
+        if (direction === 'prev') {
+            currentModalIndex = (currentModalIndex === 0) ? imageFiles.length - 1 : currentModalIndex - 1;
+        } else {
+            currentModalIndex = (currentModalIndex === imageFiles.length - 1) ? 0 : currentModalIndex + 1;
+        }
+        
+        // Update modal image
+        modalImg.src = `images/${imageFiles[currentModalIndex]}`;
+    }
+    
+    // Add click events to modal navigation buttons
+    prevModalBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navigateModalImage('prev');
+    });
+    
+    nextModalBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navigateModalImage('next');
+    });
     
     // Add click event to main image
     mainImage.addEventListener('click', function() {
+        // Find the index of the current image
+        const currentSrc = mainImage.src.split('/').pop();
+        currentModalIndex = imageFiles.findIndex(file => file === currentSrc);
+        if (currentModalIndex === -1) currentModalIndex = 0;
+        
         imageModal.style.display = 'block';
         modalImg.src = this.src;
     });
     
     // Add click events to thumbnails
-    thumbnails.forEach(thumbnail => {
+    thumbnails.forEach((thumbnail, index) => {
         thumbnail.addEventListener('click', function(e) {
             // Prevent the default thumbnail behavior
             e.stopPropagation();
             
             // Get the full-size image path
-            const imagePath = 'images/' + this.parentElement.getAttribute('data-image');
+            const imageFile = this.parentElement.getAttribute('data-image');
+            currentModalIndex = index;
             
             // Open in modal
             imageModal.style.display = 'block';
-            modalImg.src = imagePath;
+            modalImg.src = `images/${imageFile}`;
         });
     });
     
@@ -249,6 +346,19 @@ function initProductZoom() {
     imageModal.addEventListener('click', function(e) {
         if (e.target === imageModal) {
             imageModal.style.display = 'none';
+        }
+    });
+    
+    // Add keyboard navigation for modal
+    document.addEventListener('keydown', function(e) {
+        if (imageModal.style.display === 'block') {
+            if (e.key === 'ArrowLeft') {
+                navigateModalImage('prev');
+            } else if (e.key === 'ArrowRight') {
+                navigateModalImage('next');
+            } else if (e.key === 'Escape') {
+                imageModal.style.display = 'none';
+            }
         }
     });
     
