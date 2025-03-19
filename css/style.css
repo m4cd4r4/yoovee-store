@@ -1,7 +1,16 @@
 /* 
  * YooVee® Premium Fingerless Gloves - Main Stylesheet
- * Version: 2.0 - Inspired by Zulu & Zephyr aesthetic
+ * Version: 2.1 - Inspired by Zulu & Zephyr aesthetic
  */
+
+/* Trademark Symbol Styling */
+.trademark {
+    font-size: 0.4em;
+    vertical-align: super;
+    position: relative;
+    top: -0.2em;
+    margin-left: 0.1em;
+}
 
 /* ===== Base Styles ===== */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
@@ -380,7 +389,7 @@ img {
 /* 7. Adjust hero section to account for smaller header */
 .hero {
     position: relative;
-    padding: 14rem 0 6rem; /* Reduced top padding (was 12rem) */
+    padding: 10rem 0 4rem; /* Reduced padding to make section shorter */
     background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
     color: var(--white);
     overflow: hidden;
@@ -393,17 +402,17 @@ img {
 }
 
 .hero h1 {
-    font-size: 2.8rem;
+    font-size: 2.4rem; /* Reduced from 2.8rem */
     font-weight: 400;
     letter-spacing: 0.02em;
-    margin-bottom: var(--spacing-4);
+    margin-bottom: var(--spacing-3); /* Reduced from spacing-4 */
     line-height: 1.3;
 }
 
 .hero p {
-    font-size: 1.1rem;
+    font-size: 1rem; /* Reduced from 1.1rem */
     letter-spacing: 0.02em;
-    margin-bottom: var(--spacing-5);
+    margin-bottom: var(--spacing-4); /* Reduced from spacing-5 */
     opacity: 0.95;
     line-height: 1.7;
 }
@@ -1273,7 +1282,7 @@ img {
 /* ===== Responsive Styles ===== */
 @media (max-width: 1200px) {
     .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2.2rem; /* Reduced from 2.5rem */
     }
 }
 
@@ -1302,11 +1311,15 @@ img {
     }
 
     .hero h1 {
-        font-size: 2rem;
+        font-size: 1.8rem; /* Reduced from 2rem */
     }
     
     .hero p {
-        font-size: 1rem;
+        font-size: 0.95rem; /* Reduced from 1rem */
+    }
+    
+    .hero {
+        padding: 8rem 0 3rem; /* Further reduced padding for mobile */
     }
     
     .nav-menu {
