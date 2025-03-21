@@ -1,7 +1,7 @@
 // Image Modal with Navigation
 document.addEventListener('DOMContentLoaded', function() {
     // Product gallery modal functionality
-    const productImages = document.querySelectorAll('.main-image img, .thumbnail img');
+    const productImages = document.querySelectorAll('.main-image img, .thumbnail img, .carousel-photo');
     
     // Exit if no product images found
     if (!productImages || productImages.length === 0) {
@@ -33,6 +33,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeBtn = modal.querySelector('.close-image-modal');
     const prevBtn = modal.querySelector('.modal-prev');
     const nextBtn = modal.querySelector('.modal-next');
+    
+    // Apply proper styling to the modal image
+    modalImg.style.position = 'relative';
+    modalImg.style.top = '50%';
+    modalImg.style.transform = 'translateY(-50%)';
+    modalImg.style.margin = 'auto';
+    modalImg.style.display = 'block';
+    modalImg.style.maxHeight = '80vh';
+    modalImg.style.maxWidth = '80vw';
+    modalImg.style.objectFit = 'contain';
     
     let currentImageIndex = 0;
     const imageUrls = Array.from(productImages).map(img => img.src);

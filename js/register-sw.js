@@ -6,10 +6,10 @@
 // Check if service workers are supported and we're not on file:// protocol
 if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
   window.addEventListener('load', () => {
-    // Adjust the path based on the environment
-    const swPath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-      ? '/service-worker.js' 
-      : '/service-worker.js';
+    // Use relative path to ensure it works in all environments
+    const swPath = window.location.protocol === 'http:' || window.location.protocol === 'https:'
+      ? './service-worker.js' 
+      : 'service-worker.js';
       
     navigator.serviceWorker.register(swPath)
       .then(registration => {

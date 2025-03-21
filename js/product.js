@@ -91,7 +91,7 @@ function initProductGallery() {
         // Add fade effect
         mainImage.style.opacity = '0';
         
-        // Update image source
+        // Update image source - using the path from the data-image attribute which now includes the Product directory
         setTimeout(() => {
             mainImage.src = `images/${imageFile}`;
             mainImage.style.opacity = '1';
@@ -331,7 +331,7 @@ function initProductZoom() {
             const imageFile = this.parentElement.getAttribute('data-image');
             currentModalIndex = index;
             
-            // Open in modal
+            // Open in modal - using the full path including the Product directory
             imageModal.style.display = 'block';
             modalImg.src = `images/${imageFile}`;
         });

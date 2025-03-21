@@ -237,6 +237,7 @@ img {
     min-height: 50px;
 }
 
+
 /* Create a dedicated logo container */
 .logo-container {
     display: flex;
@@ -249,13 +250,28 @@ img {
 /* Adjust the logo size */
 .logo img {
     height: auto;
-    width: 130px;
+    width: 130px; /* Default size for larger screens */
+    max-width: 100%; /* Ensures logo doesn't overflow container */
     max-height: none;
+    transition: var(--transition-base);
 }
 
 .logo {
     display: flex;
     align-items: center;
+}
+
+/* Responsive logo size adjustments */
+@media (max-width: 768px) {
+    .logo img {
+        width: 110px; /* Medium screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .logo img {
+        width: 90px; /* Small screens like Pixel 7 */
+    }
 }
 
 .logo a {
@@ -277,6 +293,31 @@ img {
 
 .nav-menu li {
     margin: 0 var(--spacing-3);
+}
+
+.nav-menu li.cart-menu-item {
+    margin-left: var(--spacing-2);
+}
+
+.nav-menu li.cart-menu-item a {
+    position: relative;
+    font-size: 0.8rem;
+    padding: 0.5rem;
+}
+
+.nav-menu li.cart-menu-item .cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--primary);
+    color: var(--white);
+    font-size: 0.65rem;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .nav-menu a {
@@ -1004,10 +1045,14 @@ img {
 .carousel-photo {
     max-width: 100%;
     max-height: 400px;
+    width: auto;
+    height: auto;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     cursor: pointer;
     margin-bottom: var(--spacing-3);
+    object-fit: contain;
+    aspect-ratio: 1783/2369; /* Maintain the original image aspect ratio */
 }
 
 .carousel-comment {
@@ -1100,6 +1145,11 @@ img {
     align-items: center;
     cursor: pointer;
     transition: var(--transition-base);
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    min-height: 44px; /* Ensure touch target size */
 }
 
 .faq-question:hover {
@@ -1177,12 +1227,32 @@ img {
     margin-bottom: var(--spacing-5);
 }
 
+/* Footer brand and logo responsiveness */
+.footer-brand img {
+    height: auto;
+    width: 120px; /* Default size for footer logo */
+    max-width: 100%;
+    transition: var(--transition-base);
+}
+
 .footer-brand p {
     margin-top: var(--spacing-3);
     max-width: 300px;
     letter-spacing: 0.02em;
     line-height: 1.7;
     font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .footer-brand img {
+        width: 100px; /* Medium screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-brand img {
+        width: 85px; /* Small screens */
+    }
 }
 
 .footer-links {
@@ -1424,7 +1494,7 @@ img {
     left: 70%;
 }
 
-/* 3. Horizontal mobile menu */
+/* 3. Horizontal mobile menu with improved touch targets */
 @media (max-width: 768px) {
     .mobile-menu-toggle {
         display: none;
@@ -1456,7 +1526,12 @@ img {
     
     .nav-menu a {
         font-size: 0.7rem;
-        padding: 0.2rem 0;
+        padding: 0.5rem; /* Increased padding for better touch target */
+        min-height: 44px; /* Ensure minimum touch target height */
+        min-width: 44px; /* Ensure minimum touch target width */
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .header-content {
@@ -1482,10 +1557,19 @@ img {
 @media (max-width: 480px) {
     .nav-menu a {
         font-size: 0.6rem;
+        padding: 0.5rem 0.7rem; /* Increased padding for better touch targets on small screens */
     }
     
     .nav-menu li {
         margin: 0 0.3rem;
+    }
+    
+    .nav-menu li.cart-menu-item {
+        margin-left: 0.2rem;
+    }
+    
+    .nav-menu li.cart-menu-item a {
+        font-size: 0.7rem;
     }
 }
 

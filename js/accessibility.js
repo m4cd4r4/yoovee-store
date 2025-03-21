@@ -44,14 +44,8 @@ function initFaqAccessibility() {
     const faqQuestions = document.querySelectorAll('.faq-question');
     
     faqQuestions.forEach(question => {
+        // Since these are now proper buttons, they automatically handle Enter and Space
         question.addEventListener('click', toggleFaqItem);
-        question.addEventListener('keydown', function(e) {
-            // Enter or Space key
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                toggleFaqItem.call(this);
-            }
-        });
     });
     
     function toggleFaqItem() {
