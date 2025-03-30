@@ -150,7 +150,7 @@ function enhanceCustomerReviewsCarousel() {
         
         reviewsModal.innerHTML = `
             <span class="close-reviews-modal" style="position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; font-weight: 300; cursor: pointer; z-index: 2001;">&times;</span>
-            <img class="reviews-modal-content" style="margin: auto; display: block; max-width: 90%; max-height: 90vh; position: relative; top: 50%; transform: translateY(-50%);">
+            <img class="reviews-modal-content" style="margin: auto; display: block; max-width: 90%; max-height: 80vh; position: relative; top: 50%; transform: translateY(-50%); object-fit: contain;"> <!-- Re-added inline position, top, transform, margin. Kept max-height/object-fit -->
             <div class="reviews-modal-comment" style="color: white; text-align: center; margin-top: 20px; padding: 0 20px; position: absolute; bottom: 50px; width: 100%;"></div>
             <div class="reviews-modal-nav reviews-modal-prev" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background-color: rgba(255, 255, 255, 0.2); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2001;">
                 <i class="fas fa-chevron-left"></i>

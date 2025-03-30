@@ -16,26 +16,51 @@ document.addEventListener('DOMContentLoaded', function() {
  * Product Gallery Functionality
  */
 function initProductGallery() {
+    // Removed duplicate comment and function definition line
     const mainImage = document.getElementById('main-product-image');
     const thumbnails = document.querySelectorAll('.thumbnail');
+    const prevBtn = document.querySelector('.product-gallery-prev');
+    const nextBtn = document.querySelector('.product-gallery-next');
     
-    if (!mainImage || thumbnails.length === 0) return;
+    if (!mainImage || thumbnails.length === 0 || !prevBtn || !nextBtn) return;
     
-    thumbnails.forEach(thumbnail => {
+    let currentImageIndex = 0;
+    
+    // Function to update the gallery based on index
+    function updateGallery(index) {
+        // Ensure index is within bounds
+        currentImageIndex = (index + thumbnails.length) % thumbnails.length;
+        
+        // Update active thumbnail
+        thumbnails.forEach((t, i) => {
+            t.classList.toggle('active', i === currentImageIndex);
+        });
+        
+        // Get image filename from the new active thumbnail
+        const activeThumbnail = thumbnails[currentImageIndex];
+        const imageFile = activeThumbnail.getAttribute('data-image');
+        
+        // Update main image
+        updateMainImage(imageFile);
+    }
+    
+    // Add click listeners to thumbnails
+    thumbnails.forEach((thumbnail, index) => {
         thumbnail.addEventListener('click', function() {
-            // Update active thumbnail
-            thumbnails.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Get image filename
-            const imageFile = this.getAttribute('data-image');
-            
-            // Update main image
-            updateMainImage(imageFile);
+            updateGallery(index);
         });
     });
     
-    // Function to update main image
+    // Add click listeners to navigation arrows
+    prevBtn.addEventListener('click', function() {
+        updateGallery(currentImageIndex - 1);
+    });
+    
+    nextBtn.addEventListener('click', function() {
+        updateGallery(currentImageIndex + 1);
+    });
+    
+    // Function to update main image (with fade effect)
     function updateMainImage(imageFile) {
         if (!imageFile) return;
         
@@ -51,7 +76,7 @@ function initProductGallery() {
     
     // Initialize product zoom functionality
     initProductZoom();
-}
+} // Added the missing closing brace for the outer initProductGallery
 
 /**
  * Color Options Functionality
@@ -211,36 +236,75 @@ function initProductZoom() {
     const closeBtn = document.createElement('span');
     closeBtn.className = 'close-image-modal';
     closeBtn.innerHTML = '&times;';
-    
     const modalImg = document.createElement('img');
     modalImg.className = 'image-modal-content';
     
+    // Create navigation arrows for the modal
+    const prevBtnModal = document.createElement('button');
+    prevBtnModal.className = 'image-modal-nav image-modal-prev';
+    prevBtnModal.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    prevBtnModal.setAttribute('aria-label', 'Previous image');
+    
+    const nextBtnModal = document.createElement('button');
+    nextBtnModal.className = 'image-modal-nav image-modal-next';
+    nextBtnModal.innerHTML = '<i class="fas fa-chevron-right"></i>';
+    nextBtnModal.setAttribute('aria-label', 'Next image');
+    
     imageModal.appendChild(closeBtn);
     imageModal.appendChild(modalImg);
+    imageModal.appendChild(prevBtnModal); // Add prev arrow
+    imageModal.appendChild(nextBtnModal); // Add next arrow
     document.body.appendChild(imageModal);
     
-    // Add click event to main image
-    mainImage.addEventListener('click', function() {
+    let currentModalImageIndex = 0;
+    const galleryThumbnails = document.querySelectorAll('.thumbnail'); // Get all thumbnails for indexing
+    
+    // Function to open the modal and set the image
+    function openImageModal(index) {
+        currentModalImageIndex = index;
+        const imagePath = 'images/' + galleryThumbnails[currentModalImageIndex].getAttribute('data-image');
+        modalImg.src = imagePath;
         imageModal.style.display = 'block';
-        modalImg.src = this.src;
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+    
+    // Add click event to main image to open modal
+    mainImage.addEventListener('click', function() {
+        // Find the index of the currently active thumbnail
+        const activeThumbnail = document.querySelector('.thumbnail.active');
+        const activeIndex = Array.from(galleryThumbnails).indexOf(activeThumbnail);
+        openImageModal(activeIndex >= 0 ? activeIndex : 0);
     });
     
-    // Add click events to thumbnails
-    thumbnails.forEach(thumbnail => {
+    // Add click events to thumbnails to open modal
+    galleryThumbnails.forEach((thumbnail, index) => {
         thumbnail.addEventListener('click', function(e) {
-            // Prevent the default thumbnail behavior
-            e.stopPropagation();
-            
-            // Get the full-size image path
-            const imagePath = 'images/' + this.parentElement.getAttribute('data-image');
-            
-            // Open in modal
-            imageModal.style.display = 'block';
-            modalImg.src = imagePath;
+            // This listener in initProductGallery handles the main image update.
+            // We need a separate listener on the *image* inside the thumbnail for the modal.
+            const thumbImg = thumbnail.querySelector('img');
+            if (thumbImg) {
+                thumbImg.addEventListener('click', function(event) {
+                    event.stopPropagation(); // Prevent gallery update listener
+                    openImageModal(index);
+                });
+            }
         });
     });
     
-    // Close modal when clicking the close button
+    // Modal Navigation Logic
+    prevBtnModal.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const newIndex = (currentModalImageIndex - 1 + galleryThumbnails.length) % galleryThumbnails.length;
+        openImageModal(newIndex); // Re-use open function to update index and image
+    });
+    
+    nextBtnModal.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const newIndex = (currentModalImageIndex + 1) % galleryThumbnails.length;
+        openImageModal(newIndex); // Re-use open function to update index and image
+    });
+    
+    // Close modal functionality
     closeBtn.addEventListener('click', function() {
         imageModal.style.display = 'none';
     });
