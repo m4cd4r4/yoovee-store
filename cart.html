@@ -4,46 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart - YooVee® Premium Fingerless Gloves</title>
-    <meta name="description" content="Review and checkout your cart items from YooVee® Premium Fingerless Gloves. Secure checkout and free shipping available.">
-    <meta name="keywords" content="fingerless gloves, shopping cart, checkout, YooVee">
-    <meta name="robots" content="index, follow">
-    <meta name="author" content="YooVee">
-    <meta name="canonical" content="https://yoovee.com.au/cart.html">
-    <meta name="theme-color" content="#007bff">
-    
-    <!-- PWA Support -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="YooVee">
-    <link rel="apple-touch-icon" href="images/icons/icon-152x152.png">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yoovee.com.au/cart.html">
-    <meta property="og:title" content="Your Cart - YooVee® Premium Fingerless Gloves">
-    <meta property="og:description" content="Review and checkout your cart items from YooVee® Premium Fingerless Gloves.">
-    <meta property="og:image" content="images/glove-1.jpg">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://yoovee.com.au/cart.html">
-    <meta property="twitter:title" content="Your Cart - YooVee® Premium Fingerless Gloves">
-    <meta property="twitter:description" content="Review and checkout your cart items from YooVee® Premium Fingerless Gloves.">
-    <meta property="twitter:image" content="images/glove-1.jpg">
-    
+    <meta name="description" content="Review and checkout your cart items from YooVee® Premium Fingerless Gloves.">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/cart.css">
-    <link rel="stylesheet" href="css/accessibility.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
-    
-    <!-- Preload critical resources -->
-    <link rel="preload" href="css/style.css" as="style">
-    <link rel="preload" href="css/cart.css" as="style">
-    <link rel="preload" href="css/accessibility.css" as="style">
-    <link rel="preload" href="js/cart.js" as="script">
     <style>
         /* Additional styles specific to the cart page */
         .cart-page {
@@ -249,13 +215,12 @@
     </style>
 </head>
 <body>
-    <!-- Skip to main content for accessibility -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     
     <!-- Header & Navigation -->
-    <header class="header" role="banner">
+    <header class="header">
         <!-- Shipping Banner -->
-        <div class="shipping-banner" role="banner" aria-label="Promotion banner">
+        <div class="shipping-banner">
             <div class="container">
                 <p>Free Express Shipping Australia-wide</p>
             </div>
@@ -263,72 +228,69 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <a href="index.html" aria-label="YooVee Home">
-                        <img src="images/logo-header-transparent.svg" alt="YooVee Logo" width="150" height="40">
+                    <a href="index.html">
+                        <img src="images/logo-transparent.svg" alt="YooVee Logo" width="150" height="40">
                     </a>
                 </div>
-                <nav class="nav-menu" role="navigation" aria-label="Main navigation">
+                <nav class="nav-menu">
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="index.html#product">Product</a></li>
                         <li><a href="index.html#skincare">Skincare</a></li>
                         <li><a href="index.html#features">Features</a></li>
-                        <li><a href="index.html#reviews">Reviews</a></li>
+                        <li><a href="index.html#testimonials">Reviews</a></li>
                         <li><a href="index.html#faq">FAQ</a></li>
                     </ul>
                 </nav>
                 <div class="cart-icon">
-                    <a href="cart.html" class="active" aria-label="Shopping cart, currently active page">
-                        <i class="fas fa-shopping-cart" aria-hidden="true"></i>
-                        <span class="cart-count" aria-label="0 items in cart">0</span>
+                    <a href="cart.html" class="active">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
                     </a>
                 </div>
-                <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle menu">
+                <div class="mobile-menu-toggle">
                     <span></span>
                     <span></span>
                     <span></span>
-                </button>
+                </div>
             </div>
         </div>
     </header>
-    
-    <main id="main-content">
 
-        <!-- Cart Page Content -->
-        <section class="cart-page" aria-labelledby="cart-title">
-            <div class="container">
-                <div class="cart-page-title">
-                    <h1 id="cart-title">Your Cart</h1>
-                    <p>Review your items and proceed to checkout</p>
-                </div>
-                
-                <!-- Cart content will be dynamically generated here -->
-                <div id="cart-page-content" aria-live="polite">
-                    <!-- This will be populated by JavaScript -->
-                    <div class="cart-page-empty">
-                        <i class="fas fa-shopping-cart" aria-hidden="true"></i>
-                        <p>Your cart is empty</p>
-                        <a href="index.html#product" class="btn btn-primary">Shop Now</a>
-                    </div>
+    <!-- Cart Page Content -->
+    <section class="cart-page">
+        <div class="container">
+            <div class="cart-page-title">
+                <h1>Your Cart</h1>
+                <p>Review your items and proceed to checkout</p>
+            </div>
+            
+            <!-- Cart content will be dynamically generated here -->
+            <div id="cart-page-content">
+                <!-- This will be populated by JavaScript -->
+                <div class="cart-page-empty">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Your cart is empty</p>
+                    <a href="index.html#product" class="btn btn-primary">Shop Now</a>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="footer" role="contentinfo">
+    <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <a href="index.html" aria-label="Return to homepage">
-                        <img src="images/logo-header-transparent.svg" alt="YooVee Logo" width="120" height="32">
+                    <a href="index.html">
+                        <img src="images/yoovee-logo-baby-blue.jpg" alt="YooVee Logo" width="120" height="32">
                     </a>
                     <p>YooVee® designs premium fingerless gloves that combine comfort, support, and freedom for a variety of activities and needs.</p>
                 </div>
                 <div class="footer-links">
-                    <div class="footer-column">
-                        <h3 id="company-links">Company</h3>
-                        <ul aria-labelledby="company-links">
+                    <!-- <div class="footer-column">
+                        <h3>Company</h3>
+                        <ul>
                             <li><a href="#">About Us</a></li>
                             <li><a href="#">Our Story</a></li>
                             <li><a href="#">Careers</a></li>
@@ -336,8 +298,8 @@
                         </ul>
                     </div>
                     <div class="footer-column">
-                        <h3 id="support-links">Support</h3>
-                        <ul aria-labelledby="support-links">
+                        <h3>Support</h3>
+                        <ul>
                             <li><a href="#">Contact Us</a></li>
                             <li><a href="#">Shipping Info</a></li>
                             <li><a href="#">Returns</a></li>
@@ -345,22 +307,22 @@
                         </ul>
                     </div>
                     <div class="footer-column">
-                        <h3 id="legal-links">Legal</h3>
-                        <ul aria-labelledby="legal-links">
+                        <h3>Legal</h3>
+                        <ul>
                             <li><a href="#">Terms of Service</a></li>
                             <li><a href="#">Privacy Policy</a></li>
                             <li><a href="#">Accessibility</a></li>
                             <li><a href="#">Cookie Policy</a></li>
                         </ul>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="footer-social">
-                    <h3 id="social-links">Connect With Us</h3>
-                    <div class="social-icons" aria-labelledby="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                    <h3>Connect With Us</h3>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
@@ -371,13 +333,11 @@
     </footer>
 
     <!-- Overlay -->
-    <div id="overlay" aria-hidden="true"></div>
+    <div id="overlay"></div>
 
     <!-- Scripts -->
-    <script src="js/register-sw.js"></script>
     <script src="js/main.js"></script>
     <script src="js/cart.js"></script>
-    <script src="js/accessibility.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize cart page functionality

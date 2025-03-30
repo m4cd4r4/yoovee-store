@@ -3,45 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YooVee<span class="trademark">®</span> Premium Fingerless Gloves | Comfort & Support</title>
+    <title>YooVee® Premium Fingerless Gloves | Comfort & Support</title>
     <meta name="description" content="Experience ultimate freedom with YooVee® Premium Fingerless Gloves. Designed for comfort, support, and dexterity for all-day wear.">
     <meta name="keywords" content="fingerless gloves, ergonomic gloves, hand support, wrist support, YooVee">
     <meta name="robots" content="index, follow">
     <meta name="author" content="YooVee">
     <meta name="canonical" content="https://yoovee.com.au/">
-    <meta name="theme-color" content="#007bff">
-    
-    <!-- PWA Support -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="YooVee">
-    <link rel="apple-touch-icon" href="images/icons/icon-152x152.png">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://yoovee.com.au/">
-    <meta property="og:title" content="YooVee Premium Fingerless Gloves">
-    <meta property="og:description" content="Experience ultimate freedom with YooVee Premium Fingerless Gloves. Designed for comfort and dexterity.">
-    <meta property="og:image" content="images/Product/glove-1.jpg">
+    <meta property="og:title" content="YooVee® Premium Fingerless Gloves">
+    <meta property="og:description" content="Experience ultimate freedom with YooVee® Premium Fingerless Gloves. Designed for comfort and dexterity.">
+    <meta property="og:image" content="images/glove-1.jpg">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://yoovee.com.au/">
-    <meta property="twitter:title" content="YooVee Premium Fingerless Gloves">
-    <meta property="twitter:description" content="Experience ultimate freedom with YooVee Premium Fingerless Gloves. Designed for comfort and dexterity.">
-    <meta property="twitter:image" content="images/Product/glove-1.jpg">
+    <meta property="twitter:title" content="YooVee® Premium Fingerless Gloves">
+    <meta property="twitter:description" content="Experience ultimate freedom with YooVee® Premium Fingerless Gloves. Designed for comfort and dexterity.">
+    <meta property="twitter:image" content="images/glove-1.jpg">
     
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/cart.css">
-    <link rel="stylesheet" href="css/accessibility.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
     
     <!-- Preload critical resources -->
     <link rel="preload" href="css/style.css" as="style">
-    <link rel="preload" href="css/accessibility.css" as="style">
     <link rel="preload" href="images/logo-header-transparent.svg" as="image">
     <link rel="preload" href="js/main.js" as="script">
 </head>
@@ -75,16 +65,17 @@
                         <li><a href="#home" class="active">Home</a></li>
                         <li><a href="#product">Product</a></li>
                         <li><a href="#skincare">Skincare</a></li>
+                        <li><a href="#features">Features</a></li>
                         <li><a href="#reviews">Reviews</a></li>
                         <li><a href="#faq">FAQ</a></li>
-                        <li class="cart-menu-item">
-                            <a href="cart.html" aria-label="Shopping cart">
-                                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
-                                <span class="cart-count" aria-label="0 items in cart">0</span>
-                            </a>
-                        </li>
                     </ul>
                 </nav>
+                <div class="cart-icon">
+                    <a href="cart.html" aria-label="Shopping cart">
+                        <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                        <span class="cart-count" aria-label="0 items in cart">0</span>
+                    </a>
+                </div>
                 <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle menu">
                     <span></span>
                     <span></span>
@@ -100,7 +91,7 @@
         <section id="home" class="hero" aria-labelledby="hero-heading">
             <div class="container">
                 <div class="hero-content">
-                    <h1 id="hero-heading">Experience Ultimate Freedom with YooVee<span class="trademark">®</span> Premium Fingerless Gloves</h1>
+                    <h1 id="hero-heading">Experience Ultimate Freedom with YooVee® Premium Fingerless Gloves</h1>
                     <p>Designed for comfort and dexterity, our premium fingerless gloves provide the perfect balance of protection and freedom.</p>
                     <a href="#product" class="btn btn-primary">Shop Now</a>
                 </div>
@@ -112,41 +103,41 @@
         <section id="product" class="product" aria-labelledby="product-heading">
             <div class="container">
                 <div class="section-header">
-                    <h2 id="product-heading">YooVee<span class="trademark">®</span> Premium Fingerless Gloves</h2>
+                    <h2 id="product-heading">YooVee<span style="font-size: 0.5em; vertical-align: super;">®</span> Premium Fingerless Gloves</h2>
                     <p>Crafted with precision for ultimate comfort and functionality</p>
                 </div>
                 <div class="product-showcase">
                     <div class="product-gallery">
                         <div class="main-image">
-                            <img src="images/Product/glove-1.jpg" alt="YooVee Premium Fingerless Gloves - Front View" id="main-product-image" width="500" height="500">
-                            <!-- Navigation Arrows -->
-                            <button class="product-nav product-prev" aria-label="Previous product image">
-                                <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                            <img src="images/glove-1.jpg" alt="YooVee Premium Fingerless Gloves - Front View" id="main-product-image" width="500" height="500">
+                            <!-- Add Navigation Arrows -->
+                            <button class="product-gallery-nav product-gallery-prev" aria-label="Previous image">
+                                <i class="fas fa-chevron-left"></i>
                             </button>
-                            <button class="product-nav product-next" aria-label="Next product image">
-                                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                            <button class="product-gallery-nav product-gallery-next" aria-label="Next image">
+                                <i class="fas fa-chevron-right"></i>
                             </button>
                         </div>
                         <div class="thumbnail-gallery" role="tablist" aria-label="Product images">
-                            <div class="thumbnail active" data-image="Product/glove-1.jpg" role="tab" aria-selected="true" aria-controls="main-product-image" tabindex="0">
-                                <img src="images/Product/glove-1.jpg" alt="YooVee Premium Fingerless Gloves - Front View" width="80" height="80">
+                            <div class="thumbnail active" data-image="glove-1.jpg" role="tab" aria-selected="true" aria-controls="main-product-image" tabindex="0">
+                                <img src="images/glove-1.jpg" alt="YooVee Premium Fingerless Gloves - Front View" width="80" height="80">
                             </div>
-                            <div class="thumbnail" data-image="Product/glove-2.jpg" role="tab" aria-selected="false" aria-controls="main-product-image" tabindex="0">
-                                <img src="images/Product/glove-2.jpg" alt="YooVee Premium Fingerless Gloves - Side View" width="80" height="80">
+                            <div class="thumbnail" data-image="glove-2.jpg" role="tab" aria-selected="false" aria-controls="main-product-image" tabindex="0">
+                                <img src="images/glove-2.jpg" alt="YooVee Premium Fingerless Gloves - Side View" width="80" height="80">
                             </div>
-                            <div class="thumbnail" data-image="Product/glove-3.webp" role="tab" aria-selected="false" aria-controls="main-product-image" tabindex="0">
-                                <img src="images/Product/glove-3.webp" alt="YooVee Premium Fingerless Gloves - Back View" width="80" height="80">
+                            <div class="thumbnail" data-image="glove-3.webp" role="tab" aria-selected="false" aria-controls="main-product-image" tabindex="0">
+                                <img src="images/glove-3.webp" alt="YooVee Premium Fingerless Gloves - Back View" width="80" height="80">
                             </div>
-                            <div class="thumbnail" data-image="Product/glove-4.webp" role="tab" aria-selected="false" aria-controls="main-product-image" tabindex="0">
-                                <img src="images/Product/glove-4.webp" alt="YooVee Premium Fingerless Gloves - Detail View" width="80" height="80">
+                            <div class="thumbnail" data-image="glove-4.webp" role="tab" aria-selected="false" aria-controls="main-product-image" tabindex="0">
+                                <img src="images/glove-4.webp" alt="YooVee Premium Fingerless Gloves - Detail View" width="80" height="80">
                             </div>
                         </div>
                     </div>
                     <div class="product-details">
-                        <h3>YooVee<span class="trademark">®</span> Premium Fingerless Gloves</h3>
+                        <h3>YooVee® Premium Fingerless Gloves</h3>
                         <div class="price" aria-label="Price: 24.99 Australian Dollars">AUD$24.99</div>
                         <div class="product-description">
-                            <p>YooVee<span class="trademark">®</span> Premium Fingerless Gloves are designed for those who need both protection and precision. Made from high-quality materials, these gloves provide comfort, durability, and the dexterity you need for detailed tasks.</p>
+                            <p>YooVee® Premium Fingerless Gloves are designed for those who need both protection and precision. Made from high-quality materials, these gloves provide comfort, durability, and the dexterity you need for detailed tasks.</p>
                         </div>
                         <div class="product-options">
                             <div class="option-group">
@@ -192,15 +183,11 @@
                             </div>
                             <div class="feature">
                                 <i class="fas fa-check-circle" aria-hidden="true"></i>
-                                <span>Reinforced palm design follows ergonomic principles recommended by the <a href="https://australian.physio/" target="_blank" rel="noopener">Australian Physiotherapy Association</a> for optimal support during extended use</span>
+                                <span>Reinforced palm for durability</span>
                             </div>
                             <div class="feature">
                                 <i class="fas fa-check-circle" aria-hidden="true"></i>
                                 <span>Machine washable</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle" aria-hidden="true"></i>
-                                <span>Our fabric provides UPF 30+ protection against harmful rays, meeting the sun-protective clothing standards recommended by the <a href="https://www.cancer.org.au/" target="_blank" rel="noopener">Cancer Council Australia</a></span>
                             </div>
                         </div>
                         <button class="btn btn-primary add-to-cart" aria-label="Add to Cart">Add to Cart</button>
@@ -218,156 +205,160 @@
                 </div>
                 <div class="skincare-content">
                     <div class="skincare-text">
-                        <h3>Your Hands, Your Shield – Protect Them with YooVee<span class="trademark">®</span></h3>
-                        <p>Your hands work hard every day—typing, lifting, creating, and caring. Just like your skin, they deserve protection from the elements. Sun exposure, environmental stress, and daily wear and tear can lead to premature aging, dryness, and discomfort. According to the <a href="https://www.cancer.org.au/" target="_blank" rel="noopener">Cancer Council Australia</a>, hands are often overlooked in sun protection routines despite being exposed to UV radiation year-round. That's why YooVee<span class="trademark">®</span> Premium Fingerless Gloves are designed to shield your hands while keeping you comfortable and stylish.</p>
+                        <h3>Your Hands, Your Shield – Protect Them with YooVee®</h3>
+                        <p>Your hands work hard every day—typing, lifting, creating, and caring. Just like your skin, they deserve protection from the elements. Sun exposure, environmental stress, and daily wear and tear can lead to premature aging, dryness, and discomfort. That's why YooVee® Premium Fingerless Gloves are designed to shield your hands while keeping you comfortable and stylish.</p>
                         
                         <h3>Why Hand Protection Matters</h3>
-                        <p>Did you know that the skin on your hands is one of the first places to show signs of aging? The <a href="https://www.skincancer.org/" target="_blank" rel="noopener">Skin Cancer Foundation</a> reports that UV exposure, pollution, and even daily chores can take a toll on skin health. Dermatologists recommend protective gear for extended outdoor activities. YooVee<span class="trademark">®</span> gloves offer a sleek and practical way to protect your skin while allowing full dexterity for work, play, and everything in between.</p>
+                        <p>Did you know that the skin on your hands is one of the first places to show signs of aging? UV exposure, pollution, and even daily chores can take a toll. YooVee® gloves offer a sleek and practical way to protect your skin while allowing full dexterity for work, play, and everything in between.</p>
                         
                         <h3>Skincare is Self-Care</h3>
-                        <p>We often focus on skincare for our face, but our hands need just as much attention. The <a href="https://www.ahta.com.au/" target="_blank" rel="noopener">Australian Hand Therapy Association</a> emphasizes that regular hand care is essential for maintaining mobility and preventing conditions that affect hand function. Moisturizing regularly, applying SPF, and wearing protective gloves can help maintain soft, youthful skin while supporting overall hand health. YooVee<span class="trademark">®</span> gloves provide an added layer of defense without compromising on comfort or style.</p>
+                        <p>We often focus on skincare for our face, but our hands need just as much attention. Moisturizing regularly, applying SPF, and wearing protective gloves can help maintain soft, youthful skin. YooVee® gloves provide an added layer of defense without compromising on comfort or style.</p>
                         
                         <h3>The Power of Everyday Protection</h3>
-                        <p>Small habits lead to lasting results. Whether you're working, driving, or enjoying the outdoors, your hands are constantly exposed to UV rays and environmental stressors. According to research highlighted by the <a href="https://australian.physio/" target="_blank" rel="noopener">Australian Physiotherapy Association</a>, proper hand support during repetitive tasks can significantly reduce strain and fatigue. YooVee<span class="trademark">®</span> gloves seamlessly integrate into your routine, offering an effortless way to keep your skin looking and feeling its best while supporting proper hand ergonomics.</p>
+                        <p>Small habits lead to lasting results. Whether you're working, driving, or enjoying the outdoors, your hands are constantly exposed to UV rays and environmental stressors. YooVee® gloves seamlessly integrate into your routine, offering an effortless way to keep your skin looking and feeling its best.</p>
                     </div>
                     <div class="skincare-image">
-                        <img src="images/Product/glove-2.jpg" alt="YooVee Premium Fingerless Gloves - Hand Protection" class="rounded-image" width="400" height="400">
+                        <img src="images/glove-2.jpg" alt="YooVee Premium Fingerless Gloves - Hand Protection" class="rounded-image" width="400" height="400">
                     </div>
                 </div>
             </div>
         </section>
 
-
-
-        <!-- Customer Reviews Section -->
-        <section id="reviews" class="reviews" aria-labelledby="reviews-heading">
-            <div class="container">
-                <div class="section-header">
-                    <h2 id="reviews-heading">Customer Reviews</h2>
-                    <p>See what our customers have to say about YooVee<span class="trademark">®</span> Premium Fingerless Gloves. Our customers include individuals following preventative skin health guidelines from the <a href="https://www.skincancer.org/" target="_blank" rel="noopener">Skin Cancer Foundation</a>, as well as professionals who need both protection and dexterity.</p>
+    <!-- Customer Reviews Section -->
+    <section id="reviews" class="reviews">
+        <div class="container">
+            <div class="section-header">
+                <h2>Customer Reviews</h2>
+                <p>See what our customers have to say about YooVee® Premium Fingerless Gloves</p>
+            </div>
+            
+            <!-- Customer Photos Carousel -->
+            <div class="customer-photos-carousel">
+                <div class="customer-photo-slides">
+                    <div class="customer-photo-slide active">
+                        <img src="images/webp/customer-photo1.webp" alt="Customer Review Photo" class="carousel-photo">
+                        <p class="carousel-comment">"They're great!"</p>
+                    </div>
+                    <!-- <div class="customer-photo-slide">
+                        <img src="images/customer-photo2.png" alt="Customer Review Photo" class="carousel-photo">
+                        <p class="carousel-comment">"Perfect fit and excellent quality."</p>
+                    </div> -->
+                    <div class="customer-photo-slide">
+                        <img src="images/webp/customer-photo3.webp" alt="Customer Review Photo" class="carousel-photo">
+                        <p class="carousel-comment">"Stretches to fit and excellent quality"</p>
+                    </div>
+                    <div class="customer-photo-slide">
+                        <img src="images/webp/customer-photo4.webp" alt="Customer Review Photo" class="carousel-photo">
+                        <p class="carousel-comment">"My partner won't get their nails done without them now."</p>
+                    </div>
+                    <div class="customer-photo-slide">
+                        <img src="images/webp/customer-photo5.webp" alt="Customer Review Photo" class="carousel-photo">
+                        <p class="carousel-comment">"My hands are medium but the Small size fits great."</p>
+                    </div>
                 </div>
                 
-                <!-- Customer Photos Carousel -->
-                <div class="customer-photos-carousel" aria-roledescription="carousel" aria-label="Customer reviews">
-                    <div class="customer-photo-slides">
-                        <div class="customer-photo-slide active" aria-roledescription="slide" aria-label="Customer review 1 of 4" aria-hidden="false">
-                            <img src="images/webp/customer-photo1.webp" alt="Customer wearing YooVee gloves" class="carousel-photo" width="400" height="300">
-                            <p class="carousel-comment">"They're great!"</p>
-                        </div>
-                        <div class="customer-photo-slide" aria-roledescription="slide" aria-label="Customer review 2 of 4" aria-hidden="true">
-                            <img src="images/webp/customer-photo3.webp" alt="Customer showing YooVee gloves fit" class="carousel-photo" width="400" height="300">
-                            <p class="carousel-comment">"Stretches to fit and excellent quality"</p>
-                        </div>
-                        <div class="customer-photo-slide" aria-roledescription="slide" aria-label="Customer review 3 of 4" aria-hidden="true">
-                            <img src="images/webp/customer-photo4.webp" alt="Customer using YooVee gloves during nail care" class="carousel-photo" width="400" height="300">
-                            <p class="carousel-comment">"My partner won't get their nails done without them now."</p>
-                        </div>
-                        <div class="customer-photo-slide" aria-roledescription="slide" aria-label="Customer review 4 of 4" aria-hidden="true">
-                            <img src="images/webp/customer-photo5.webp" alt="Customer showing YooVee gloves size fit" class="carousel-photo" width="400" height="300">
-                            <p class="carousel-comment">"My hands are medium but the Small size fits great."</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Navigation Arrows -->
-                    <button class="carousel-nav carousel-prev" aria-label="Previous slide">
-                        <i class="fas fa-chevron-left" aria-hidden="true"></i>
-                    </button>
-                    <button class="carousel-nav carousel-next" aria-label="Next slide">
-                        <i class="fas fa-chevron-right" aria-hidden="true"></i>
-                    </button>
-                    
-                    <!-- Indicators -->
-                    <div class="carousel-indicators" role="tablist">
-                        <button class="carousel-indicator active" data-slide="0" role="tab" aria-selected="true" aria-label="Slide 1" aria-controls="slide-1"></button>
-                        <button class="carousel-indicator" data-slide="1" role="tab" aria-selected="false" aria-label="Slide 2" aria-controls="slide-2"></button>
-                        <button class="carousel-indicator" data-slide="2" role="tab" aria-selected="false" aria-label="Slide 3" aria-controls="slide-3"></button>
-                        <button class="carousel-indicator" data-slide="3" role="tab" aria-selected="false" aria-label="Slide 4" aria-controls="slide-4"></button>
-                    </div>
+                <!-- Navigation Arrows -->
+                <button class="carousel-nav carousel-prev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-nav carousel-next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                
+                <!-- Indicators -->
+                <div class="carousel-indicators">
+                    <button class="carousel-indicator active" data-slide="0"></button>
+                    <button class="carousel-indicator" data-slide="1"></button>
+                    <button class="carousel-indicator" data-slide="2"></button>
+                    <button class="carousel-indicator" data-slide="3"></button>
+                    <button class="carousel-indicator" data-slide="4"></button>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- FAQ Section -->
-        <section id="faq" class="faq" aria-labelledby="faq-heading">
-            <div class="container">
-                <div class="section-header">
-                    <h2 id="faq-heading">Frequently Asked Questions</h2>
-                    <p>Everything you need to know about YooVee<span class="trademark">®</span> gloves</p>
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Everything you need to know about YooVee® gloves</p>
+            </div>
+            <div class="faq-accordion">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What materials are YooVee® gloves made from?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>YooVee® Premium Fingerless Gloves are crafted from a blend of breathable, stretchy fabrics including nylon, spandex, and microfiber. The palm area features reinforced padding made from durable synthetic leather for added protection and grip.</p>
+                    </div>
                 </div>
-                <div class="faq-accordion">
-                    <div class="faq-item">
-                        <button class="faq-question" id="faq-1-question" aria-expanded="false" aria-controls="faq-1-answer" role="button">
-                            <h3>What materials are YooVee<span class="trademark">®</span> gloves made from?</h3>
-                            <span class="faq-toggle" aria-hidden="true"><i class="fas fa-plus"></i></span>
-                        </button>
-                        <div class="faq-answer" id="faq-1-answer" aria-labelledby="faq-1-question" hidden>
-                            <p>YooVee<span class="trademark">®</span> Premium Fingerless Gloves are crafted from a blend of breathable, stretchy fabrics including nylon, spandex, and microfiber. Our materials are selected based on recommendations from the <a href="https://www.ahta.com.au/" target="_blank" rel="noopener">Australian Hand Therapy Association</a> for breathability and comfort during daily activities. The palm area features reinforced padding made from durable synthetic leather for added protection and grip.</p>
-                        </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How do I determine the right size?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
                     </div>
-                    <div class="faq-item">
-                        <button class="faq-question" id="faq-2-question" aria-expanded="false" aria-controls="faq-2-answer" role="button">
-                            <h3>How do I determine the right size?</h3>
-                            <span class="faq-toggle" aria-hidden="true"><i class="fas fa-plus"></i></span>
-                        </button>
-                        <div class="faq-answer" id="faq-2-answer" aria-labelledby="faq-2-question" hidden>
-                            <p>To find your perfect fit, measure the circumference of your hand at its widest point (excluding the thumb). Our size guide is as follows: Small (18-19 cm), Medium (19-20.5 cm), Large (20.5-22 cm), and XL (22-23 cm). If you're between sizes, we recommend sizing up for a more comfortable fit.</p>
-                        </div>
+                    <div class="faq-answer">
+                        <p>To find your perfect fit, measure the circumference of your hand at its widest point (excluding the thumb). Our size guide is as follows: Small (7-7.5 inches), Medium (7.5-8 inches), Large (8-8.5 inches), and XL (8.5-9 inches). If you're between sizes, we recommend sizing up for a more comfortable fit.</p>
                     </div>
-                    <div class="faq-item">
-                        <button class="faq-question" id="faq-3-question" aria-expanded="false" aria-controls="faq-3-answer" role="button">
-                            <h3>How do I care for my YooVee<span class="trademark">®</span> gloves?</h3>
-                            <span class="faq-toggle" aria-hidden="true"><i class="fas fa-plus"></i></span>
-                        </button>
-                        <div class="faq-answer" id="faq-3-answer" aria-labelledby="faq-3-question" hidden>
-                            <p>YooVee<span class="trademark">®</span> gloves are machine washable on a gentle cycle with cold water. We recommend using a mild detergent and avoiding bleach or fabric softeners. Air dry only - do not tumble dry. For best results and longevity, hand washing is preferred. Regular washing helps maintain the protective properties of your gloves. The <a href="https://www.cancer.org.au/" target="_blank" rel="noopener">Cancer Council Australia</a> recommends regularly washing sun-protective garments to maintain their effectiveness.</p>
-                        </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How do I care for my YooVee® gloves?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
                     </div>
-                    <div class="faq-item">
-                        <button class="faq-question" id="faq-4-question" aria-expanded="false" aria-controls="faq-4-answer" role="button">
-                            <h3>Do you offer international shipping?</h3>
-                            <span class="faq-toggle" aria-hidden="true"><i class="fas fa-plus"></i></span>
-                        </button>
-                        <div class="faq-answer" id="faq-4-answer" aria-labelledby="faq-4-question" hidden>
-                            <p>Yes, we ship worldwide! International shipping rates and delivery times vary by location. All applicable customs fees, duties, and taxes are the responsibility of the customer and are not included in the shipping cost.</p>
-                        </div>
+                    <div class="faq-answer">
+                        <p>YooVee® gloves are machine washable on a gentle cycle with cold water. We recommend using a mild detergent and avoiding bleach or fabric softeners. Air dry only - do not tumble dry. For best results and longevity, hand washing is preferred.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Do you offer international shipping?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we ship worldwide! International shipping rates and delivery times vary by location. All applicable customs fees, duties, and taxes are the responsibility of the customer and are not included in the shipping cost.</p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Call-to-Action Section -->
-        <section class="cta" aria-labelledby="cta-heading">
-            <div class="container">
-                <div class="cta-content">
-                    <h2 id="cta-heading">Ready to Experience the YooVee<span class="trademark">®</span> Difference?</h2>
-                    <p>Join thousands of satisfied customers who have discovered the perfect balance of comfort, support, and freedom with YooVee<span class="trademark">®</span> Premium Fingerless Gloves.</p>
-                    <a href="#product" class="btn btn-light">Buy Now</a>
-                </div>
+    <!-- Call-to-Action Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Experience the YooVee® Difference?</h2>
+                <p>Join thousands of satisfied customers who have discovered the perfect balance of comfort, support, and freedom with YooVee® Premium Fingerless Gloves.</p>
+                <a href="#product" class="btn btn-light">Buy Now</a>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="footer" role="contentinfo">
+    <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-brand">
-                    <a href="#home" aria-label="Back to top">
+<div class="footer-brand">
+                    <a href="#home">
                         <img src="images/logo-header-transparent.svg" alt="YooVee Logo" width="120" height="32">
                     </a>
-                    <p>YooVee<span class="trademark">®</span> designs premium fingerless gloves that combine comfort, support, and freedom for a variety of activities and needs. YooVee<span class="trademark">®</span> was developed in consultation with professionals who follow the hand health guidelines established by the <a href="https://www.ahta.com.au/" target="_blank" rel="noopener">Australian Hand Therapy Association</a> and ergonomic principles from the <a href="https://australian.physio/" target="_blank" rel="noopener">Australian Physiotherapy Association</a>.</p>
+                    <p>YooVee® designs premium fingerless gloves that combine comfort, support, and freedom for a variety of activities and needs.</p>
                 </div>
-                <div class="footer-links">
+                <!-- <div class="footer-links">
                     <div class="footer-column">
-                        <h3 id="company-links">Company</h3>
-                        <ul aria-labelledby="company-links">
+                        <h3>Company</h3>
+                        <ul>
                             <li><a href="#">About Us</a></li>
                             <li><a href="#">Our Story</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Press</a></li>
                         </ul>
-                    </div>
+                    </div> -->
                     <div class="footer-column">
-                        <h3 id="support-links">Support</h3>
-                        <ul aria-labelledby="support-links">
+                        <h3>Support</h3>
+                        <ul>
                             <li><a href="#">Contact Us</a></li>
                             <li><a href="#">Shipping Info</a></li>
                             <li><a href="#">Returns</a></li>
@@ -375,8 +366,8 @@
                         </ul>
                     </div>
                     <div class="footer-column">
-                        <h3 id="legal-links">Legal</h3>
-                        <ul aria-labelledby="legal-links">
+                        <h3>Legal</h3>
+                        <ul>
                             <li><a href="#">Terms of Service</a></li>
                             <li><a href="#">Privacy Policy</a></li>
                             <li><a href="#">Accessibility</a></li>
@@ -385,29 +376,29 @@
                     </div>
                 </div>
                 <div class="footer-social">
-                    <h3 id="social-links">Connect With Us</h3>
-                    <div class="social-icons" aria-labelledby="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                    <h3>Connect With Us</h3>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 YooVee<span class="trademark">®</span>. All rights reserved.</p>
+                <p>&copy; 2025 YooVee®. All rights reserved. YooVee® is a registered trademark.</p>
             </div>
         </div>
     </footer>
 
     <!-- Checkout Modal (Hidden by default) -->
-    <div id="checkout-modal" class="modal" role="dialog" aria-labelledby="checkout-title" aria-hidden="true">
+    <div id="checkout-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="checkout-title">Checkout</h2>
-                <button class="close-modal" aria-label="Close checkout">&times;</button>
+                <h2>Checkout</h2>
+                <span class="close-modal">&times;</span>
             </div>
-            <div class="checkout-progress" role="navigation" aria-label="Checkout steps">
+            <div class="checkout-progress">
                 <div class="progress-step active" data-step="information">
                     <span class="step-number">1</span>
                     <span class="step-name">Information</span>
@@ -590,13 +581,11 @@
     <div id="overlay"></div>
 
     <!-- Scripts -->
-    <script src="js/register-sw.js"></script>
     <script src="js/main.js"></script>
     <script src="js/product.js"></script>
     <script src="js/checkout.js"></script>
     <script src="js/carousel.js"></script>
     <script src="js/image-modal.js"></script>
     <script src="js/cart.js"></script>
-    <script src="js/accessibility.js"></script>
 </body>
 </html>

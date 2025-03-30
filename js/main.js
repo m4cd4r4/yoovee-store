@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize components
     initMobileMenu();
     initFaqAccordion();
-    initCartSidebar();
+    // initCartSidebar(); // Functionality moved to cart.js
     initCheckoutModal();
     initSmoothScroll();
     initHeaderScroll();
@@ -26,7 +26,6 @@ function initMobileMenu() {
     mobileMenuToggle.addEventListener('click', function() {
         this.classList.toggle('active');
         navMenu.classList.toggle('active');
-            spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
         
         // Toggle menu icon
         const spans = this.querySelectorAll('span');
@@ -88,10 +87,7 @@ function initFaqAccordion() {
  * Cart Sidebar Functionality
  * Note: This functionality has been moved to cart.js
  */
-function initCartSidebar() {
-    // This function is now handled by cart.js
-    console.log('Cart sidebar initialization moved to cart.js');
-}
+// Removed initCartSidebar function as it's handled in cart.js
 
 /**
  * Checkout Modal Functionality
@@ -220,11 +216,9 @@ function initHeaderScroll() {
     
     window.addEventListener('scroll', function() {
         if (window.scrollY > 50) {
-            header.style.padding = '0.5rem 0';
-            header.style.boxShadow = 'var(--shadow)';
+            header.classList.add('scrolled');
         } else {
-            header.style.padding = '1rem 0';
-            header.style.boxShadow = 'var(--shadow-sm)';
+            header.classList.remove('scrolled');
         }
     });
 }
@@ -255,64 +249,91 @@ function initFooterPopups() {
     popupOverlay.className = 'footer-popup-overlay';
     
     document.body.appendChild(popupOverlay);
+
+    // Get popup elements once
+    const modal = document.querySelector('.footer-popup-modal');
+    const overlay = document.querySelector('.footer-popup-overlay');
+    const title = modal.querySelector('.popup-title');
+    const content = modal.querySelector('.popup-content');
+    const closeBtn = modal.querySelector('.close-popup');
+
+    // Function to close popup
+    function closePopup() {
+        modal.style.display = 'none';
+        overlay.style.display = 'none';
+        document.body.style.overflow = ''; // Restore scrolling
+        // Remove the keydown listener when closing
+        document.removeEventListener('keydown', handleEscKey);
+    }
+
+    // Function to handle Escape key
+    function handleEscKey(e) {
+        if (e.key === 'Escape') {
+            closePopup();
+        }
+    }
+
+    // Add close listeners once
+    closeBtn.addEventListener('click', closePopup);
+    overlay.addEventListener('click', closePopup);
     
     // Define popup content for each footer link
     const popupContents = {
-        // Company section
-        "About Us": {
-            title: "About YooVee®",
-            content: `
-                <p>YooVee® was founded in 2022 by a team of ergonomic specialists and textile engineers with a shared vision: to create premium fingerless gloves that provide unparalleled comfort and support without sacrificing dexterity.</p>
-                <p>Our mission is to help people maintain hand health while enjoying unrestricted movement for all their daily activities, from office work to creative pursuits to outdoor adventures.</p>
-                <p>Based in Sydney, Australia, YooVee® has quickly become a trusted name in ergonomic accessories, with customers worldwide appreciating our commitment to quality, sustainability, and functional design.</p>
-                <p>Our signature fingerless gloves combine cutting-edge materials with thoughtful construction to deliver products that truly make a difference in people's lives. We're proud of our innovative approach and dedication to continuous improvement.</p>
-                <p>At YooVee®, we believe that comfort should never compromise functionality. Every product we create reflects this philosophy, resulting in fingerless gloves that people love to wear day after day.</p>
-            `
-        },
-        "Our Story": {
-            title: "The YooVee® Story",
-            content: `
-                <p>The YooVee® journey began when our founder, Sarah Chen, experienced persistent wrist pain while working long hours as a graphic designer. Traditional wrist supports were bulky and restrictive, while conventional fingerless gloves lacked proper support.</p>
-                <p>Sarah partnered with ergonomics expert Dr. James Wilson and textile engineer Maria Rodriguez to develop a solution. After 18 months of research, prototyping, and testing, the first YooVee® Premium Fingerless Gloves were born.</p>
-                <p>Our early adopters included digital artists, musicians, programmers, and office workers - all reporting significant improvements in comfort and reduced pain. Word spread quickly, and soon we were shipping worldwide.</p>
-                <p>In 2023, YooVee® expanded its product line to include specialized versions for different activities and needs. Our team has grown, but our commitment to quality and innovation remains unwavering.</p>
-                <p>Today, YooVee® continues to push the boundaries of what fingerless gloves can offer, with new materials, designs, and features being developed to serve our growing community of loyal customers.</p>
-            `
-        },
-        "Careers": {
-            title: "Join the YooVee® Team",
-            content: `
-                <p>At YooVee®, we're always looking for passionate individuals to join our growing team. We value creativity, innovation, and a genuine commitment to improving people's lives through thoughtful product design.</p>
-                <p>Working at YooVee® means being part of a diverse, collaborative team that values work-life balance and professional growth. We offer competitive salaries, flexible working arrangements, and a supportive company culture.</p>
-                <h3>Current Openings:</h3>
-                <ul>
-                    <li><strong>Product Designer</strong> - Help us create the next generation of ergonomic fingerless gloves</li>
-                    <li><strong>Digital Marketing Specialist</strong> - Drive our online presence and connect with customers worldwide</li>
-                    <li><strong>Customer Experience Associate</strong> - Ensure our customers receive exceptional service and support</li>
-                </ul>
-                <p>Even if you don't see a position that matches your skills, we're always interested in hearing from talented individuals. Send your resume to careers@yoovee.com.au with a cover letter explaining why you'd be a great fit for our team.</p>
-            `
-        },
-        "Press": {
-            title: "YooVee® in the Press",
-            content: `
-                <div class="press-highlights">
-                    <div class="press-item">
-                        <h3>"The Future of Hand Support" - Tech Innovations Monthly</h3>
-                        <p>"YooVee® has reimagined what fingerless gloves can be, combining ergonomic support with unparalleled comfort. Their innovative approach sets a new standard for hand accessories."</p>
-                    </div>
-                    <div class="press-item">
-                        <h3>"Must-Have Accessory for Digital Creatives" - Design Journal</h3>
-                        <p>"These aren't your average fingerless gloves. YooVee® has created something truly special that addresses the needs of those who work with their hands all day. A game-changer for preventing repetitive strain injuries."</p>
-                    </div>
-                    <div class="press-item">
-                        <h3>"Australian Innovation Gaining Global Recognition" - Business Weekly</h3>
-                        <p>"From a small Sydney startup to international acclaim, YooVee® demonstrates how addressing a specific need with thoughtful design can lead to remarkable business growth."</p>
-                    </div>
-                </div>
-                <p>For press inquiries, please contact media@yoovee.com.au</p>
-            `
-        },
+        // // Company section - NOTE: This content is commented out. If links exist, they won't work.
+        // "About Us": {
+        //     title: "About YooVee®",
+        //     content: `
+        //         <p>YooVee® was founded in 2022 by a team of ergonomic specialists and textile engineers with a shared vision: to create premium fingerless gloves that provide unparalleled comfort and support without sacrificing dexterity.</p>
+        //         <p>Our mission is to help people maintain hand health while enjoying unrestricted movement for all their daily activities, from office work to creative pursuits to outdoor adventures.</p>
+        //         <p>Based in Sydney, Australia, YooVee® has quickly become a trusted name in ergonomic accessories, with customers worldwide appreciating our commitment to quality, sustainability, and functional design.</p>
+        //         <p>Our signature fingerless gloves combine cutting-edge materials with thoughtful construction to deliver products that truly make a difference in people's lives. We're proud of our innovative approach and dedication to continuous improvement.</p>
+        //         <p>At YooVee®, we believe that comfort should never compromise functionality. Every product we create reflects this philosophy, resulting in fingerless gloves that people love to wear day after day.</p>
+        //     `
+        // },
+        // "Our Story": {
+        //     title: "The YooVee® Story",
+        //     content: `
+        //         <p>The YooVee® journey began when our founder, Sarah Chen, experienced persistent wrist pain while working long hours as a graphic designer. Traditional wrist supports were bulky and restrictive, while conventional fingerless gloves lacked proper support.</p>
+        //         <p>Sarah partnered with ergonomics expert Dr. James Wilson and textile engineer Maria Rodriguez to develop a solution. After 18 months of research, prototyping, and testing, the first YooVee® Premium Fingerless Gloves were born.</p>
+        //         <p>Our early adopters included digital artists, musicians, programmers, and office workers - all reporting significant improvements in comfort and reduced pain. Word spread quickly, and soon we were shipping worldwide.</p>
+        //         <p>In 2023, YooVee® expanded its product line to include specialized versions for different activities and needs. Our team has grown, but our commitment to quality and innovation remains unwavering.</p>
+        //         <p>Today, YooVee® continues to push the boundaries of what fingerless gloves can offer, with new materials, designs, and features being developed to serve our growing community of loyal customers.</p>
+        //     `
+        // },
+        // "Careers": {
+        //     title: "Join the YooVee® Team",
+        //     content: `
+        //         <p>At YooVee®, we're always looking for passionate individuals to join our growing team. We value creativity, innovation, and a genuine commitment to improving people's lives through thoughtful product design.</p>
+        //         <p>Working at YooVee® means being part of a diverse, collaborative team that values work-life balance and professional growth. We offer competitive salaries, flexible working arrangements, and a supportive company culture.</p>
+        //         <h3>Current Openings:</h3>
+        //         <ul>
+        //             <li><strong>Product Designer</strong> - Help us create the next generation of ergonomic fingerless gloves</li>
+        //             <li><strong>Digital Marketing Specialist</strong> - Drive our online presence and connect with customers worldwide</li>
+        //             <li><strong>Customer Experience Associate</strong> - Ensure our customers receive exceptional service and support</li>
+        //         </ul>
+        //         <p>Even if you don't see a position that matches your skills, we're always interested in hearing from talented individuals. Send your resume to careers@yoovee.com.au with a cover letter explaining why you'd be a great fit for our team.</p>
+        //     `
+        // },
+        // "Press": {
+        //     title: "YooVee® in the Press",
+        //     content: `
+        //         <div class="press-highlights">
+        //             <div class="press-item">
+        //                 <h3>"The Future of Hand Support" - Tech Innovations Monthly</h3>
+        //                 <p>"YooVee® has reimagined what fingerless gloves can be, combining ergonomic support with unparalleled comfort. Their innovative approach sets a new standard for hand accessories."</p>
+        //             </div>
+        //             <div class="press-item">
+        //                 <h3>"Must-Have Accessory for Digital Creatives" - Design Journal</h3>
+        //                 <p>"These aren't your average fingerless gloves. YooVee® has created something truly special that addresses the needs of those who work with their hands all day. A game-changer for preventing repetitive strain injuries."</p>
+        //             </div>
+        //             <div class="press-item">
+        //                 <h3>"Australian Innovation Gaining Global Recognition" - Business Weekly</h3>
+        //                 <p>"From a small Sydney startup to international acclaim, YooVee® demonstrates how addressing a specific need with thoughtful design can lead to remarkable business growth."</p>
+        //             </div>
+        //         </div>
+        //         <p>For press inquiries, please contact media@yoovee.com.au</p>
+        //     `
+        // },
         
         // Support section
         "Contact Us": {
@@ -563,14 +584,7 @@ function initFooterPopups() {
             
             // Check if we have content for this link
             if (popupContents[linkText]) {
-                // Get popup elements
-                const modal = document.querySelector('.footer-popup-modal');
-                const overlay = document.querySelector('.footer-popup-overlay');
-                const title = modal.querySelector('.popup-title');
-                const content = modal.querySelector('.popup-content');
-                const closeBtn = modal.querySelector('.close-popup');
-                
-                // Update popup content
+                // Update popup content using the elements fetched earlier
                 title.textContent = popupContents[linkText].title;
                 content.innerHTML = popupContents[linkText].content;
                 
@@ -578,30 +592,14 @@ function initFooterPopups() {
                 modal.style.display = 'block';
                 overlay.style.display = 'block';
                 document.body.style.overflow = 'hidden'; // Prevent scrolling
-                
-                // Close popup on button click
-                closeBtn.addEventListener('click', closePopup);
-                
-                // Close popup when clicking on overlay
-                overlay.addEventListener('click', closePopup);
-                
-                // Close popup on ESC key
-                document.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape') {
-                        closePopup();
-                    }
-                });
+
+                // Add ESC key listener only when popup is open
+                document.addEventListener('keydown', handleEscKey);
+            } else {
+                console.warn(`No popup content defined for footer link: "${linkText}"`);
             }
         });
     });
-    
-    // Function to close popup
-    function closePopup() {
-        const modal = document.querySelector('.footer-popup-modal');
-        const overlay = document.querySelector('.footer-popup-overlay');
-        
-        modal.style.display = 'none';
-        overlay.style.display = 'none';
-        document.body.style.overflow = ''; // Restore scrolling
-    }
+
+    // Note: The closePopup and handleEscKey functions are defined earlier now.
 }

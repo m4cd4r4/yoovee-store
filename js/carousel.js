@@ -150,9 +150,7 @@ function enhanceCustomerReviewsCarousel() {
         
         reviewsModal.innerHTML = `
             <span class="close-reviews-modal" style="position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; font-weight: 300; cursor: pointer; z-index: 2001;">&times;</span>
-            <div class="reviews-modal-content-wrapper" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; height: 80%; display: flex; justify-content: center; align-items: center;">
-                <img class="reviews-modal-content" style="max-width: 100%; max-height: 100%; display: block;">
-            </div>
+            <img class="reviews-modal-content" style="margin: auto; display: block; max-width: 90%; max-height: 80vh; position: relative; top: 50%; transform: translateY(-50%); object-fit: contain;"> <!-- Re-added inline position, top, transform, margin. Kept max-height/object-fit -->
             <div class="reviews-modal-comment" style="color: white; text-align: center; margin-top: 20px; padding: 0 20px; position: absolute; bottom: 50px; width: 100%;"></div>
             <div class="reviews-modal-nav reviews-modal-prev" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background-color: rgba(255, 255, 255, 0.2); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2001;">
                 <i class="fas fa-chevron-left"></i>
@@ -186,10 +184,9 @@ function enhanceCustomerReviewsCarousel() {
     const zoomOutBtn = reviewsModal.querySelector('.reviews-modal-zoom-out');
     const resetZoomBtn = reviewsModal.querySelector('.reviews-modal-reset-zoom');
     
-    // Add zoom level state and references
+    // Add zoom level state
     let currentZoom = 1;
     let currentReviewIndex = 0;
-    const modalContentWrapper = reviewsModal.querySelector('.reviews-modal-content-wrapper');
     
     // Add expand icon and zoom cursor to carousel photos
     carouselPhotos.forEach((photo, index) => {
@@ -231,7 +228,6 @@ function enhanceCustomerReviewsCarousel() {
         // Reset zoom
         currentZoom = 1;
         modalImg.style.transform = `scale(${currentZoom})`;
-        modalContentWrapper.style.transform = 'translate(-50%, -50%)';
         
         // Show modal
         reviewsModal.style.display = 'block';

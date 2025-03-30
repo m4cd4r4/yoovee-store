@@ -16,82 +16,58 @@ document.addEventListener('DOMContentLoaded', function() {
  * Product Gallery Functionality
  */
 function initProductGallery() {
+    // Removed duplicate comment and function definition line
     const mainImage = document.getElementById('main-product-image');
     const thumbnails = document.querySelectorAll('.thumbnail');
-    const prevBtn = document.querySelector('.product-prev');
-    const nextBtn = document.querySelector('.product-next');
+    const prevBtn = document.querySelector('.product-gallery-prev');
+    const nextBtn = document.querySelector('.product-gallery-next');
     
-    if (!mainImage || thumbnails.length === 0) return;
+    if (!mainImage || thumbnails.length === 0 || !prevBtn || !nextBtn) return;
     
-    // Keep track of current image index
     let currentImageIndex = 0;
     
-    // Function to navigate to a specific image
-    function navigateTo(index) {
+    // Function to update the gallery based on index
+    function updateGallery(index) {
         // Ensure index is within bounds
-        if (index < 0) index = thumbnails.length - 1;
-        if (index >= thumbnails.length) index = 0;
+        currentImageIndex = (index + thumbnails.length) % thumbnails.length;
         
         // Update active thumbnail
-        thumbnails.forEach(t => t.classList.remove('active'));
-        thumbnails[index].classList.add('active');
+        thumbnails.forEach((t, i) => {
+            t.classList.toggle('active', i === currentImageIndex);
+        });
         
-        // Get image filename
-        const imageFile = thumbnails[index].getAttribute('data-image');
+        // Get image filename from the new active thumbnail
+        const activeThumbnail = thumbnails[currentImageIndex];
+        const imageFile = activeThumbnail.getAttribute('data-image');
         
         // Update main image
         updateMainImage(imageFile);
-        
-        // Update current index
-        currentImageIndex = index;
     }
     
-    // Function to go to previous image
-    function goToPrevImage() {
-        navigateTo(currentImageIndex - 1);
-    }
-    
-    // Function to go to next image
-    function goToNextImage() {
-        navigateTo(currentImageIndex + 1);
-    }
-    
-    // Add click events to previous and next buttons
-    if (prevBtn) {
-        prevBtn.addEventListener('click', goToPrevImage);
-    }
-    
-    if (nextBtn) {
-        nextBtn.addEventListener('click', goToNextImage);
-    }
-    
-    // Add click events to thumbnails
+    // Add click listeners to thumbnails
     thumbnails.forEach((thumbnail, index) => {
         thumbnail.addEventListener('click', function() {
-            navigateTo(index);
+            updateGallery(index);
         });
     });
     
-    // Add keyboard navigation when gallery is in focus
-    const productGallery = document.querySelector('.product-gallery');
-    if (productGallery) {
-        productGallery.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowLeft') {
-                goToPrevImage();
-            } else if (e.key === 'ArrowRight') {
-                goToNextImage();
-            }
-        });
-    }
+    // Add click listeners to navigation arrows
+    prevBtn.addEventListener('click', function() {
+        updateGallery(currentImageIndex - 1);
+    });
     
-    // Function to update main image
+    nextBtn.addEventListener('click', function() {
+        updateGallery(currentImageIndex + 1);
+    });
+    
+    // Function to update main image (with fade effect)
     function updateMainImage(imageFile) {
         if (!imageFile) return;
         
         // Add fade effect
         mainImage.style.opacity = '0';
         
-        // Update image source - using the path from the data-image attribute which now includes the Product directory
+        // Update image source
         setTimeout(() => {
             mainImage.src = `images/${imageFile}`;
             mainImage.style.opacity = '1';
@@ -100,7 +76,7 @@ function initProductGallery() {
     
     // Initialize product zoom functionality
     initProductZoom();
-}
+} // Added the missing closing brace for the outer initProductGallery
 
 /**
  * Color Options Functionality
@@ -260,84 +236,75 @@ function initProductZoom() {
     const closeBtn = document.createElement('span');
     closeBtn.className = 'close-image-modal';
     closeBtn.innerHTML = '&times;';
-    
     const modalImg = document.createElement('img');
     modalImg.className = 'image-modal-content';
     
     // Create navigation arrows for the modal
-    const prevModalBtn = document.createElement('div');
-    prevModalBtn.className = 'modal-nav modal-prev';
-    prevModalBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
-    prevModalBtn.setAttribute('aria-label', 'Previous image');
+    const prevBtnModal = document.createElement('button');
+    prevBtnModal.className = 'image-modal-nav image-modal-prev';
+    prevBtnModal.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    prevBtnModal.setAttribute('aria-label', 'Previous image');
     
-    const nextModalBtn = document.createElement('div');
-    nextModalBtn.className = 'modal-nav modal-next';
-    nextModalBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
-    nextModalBtn.setAttribute('aria-label', 'Next image');
+    const nextBtnModal = document.createElement('button');
+    nextBtnModal.className = 'image-modal-nav image-modal-next';
+    nextBtnModal.innerHTML = '<i class="fas fa-chevron-right"></i>';
+    nextBtnModal.setAttribute('aria-label', 'Next image');
     
     imageModal.appendChild(closeBtn);
     imageModal.appendChild(modalImg);
-    imageModal.appendChild(prevModalBtn);
-    imageModal.appendChild(nextModalBtn);
+    imageModal.appendChild(prevBtnModal); // Add prev arrow
+    imageModal.appendChild(nextBtnModal); // Add next arrow
     document.body.appendChild(imageModal);
     
-    // Keep track of current image index for modal navigation
-    let currentModalIndex = 0;
-    const imageFiles = Array.from(thumbnails).map(thumbnail => 
-        thumbnail.parentElement.getAttribute('data-image')
-    );
+    let currentModalImageIndex = 0;
+    const galleryThumbnails = document.querySelectorAll('.thumbnail'); // Get all thumbnails for indexing
     
-    // Function to navigate modal images
-    function navigateModalImage(direction) {
-        if (direction === 'prev') {
-            currentModalIndex = (currentModalIndex === 0) ? imageFiles.length - 1 : currentModalIndex - 1;
-        } else {
-            currentModalIndex = (currentModalIndex === imageFiles.length - 1) ? 0 : currentModalIndex + 1;
-        }
-        
-        // Update modal image
-        modalImg.src = `images/${imageFiles[currentModalIndex]}`;
+    // Function to open the modal and set the image
+    function openImageModal(index) {
+        currentModalImageIndex = index;
+        const imagePath = 'images/' + galleryThumbnails[currentModalImageIndex].getAttribute('data-image');
+        modalImg.src = imagePath;
+        imageModal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
     }
     
-    // Add click events to modal navigation buttons
-    prevModalBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        navigateModalImage('prev');
-    });
-    
-    nextModalBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        navigateModalImage('next');
-    });
-    
-    // Add click event to main image
+    // Add click event to main image to open modal
     mainImage.addEventListener('click', function() {
-        // Find the index of the current image
-        const currentSrc = mainImage.src.split('/').pop();
-        currentModalIndex = imageFiles.findIndex(file => file === currentSrc);
-        if (currentModalIndex === -1) currentModalIndex = 0;
-        
-        imageModal.style.display = 'block';
-        modalImg.src = this.src;
+        // Find the index of the currently active thumbnail
+        const activeThumbnail = document.querySelector('.thumbnail.active');
+        const activeIndex = Array.from(galleryThumbnails).indexOf(activeThumbnail);
+        openImageModal(activeIndex >= 0 ? activeIndex : 0);
     });
     
-    // Add click events to thumbnails
-    thumbnails.forEach((thumbnail, index) => {
+    // Add click events to thumbnails to open modal
+    galleryThumbnails.forEach((thumbnail, index) => {
         thumbnail.addEventListener('click', function(e) {
-            // Prevent the default thumbnail behavior
-            e.stopPropagation();
-            
-            // Get the full-size image path
-            const imageFile = this.parentElement.getAttribute('data-image');
-            currentModalIndex = index;
-            
-            // Open in modal - using the full path including the Product directory
-            imageModal.style.display = 'block';
-            modalImg.src = `images/${imageFile}`;
+            // This listener in initProductGallery handles the main image update.
+            // We need a separate listener on the *image* inside the thumbnail for the modal.
+            const thumbImg = thumbnail.querySelector('img');
+            if (thumbImg) {
+                thumbImg.addEventListener('click', function(event) {
+                    event.stopPropagation(); // Prevent gallery update listener
+                    openImageModal(index);
+                });
+            }
         });
     });
     
-    // Close modal when clicking the close button
+    // Modal Navigation Logic
+    prevBtnModal.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const newIndex = (currentModalImageIndex - 1 + galleryThumbnails.length) % galleryThumbnails.length;
+        openImageModal(newIndex); // Re-use open function to update index and image
+    });
+    
+    nextBtnModal.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const newIndex = (currentModalImageIndex + 1) % galleryThumbnails.length;
+        openImageModal(newIndex); // Re-use open function to update index and image
+    });
+    
+    // Close modal functionality
     closeBtn.addEventListener('click', function() {
         imageModal.style.display = 'none';
     });
@@ -346,19 +313,6 @@ function initProductZoom() {
     imageModal.addEventListener('click', function(e) {
         if (e.target === imageModal) {
             imageModal.style.display = 'none';
-        }
-    });
-    
-    // Add keyboard navigation for modal
-    document.addEventListener('keydown', function(e) {
-        if (imageModal.style.display === 'block') {
-            if (e.key === 'ArrowLeft') {
-                navigateModalImage('prev');
-            } else if (e.key === 'ArrowRight') {
-                navigateModalImage('next');
-            } else if (e.key === 'Escape') {
-                imageModal.style.display = 'none';
-            }
         }
     });
     
