@@ -460,19 +460,14 @@ img {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    opacity: 0.15;
+    background-image: url('../images/svg/circle-line-pattern.svg'); /* Replaced inline SVG with file */
+    background-repeat: repeat; /* Ensure the pattern tiles */
+    opacity: 0.15; /* Kept the opacity */
+    /* Ensure correct pattern is used */
+    background-image: url('../images/svg/circle-line-pattern.svg'); 
 }
 
-/* Animation for hero pattern subtle movement */
-@keyframes patternFloat {
-    0% { background-position: 0 0; }
-    100% { background-position: 20px 20px; }
-}
-
-.hero-pattern {
-    animation: patternFloat 20s linear infinite;
-}
+/* Removed animation as it might not suit the new pattern */
 
 /* ===== Product Section ===== */
 .product {
@@ -709,27 +704,29 @@ img {
     border-color: var(--primary);
 }
 
-/* Image Modal with Navigation */
+/* ===== Image Modal (Refactored from JS) ===== */
 .image-modal {
-    display: none;
+    display: none; /* Hidden by default, shown by JS */
     position: fixed;
-    z-index: 2000;
+    z-index: 2000; /* Ensure it's above most content */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent background */
+    overflow: auto; /* Allow scroll if content overflows */
 }
 
 .image-modal-content {
-    margin: auto;
-    display: block;
-    max-width: 90%;
-    max-height: 90vh;
-    position: relative;
+    /* Centering and sizing */
+    position: relative; /* Needed for vertical centering */
     top: 50%;
     transform: translateY(-50%);
+    margin: auto; /* Horizontal centering */
+    display: block;
+    max-width: 80vw; /* Limit width */
+    max-height: 80vh; /* Limit height */
+    object-fit: contain; /* Ensure image scales correctly */
 }
 
 .close-image-modal {
@@ -740,44 +737,49 @@ img {
     font-size: 40px;
     font-weight: 300;
     cursor: pointer;
-    z-index: 2001;
+    z-index: 2001; /* Above image and nav */
+    transition: color var(--transition-fast);
+}
+.close-image-modal:hover {
+    color: var(--gray-300);
 }
 
-/* Product Image Modal Navigation Arrows (Dynamically added by product.js) */
-.image-modal-nav {
+/* Image Modal Navigation Arrows (Shared styles) */
+.image-modal .modal-nav { /* Specificity for image modal nav */
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--white);
-    font-size: 2rem;
-    cursor: pointer;
-    z-index: 2001; /* Ensure they are above the image */
-    width: 50px;
-    height: 50px;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 50%;
-    transition: var(--transition-base);
-    border: none; /* Remove default button border */
+    cursor: pointer;
+    z-index: 2001; /* Above image */
+    border: none;
+    transition: background-color var(--transition-fast);
 }
 
-.image-modal-nav:hover {
-    background-color: rgba(0, 0, 0, 0.6);
+.image-modal .modal-nav:hover {
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
-.image-modal-prev {
+.image-modal .modal-prev {
     left: 20px;
 }
 
-.image-modal-next {
+.image-modal .modal-next {
     right: 20px;
 }
 
+/* ===== General Modal Styles (Keep for other modals like checkout) ===== */
 
-/* Modal Navigation Arrows (General - Keep for other potential modals) */
-.modal-nav {
+/* General Modal Navigation Arrows (If needed elsewhere) */
+/* Note: These might conflict if not scoped properly. Keeping for now. */
+.modal-nav { /* Less specific selector for general use */
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -1245,9 +1247,31 @@ img {
 
 /* ===== Footer ===== */
 .footer {
+    position: relative; /* Needed for pseudo-element positioning */
     background-color: var(--gray-900);
     color: var(--gray-400);
     padding: var(--spacing-6) 0 var(--spacing-4);
+    overflow: hidden; /* Prevent pattern overflow */
+}
+
+/* Add blue pattern overlay to footer */
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/svg/circle-line-pattern-blue.svg'); /* Ensure correct blue pattern is used */
+    background-repeat: repeat;
+    opacity: 0.08; /* Low opacity to blend with black background */
+    z-index: 0; /* Place behind content */
+}
+
+/* Ensure footer content is above the pattern */
+.footer-content, .footer-bottom {
+    position: relative;
+    z-index: 1;
 }
 
 .footer-content {

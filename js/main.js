@@ -603,3 +603,59 @@ function initFooterPopups() {
 
     // Note: The closePopup and handleEscKey functions are defined earlier now.
 }
+
+/**
+ * Show Notification
+ * @param {string} message - The message to display
+ */
+function showNotification(message) {
+    // Check if notification container exists, if not create it
+    let notificationContainer = document.querySelector('.notification-container');
+    
+    if (!notificationContainer) {
+        notificationContainer = document.createElement('div');
+        notificationContainer.className = 'notification-container';
+        document.body.appendChild(notificationContainer);
+        
+        // Add styles
+        notificationContainer.style.position = 'fixed';
+        notificationContainer.style.top = '20px';
+        notificationContainer.style.right = '20px';
+        notificationContainer.style.zIndex = '9999';
+    }
+    
+    // Create notification
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    
+    // Add styles
+    notification.style.backgroundColor = 'var(--primary)';
+    notification.style.color = 'white';
+    notification.style.padding = '12px 20px';
+    notification.style.borderRadius = 'var(--border-radius)';
+    notification.style.marginBottom = '10px';
+    notification.style.boxShadow = 'var(--shadow)';
+    notification.style.opacity = '0';
+    notification.style.transform = 'translateX(50px)';
+    notification.style.transition = 'all 0.3s ease-in-out';
+    
+    // Add to container
+    notificationContainer.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+        notification.style.opacity = '1';
+        notification.style.transform = 'translateX(0)';
+    }, 10);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(50px)';
+        
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
+}

@@ -1,7 +1,7 @@
 // Image Modal with Navigation
 document.addEventListener('DOMContentLoaded', function() {
-    // Product gallery modal functionality
-    const productImages = document.querySelectorAll('.main-image img, .thumbnail img, .carousel-photo');
+    // Select images that should trigger the modal (product gallery only now)
+    const productImages = document.querySelectorAll('.main-image img, .thumbnail img');
     
     // Exit if no product images found
     if (!productImages || productImages.length === 0) {
@@ -9,42 +9,21 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     
-    // Check if modal already exists
-    let modal = document.querySelector('.image-modal');
-    
-    // Create modal if it doesn't exist
-    if (!modal) {
-        modal = document.createElement('div');
-        modal.className = 'image-modal';
-        modal.innerHTML = `
-            <span class="close-image-modal">&times;</span>
-            <img class="image-modal-content">
-            <div class="modal-nav modal-prev" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.4); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2001;">
-                <i class="fas fa-chevron-left"></i>
-            </div>
-            <div class="modal-nav modal-next" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.4); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2001;">
-                <i class="fas fa-chevron-right"></i>
-            </div>
-        `;
-        document.body.appendChild(modal);
-    }
-    
+    // Select the modal elements from the HTML
+    const modal = document.getElementById('image-modal');
     const modalImg = modal.querySelector('.image-modal-content');
     const closeBtn = modal.querySelector('.close-image-modal');
     const prevBtn = modal.querySelector('.modal-prev');
     const nextBtn = modal.querySelector('.modal-next');
     
-    // Apply proper styling to the modal image
-    modalImg.style.position = 'relative';
-    modalImg.style.top = '50%';
-    modalImg.style.transform = 'translateY(-50%)';
-    modalImg.style.margin = 'auto';
-    modalImg.style.display = 'block';
-    modalImg.style.maxHeight = '80vh';
-    modalImg.style.maxWidth = '80vw';
-    modalImg.style.objectFit = 'contain';
+    // Exit if modal elements aren't found
+    if (!modal || !modalImg || !closeBtn || !prevBtn || !nextBtn) {
+        console.error('Image modal elements not found in the HTML.');
+        return;
+    }
     
     let currentImageIndex = 0;
+    // Create an array of image sources from the selected product images
     const imageUrls = Array.from(productImages).map(img => img.src);
     
     // Function to open modal with specific image
