@@ -29,6 +29,7 @@
     --gray-700: #495057;
     --gray-800: #343a40;
     --gray-900: #212529;
+    --accent-coral: #FFB6A0; /* Added accent color */
     
     /* Typography */
     --font-family-sans-serif: 'Montserrat', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -866,7 +867,7 @@ img {
 }
 
 .feature i {
-    color: var(--primary);
+    color: var(--accent-coral); /* Use accent color */
     margin-right: var(--spacing-3);
     font-size: 1rem;
 }
@@ -1204,7 +1205,7 @@ img {
 }
 
 .faq-toggle {
-    color: var(--primary);
+    color: var(--accent-coral); /* Use accent color */
     transition: var(--transition-base);
 }
 
