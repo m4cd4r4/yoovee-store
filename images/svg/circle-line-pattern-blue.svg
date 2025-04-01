@@ -24,3 +24,9 @@
   <!-- Preview rectangle -->
   <rect width="100%" height="100%" fill="url(#circle-pattern-blue)" />
 </svg>
+
+
+Give the call to action & buy now buttons the same svg pattern that runs through the hero section.
+
+
+Remove the "M" medium optn. S & L only.
