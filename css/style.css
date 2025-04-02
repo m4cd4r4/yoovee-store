@@ -1285,7 +1285,9 @@ img {
 
 .footer-content {
     display: flex;
-    justify-content: space-between; /* Evenly space the items */
+    justify-content: center; /* Center the group of items */
+    gap: var(--spacing-5); /* Add space between items (e.g., 3rem) */
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
     margin-bottom: var(--spacing-5);
 }
 
