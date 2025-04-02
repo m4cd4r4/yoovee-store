@@ -1348,6 +1348,12 @@ img {
     color: var(--white);
 }
 
+.footer-social {
+    text-align: center; /* Center the content */
+    margin-top: var(--spacing-4); /* Add space above */
+    margin-bottom: var(--spacing-4); /* Add space below, before footer-bottom */
+}
+
 .footer-social h3 {
     color: var(--white);
     margin-bottom: var(--spacing-3);
@@ -1358,6 +1364,7 @@ img {
 
 .social-icons {
     display: flex;
+    justify-content: center; /* Center the icons within the flex container */
     gap: var(--spacing-2);
 }
 
