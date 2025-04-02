@@ -56,28 +56,46 @@ function initMobileMenu() {
  */
 function initFaqAccordion() {
     const faqItems = document.querySelectorAll('.faq-item');
-    
+
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
-        
+        const answer = item.querySelector('.faq-answer');
+        const icon = question.querySelector('.faq-toggle i');
+
+        if (!question || !answer || !icon) return; // Ensure elements exist
+
         question.addEventListener('click', function() {
-            // Close all other items
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+            // Close all other items first (optional, for accordion behavior)
             faqItems.forEach(otherItem => {
-                if (otherItem !== item && otherItem.classList.contains('active')) {
-                    otherItem.classList.remove('active');
-                    const icon = otherItem.querySelector('.faq-toggle i');
-                    icon.className = 'fas fa-plus';
+                if (otherItem !== item) {
+                    const otherQuestion = otherItem.querySelector('.faq-question');
+                    const otherAnswer = otherItem.querySelector('.faq-answer');
+                    const otherIcon = otherQuestion.querySelector('.faq-toggle i');
+
+                    if (otherQuestion.getAttribute('aria-expanded') === 'true') {
+                        otherQuestion.setAttribute('aria-expanded', 'false');
+                        otherAnswer.hidden = true;
+                        otherItem.classList.remove('active'); // Optional: remove active class if used for styling
+                        otherIcon.className = 'fas fa-plus';
+                    }
                 }
             });
-            
-            // Toggle current item
-            item.classList.toggle('active');
-            const icon = item.querySelector('.faq-toggle i');
-            
-            if (item.classList.contains('active')) {
-                icon.className = 'fas fa-minus';
-            } else {
+
+            // Toggle the current item
+            if (isExpanded) {
+                // Close the current item
+                this.setAttribute('aria-expanded', 'false');
+                answer.hidden = true;
+                item.classList.remove('active'); // Optional
                 icon.className = 'fas fa-plus';
+            } else {
+                // Open the current item
+                this.setAttribute('aria-expanded', 'true');
+                answer.hidden = false;
+                item.classList.add('active'); // Optional
+                icon.className = 'fas fa-minus';
             }
         });
     });
