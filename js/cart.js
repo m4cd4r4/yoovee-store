@@ -51,15 +51,15 @@ function initCartFunctionality() {
             console.warn('Overlay not found');
             return;
         }
-        
-        // Open cart sidebar
+        // Open cart sidebar - MODIFIED: Removed preventDefault to allow navigation
         cartIcon.addEventListener('click', function(e) {
-            e.preventDefault();
-            cartSidebar.classList.add('active');
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            // e.preventDefault(); // Allow link navigation to cart.html
+            // // Open sidebar functionality removed, navigation handles it now
+            // cartSidebar.classList.add('active');
+            // overlay.classList.add('active');
+            // document.body.style.overflow = 'hidden';
         });
-        
+
         // Close cart sidebar
         function closeCart() {
             cartSidebar.classList.remove('active');
@@ -79,7 +79,15 @@ function initCartFunctionality() {
     
         // Initialize cart
         const cart = new Cart();
-        
+
+        // Add event listener for the checkout button INSIDE the sidebar
+        const sidebarCheckoutBtn = cartSidebar.querySelector('.checkout-btn');
+        if (sidebarCheckoutBtn) {
+            sidebarCheckoutBtn.addEventListener('click', function() {
+                window.location.href = 'cart.html'; // Navigate to the cart page
+            });
+        }
+
         // Add to cart button
         const addToCartBtn = document.querySelector('.add-to-cart');
         if (addToCartBtn) {

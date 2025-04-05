@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
+    <!-- Stripe.js -->
+    <script src="https://js.stripe.com/v3/"></script>
     <style>
         /* Additional styles specific to the cart page */
         .cart-page {
@@ -229,7 +231,7 @@
             <div class="header-content">
                 <div class="logo">
                     <a href="index.html">
-                        <img src="images/logo-transparent.svg" alt="YooVee Logo" width="150" height="40">
+                        <img src="images/logo-header-transparent.svg" alt="YooVee Logo" width="150" height="40">
                     </a>
                 </div>
                 <nav class="nav-menu">
@@ -237,8 +239,6 @@
                         <li><a href="index.html">Home</a></li>
                         <li><a href="index.html#product">Product</a></li>
                         <li><a href="index.html#skincare">Skincare</a></li>
-                        <li><a href="index.html#features">Features</a></li>
-                        <li><a href="index.html#testimonials">Reviews</a></li>
                         <li><a href="index.html#faq">FAQ</a></li>
                     </ul>
                 </nav>
@@ -327,7 +327,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 YooVee®. All rights reserved. YooVee® is a registered trademark.</p>
+                <p>&copy; 2025 YooVee®. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -459,9 +459,20 @@
                         </div>
                         <div class="summary-row total">
                             <span>Total</span>
-                            <span>$${total.toFixed(2)}</span>
+                            <span id="cart-total-display">$${total.toFixed(2)}</span>
                         </div>
-                        <button class="btn btn-primary checkout-btn">Proceed to Checkout</button>
+                        <!-- Stripe Payment Form -->
+                        <form id="payment-form">
+                          <div id="payment-element">
+                            <!-- Stripe.js injects the Payment Element here -->
+                          </div>
+                          <button id="submit" class="btn btn-primary checkout-btn">
+                            <div class="spinner hidden" id="spinner"></div>
+                            <span id="button-text">Pay now</span>
+                          </button>
+                          <div id="payment-message" class="hidden"></div>
+                        </form>
+                        <!-- End Stripe Payment Form -->
                         <a href="index.html#product" class="continue-shopping-btn">Continue Shopping</a>
                     </div>
                 </div>
@@ -512,13 +523,18 @@
                 });
             }
             
-            // Checkout button
-            const checkoutBtn = document.querySelector('.checkout-btn');
-            if (checkoutBtn) {
-                checkoutBtn.addEventListener('click', () => {
-                    alert('Proceeding to checkout...');
-                    // Here you would redirect to checkout page
-                });
+            // Checkout button (Now handled by Stripe form submission)
+            // const checkoutBtn = document.querySelector('.checkout-btn');
+            // if (checkoutBtn) {
+            //     checkoutBtn.addEventListener('click', () => {
+            //         alert('Proceeding to checkout...');
+            //         // Here you would redirect to checkout page
+            //     });
+            // }
+
+            // Initialize Stripe Payment Element if cart is not empty
+            if (items.length > 0) {
+                initializeStripe(items); // Pass items to get total amount
             }
         }
 
@@ -588,6 +604,197 @@
                 }
             }
         }
+
+        /**
+         * Initialize Stripe Payment Element
+         */
+        async function initializeStripe(cartItems) {
+            // --- Get Stripe Publishable Key ---
+            // IMPORTANT: Replace with your actual publishable key
+            const stripePublishableKey = "pk_test_51RAB9XAkeAb332AeSVpsRCwrvTUZZiv2TRC2xlvcqmA4T5lDLiWES59xktKWibgCpleymCl3wEE2iSGOaboxLcUY002wEz20jV";
+            const stripe = Stripe(stripePublishableKey);
+
+            // --- Calculate Total Amount (in cents) ---
+            const totalAmount = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const totalAmountInCents = Math.round(totalAmount * 100); // Convert to cents
+
+            // --- Fetch Client Secret from Backend ---
+            let clientSecret;
+            try {
+                const response = await fetch('http://localhost:4242/create-payment-intent', { // Use your backend server URL
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount: totalAmountInCents }), // Send amount in cents
+                });
+                const { clientSecret: fetchedClientSecret, error: fetchError } = await response.json();
+                if (fetchError) {
+                    showMessage(fetchError);
+                    return;
+                }
+                if (!fetchedClientSecret) {
+                    showMessage('Failed to initialize payment. Please try again.');
+                    return;
+                }
+                clientSecret = fetchedClientSecret;
+            } catch (error) {
+                console.error('Error fetching client secret:', error);
+                showMessage('Could not connect to payment server. Please try again later.');
+                return;
+            }
+
+
+            // --- Initialize and Mount Payment Element ---
+            const appearance = { theme: 'stripe' }; // Customize appearance if needed
+            const elements = stripe.elements({ appearance, clientSecret });
+            const paymentElement = elements.create('payment');
+            paymentElement.mount('#payment-element');
+
+
+            // --- Handle Form Submission ---
+            const form = document.getElementById('payment-form');
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                setLoading(true); // Show spinner, disable button
+
+                const { error } = await stripe.confirmPayment({
+                    elements,
+                    confirmParams: {
+                        // Make sure to change this to your payment completion page
+                        return_url: window.location.origin + '/payment-success.html', // URL to redirect after payment
+                    },
+                });
+
+                // This point will only be reached if there is an immediate error when
+                // confirming the payment. Otherwise, your customer will be redirected to
+                // your `return_url`. For some payment methods like iDEAL, your customer will
+                // be redirected to an intermediate site first to authorize the payment, then
+                // redirected to the `return_url`.
+                if (error.type === "card_error" || error.type === "validation_error") {
+                    showMessage(error.message);
+                } else {
+                    showMessage("An unexpected error occurred.");
+                }
+
+                setLoading(false); // Hide spinner, enable button
+            });
+        }
+
+        // --- Helper Functions for Stripe UI ---
+
+        // Show a message to the user
+        function showMessage(messageText) {
+            const messageContainer = document.querySelector("#payment-message");
+            messageContainer.classList.remove("hidden");
+            messageContainer.textContent = messageText;
+
+            setTimeout(function () {
+                messageContainer.classList.add("hidden");
+                messageContainer.textContent = "";
+            }, 4000); // Hide after 4 seconds
+        }
+
+        // Show a spinner on payment submission
+        function setLoading(isLoading) {
+            const submitButton = document.querySelector("#submit");
+            const spinner = document.querySelector("#spinner");
+            const buttonText = document.querySelector("#button-text");
+
+            if (isLoading) {
+                // Disable the button and show a spinner
+                submitButton.disabled = true;
+                spinner.classList.remove("hidden");
+                buttonText.classList.add("hidden");
+            } else {
+                submitButton.disabled = false;
+                spinner.classList.add("hidden");
+                buttonText.classList.remove("hidden");
+            }
+        }
+
     </script>
+    <!-- Add some basic styles for the spinner and messages -->
+    <style>
+        #payment-form { margin-top: 20px; }
+        #payment-element { margin-bottom: 20px; }
+        #submit { width: 100%; }
+        #payment-message {
+            color: rgb(105, 115, 134);
+            font-size: 16px;
+            line-height: 20px;
+            padding-top: 12px;
+            text-align: center;
+        }
+        #payment-message.hidden { display: none; }
+        .spinner,
+        .spinner:before,
+        .spinner:after {
+          border-radius: 50%;
+        }
+        .spinner {
+          color: #ffffff;
+          font-size: 22px;
+          text-indent: -99999px;
+          margin: 0px auto;
+          position: relative;
+          width: 20px;
+          height: 20px;
+          box-shadow: inset 0 0 0 2px;
+          -webkit-transform: translateZ(0);
+          -ms-transform: translateZ(0);
+          transform: translateZ(0);
+        }
+        .spinner:before,
+        .spinner:after {
+          position: absolute;
+          content: "";
+        }
+        .spinner:before {
+          width: 10.4px;
+          height: 20.4px;
+          background: var(--primary); /* Use your button background color */
+          border-radius: 20.4px 0 0 20.4px;
+          top: -0.2px;
+          left: -0.2px;
+          -webkit-transform-origin: 10.4px 10.2px;
+          transform-origin: 10.4px 10.2px;
+          -webkit-animation: loading 2s infinite ease 1.5s;
+          animation: loading 2s infinite ease 1.5s;
+        }
+        .spinner:after {
+          width: 10.4px;
+          height: 10.2px;
+          background: var(--primary); /* Use your button background color */
+          border-radius: 0 10.2px 10.2px 0;
+          top: -0.1px;
+          left: 10.2px;
+          -webkit-transform-origin: 0px 10.2px;
+          transform-origin: 0px 10.2px;
+          -webkit-animation: loading 2s infinite ease;
+          animation: loading 2s infinite ease;
+        }
+
+        @-webkit-keyframes loading {
+          0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+          }
+          100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+          }
+        }
+        @keyframes loading {
+          0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+          }
+          100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+          }
+        }
+        .hidden { display: none; }
+        #button-text.hidden { display: none; }
+    </style>
 </body>
 </html>

@@ -118,14 +118,14 @@ function initCheckoutModal() {
     const continueShopping = document.querySelector('#step-confirmation .continue-shopping');
     
     if (!checkoutBtn || !checkoutModal || !closeModal || !overlay) return;
-    
-    // Open checkout modal
-    checkoutBtn.addEventListener('click', function() {
-        checkoutModal.classList.add('active');
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-    
+
+    // Open checkout modal - COMMENTED OUT TO PREVENT OLD MODAL
+    // checkoutBtn.addEventListener('click', function() {
+    //     checkoutModal.classList.add('active');
+    //     overlay.classList.add('active');
+    //     document.body.style.overflow = 'hidden';
+    // });
+
     // Close checkout modal
     function closeCheckout() {
         checkoutModal.classList.remove('active');
