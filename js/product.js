@@ -16,15 +16,18 @@ document.addEventListener('DOMContentLoaded', function() {
  * Product Gallery Functionality
  */
 function initProductGallery() {
-    // Removed duplicate comment and function definition line
+    const mainImageContainer = document.querySelector('.main-image'); // Target container for touch events
     const mainImage = document.getElementById('main-product-image');
     const thumbnails = document.querySelectorAll('.thumbnail');
     const prevBtn = document.querySelector('.product-gallery-prev');
     const nextBtn = document.querySelector('.product-gallery-next');
-    
-    if (!mainImage || thumbnails.length === 0 || !prevBtn || !nextBtn) return;
-    
+
+    if (!mainImageContainer || !mainImage || thumbnails.length === 0 || !prevBtn || !nextBtn) return;
+
     let currentImageIndex = 0;
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const swipeThreshold = 50; // Minimum pixels to count as a swipe
     
     // Function to update the gallery based on index
     function updateGallery(index) {
@@ -43,23 +46,58 @@ function initProductGallery() {
         // Update main image
         updateMainImage(imageFile);
     }
-    
+
     // Add click listeners to thumbnails
     thumbnails.forEach((thumbnail, index) => {
         thumbnail.addEventListener('click', function() {
             updateGallery(index);
         });
+        // Add keydown listener for accessibility
+        thumbnail.addEventListener('keydown', function(e) {
+             if (e.key === 'Enter' || e.key === ' ') {
+                 e.preventDefault();
+                 updateGallery(index);
+             }
+        });
     });
-    
+
     // Add click listeners to navigation arrows
     prevBtn.addEventListener('click', function() {
         updateGallery(currentImageIndex - 1);
     });
-    
+
     nextBtn.addEventListener('click', function() {
         updateGallery(currentImageIndex + 1);
     });
-    
+
+    // --- Touch Swipe Functionality ---
+    mainImageContainer.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true }); // Use passive for better scroll performance if not preventing default
+
+    mainImageContainer.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+        const swipeDistance = touchEndX - touchStartX;
+
+        if (Math.abs(swipeDistance) > swipeThreshold) {
+            if (swipeDistance < 0) {
+                // Swiped Left (Next Image)
+                updateGallery(currentImageIndex + 1);
+            } else {
+                // Swiped Right (Previous Image)
+                updateGallery(currentImageIndex - 1);
+            }
+        }
+        // Reset touch coordinates
+        touchStartX = 0;
+        touchEndX = 0;
+    }
+    // --- End Touch Swipe Functionality ---
+
     // Function to update main image (with fade effect)
     function updateMainImage(imageFile) {
         if (!imageFile) return;

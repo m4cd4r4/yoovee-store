@@ -36,48 +36,63 @@ function initCartFunctionality() {
             console.warn('Cart icon not found');
             return;
         }
-        
-        if (!cartSidebar) {
-            console.warn('Cart sidebar not found');
-            return;
-        }
-        
-        if (!closeSidebar) {
-            console.warn('Close sidebar button not found');
-            return;
-        }
-        
-        if (!overlay) {
-            console.warn('Overlay not found');
-            return;
-        }
-        // Open cart sidebar - MODIFIED: Removed preventDefault to allow navigation
-        cartIcon.addEventListener('click', function(e) {
-            // e.preventDefault(); // Allow link navigation to cart.html
-            // // Open sidebar functionality removed, navigation handles it now
-            // cartSidebar.classList.add('active');
-            // overlay.classList.add('active');
-            // document.body.style.overflow = 'hidden';
-        });
+        // --- Sidebar Specific Logic ---
+        if (cartSidebar) {
+            console.log('Cart sidebar found, initializing sidebar specific logic...');
+            // Get elements needed only if sidebar exists
+            const closeSidebar = document.querySelector('.close-sidebar');
+            const overlay = document.getElementById('overlay');
+            const continueShopping = document.querySelectorAll('.continue-shopping'); // Assuming these are only in sidebar
 
-        // Close cart sidebar
-        function closeCart() {
-            cartSidebar.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        
-        closeSidebar.addEventListener('click', closeCart);
-        overlay.addEventListener('click', closeCart);
-        
-        // Continue shopping buttons
-        if (continueShopping && continueShopping.length > 0) {
-            continueShopping.forEach(button => {
-                button.addEventListener('click', closeCart);
+            // Check for sidebar elements (and log warnings if missing)
+            if (!closeSidebar) {
+                console.warn('Close sidebar button not found');
+            }
+            if (!overlay) {
+                console.warn('Overlay not found');
+            }
+
+            // Open cart sidebar listener (already checked for cartIcon above)
+            cartIcon.addEventListener('click', function(e) {
+                // This listener might need adjustment if cartIcon is clicked on cart.html
+                // For now, keep original commented-out logic
+                // e.preventDefault();
+                // cartSidebar.classList.add('active');
+                // if (overlay) overlay.classList.add('active');
+                // document.body.style.overflow = 'hidden';
             });
+
+            // Close cart sidebar function
+            function closeCart() {
+                cartSidebar.classList.remove('active');
+                if (overlay) overlay.classList.remove('active'); // Check if overlay exists before using
+                document.body.style.overflow = '';
+            }
+
+            // Add close listeners only if elements exist
+            if (closeSidebar) closeSidebar.addEventListener('click', closeCart);
+            if (overlay) overlay.addEventListener('click', closeCart);
+
+            // Continue shopping buttons listener
+            if (continueShopping && continueShopping.length > 0) {
+                continueShopping.forEach(button => {
+                    button.addEventListener('click', closeCart);
+                });
+            }
+
+            // Add event listener for the checkout button INSIDE the sidebar
+            const sidebarCheckoutBtn = cartSidebar.querySelector('.checkout-btn');
+            if (sidebarCheckoutBtn) {
+                sidebarCheckoutBtn.addEventListener('click', function() {
+                    window.location.href = 'cart.html'; // Navigate to the cart page
+                });
+            }
+        } else {
+             console.log('Cart sidebar not found, skipping sidebar specific logic.');
         }
-    
-        // Initialize cart
+        // --- End Sidebar Specific Logic ---
+
+        // Initialize cart (runs regardless of sidebar)
         const cart = new Cart();
 
         // Add event listener for the checkout button INSIDE the sidebar

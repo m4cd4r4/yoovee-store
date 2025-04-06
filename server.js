@@ -12,6 +12,10 @@ app.use(cors());
 // Middleware to parse JSON bodies
 app.use(express.json());
 
+// Serve static files (HTML, CSS, JS, images) from the current directory
+// This allows access to files like index.html, cart.html, payment-success.html, etc.
+app.use(express.static('.')); 
+
 // Simple route for testing the server
 app.get('/', (req, res) => {
   res.send('Yoovee Store Backend is running!');

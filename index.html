@@ -133,7 +133,7 @@
                         </div>
                     </div>
                     <div class="product-details">
-                        <h3>YooVee<sup class="trademark">&reg;</sup> Premium Fingerless Gloves</h3>
+                        <!-- Removed H3 title from here -->
                         <div class="price" aria-label="Price: 24.99 Australian Dollars">AUD$29.99</div>
                         <div class="product-description">
                             <p>YooVee<sup class="trademark">&reg;</sup> Premium Fingerless Gloves are designed for those who need both protection and precision. Made from high-quality materials, these gloves provide comfort, durability, and the dexterity you need for detailed tasks.</p>
@@ -152,10 +152,7 @@
                                 <h4 id="size-label">Size</h4>
                                 <div class="size-options" role="radiogroup" aria-labelledby="size-label">
                                     <div class="size-option active" data-size="S" role="radio" aria-checked="true" aria-label="Small" tabindex="0">S</div>
-                                    <div class="size-option out-of-stock" data-size="M" role="radio" aria-checked="false" aria-label="Medium - Out of stock" aria-disabled="true" tabindex="-1">
-                                        M
-                                        <span class="stock-label">Out of stock</span>
-                                    </div>
+                                    <!-- Removed M size option -->
                                     <div class="size-option out-of-stock" data-size="L" role="radio" aria-checked="false" aria-label="Large - Out of stock" aria-disabled="true" tabindex="-1">
                                         L
                                         <span class="stock-label">Out of stock</span>
@@ -171,25 +168,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="product-features">
-                            <div class="feature">
-                                <i class="fas fa-check-circle" aria-hidden="true"></i>
-                                <span>Premium breathable materials</span>
+                        <!-- Wrapper for Quantity and Add to Cart -->
+                        <div class="product-actions"> 
+                            <div class="option-group"> <!-- Move quantity group inside -->
+                                <h4 id="quantity-label">Quantity</h4>
+                                <div class="quantity-selector">
+                                    <button class="quantity-btn minus" aria-label="Decrease quantity">-</button>
+                                    <input type="number" value="1" min="1" max="10" class="quantity-input" aria-labelledby="quantity-label">
+                                    <button class="quantity-btn plus" aria-label="Increase quantity">+</button>
+                                </div>
                             </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle" aria-hidden="true"></i>
-                                <span>Ergonomic design for all-day comfort</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle" aria-hidden="true"></i>
-                                <span>Reinforced palm for durability</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle" aria-hidden="true"></i>
-                                <span>Machine washable</span>
-                            </div>
+                            <button class="btn btn-primary add-to-cart" aria-label="Add to Cart">Add to Cart</button> <!-- Move button inside -->
                         </div>
-                        <button class="btn btn-primary add-to-cart" aria-label="Add to Cart">Add to Cart</button>
+                        <!-- End Wrapper -->
+                        <!-- Removed product features section -->
+                        <!-- Removed button from here as it's moved into .product-actions -->
                     </div>
                 </div>
             </div>
@@ -203,18 +196,48 @@
                     <p>The importance of hand care and protection in your daily life</p>
                 </div>
                 <div class="skincare-content">
-                    <div class="skincare-text">
-                        <h3>Your Hands, Your Shield – Protect Them with YooVee<sup class="trademark">&reg;</sup></h3>
-                        <p>Your hands work hard every day—typing, lifting, creating, and caring. Just like your skin, they deserve protection from the elements. Sun exposure, environmental stress, and daily wear and tear can lead to premature aging, dryness, and discomfort. According to the <a href="https://www.cancer.org.au/" target="_blank" rel="noopener">Cancer Council Australia</a>, hands are often overlooked in sun protection routines despite being exposed to UV radiation year-round. That's why YooVee<sup class="trademark">&reg;</sup> Premium Fingerless Gloves are designed to shield your hands while keeping you comfortable and stylish.</p>
+                    <div class="skincare-text skincare-accordion"> <!-- Added skincare-accordion class -->
                         
-                        <h3>Why Hand Protection Matters</h3>
-                        <p>Did you know that the skin on your hands is one of the first places to show signs of aging? The <a href="https://www.skincancer.org/" target="_blank" rel="noopener">Skin Cancer Foundation</a> reports that UV exposure, pollution, and even daily chores can take a toll on skin health. Dermatologists recommend protective gear for extended outdoor activities. YooVee<sup class="trademark">&reg;</sup> gloves offer a sleek and practical way to protect your skin while allowing full dexterity for work, play, and everything in between.</p>
+                        <div class="skincare-item"> <!-- Accordion Item 1 -->
+                            <button class="skincare-question" aria-expanded="false" aria-controls="skincare-1-answer">
+                                <h3>Your Hands, Your Shield – Protect Them with YooVee<sup class="trademark">&reg;</sup></h3>
+                                <span class="skincare-toggle" aria-hidden="true"><i class="fas fa-plus"></i></span>
+                            </button>
+                            <div class="skincare-answer" id="skincare-1-answer" hidden>
+                                <p>Your hands work hard every day—typing, lifting, creating, and caring. Just like your skin, they deserve protection from the elements. Sun exposure, environmental stress, and daily wear and tear can lead to premature aging, dryness, and discomfort. According to the <a href="https://www.cancer.org.au/" target="_blank" rel="noopener">Cancer Council Australia</a>, hands are often overlooked in sun protection routines despite being exposed to UV radiation year-round. That's why YooVee<sup class="trademark">&reg;</sup> Premium Fingerless Gloves are designed to shield your hands while keeping you comfortable and stylish.</p>
+                            </div>
+                        </div>
+
+                        <div class="skincare-item"> <!-- Accordion Item 2 -->
+                             <button class="skincare-question" aria-expanded="false" aria-controls="skincare-2-answer">
+                                <h3>Why Hand Protection Matters</h3>
+                                <span class="skincare-toggle" aria-hidden="true"><i class="fas fa-plus"></i></span>
+                            </button>
+                            <div class="skincare-answer" id="skincare-2-answer" hidden>
+                                <p>Did you know that the skin on your hands is one of the first places to show signs of aging? The <a href="https://www.skincancer.org/" target="_blank" rel="noopener">Skin Cancer Foundation</a> reports that UV exposure, pollution, and even daily chores can take a toll on skin health. Dermatologists recommend protective gear for extended outdoor activities. YooVee<sup class="trademark">&reg;</sup> gloves offer a sleek and practical way to protect your skin while allowing full dexterity for work, play, and everything in between.</p>
+                            </div>
+                        </div>
                         
-                        <h3>Skincare is Self-Care</h3>
-                        <p>We often focus on skincare for our face, but our hands need just as much attention. The <a href="https://www.ahta.com.au/" target="_blank" rel="noopener">Australian Hand Therapy Association</a> emphasizes that regular hand care is essential for maintaining mobility and preventing conditions that affect hand function. Moisturizing regularly, applying SPF, and wearing protective gloves can help maintain soft, youthful skin while supporting overall hand health. YooVee<sup class="trademark">&reg;</sup> gloves provide an added layer of defense without compromising on comfort or style.</p>
+                        <div class="skincare-item"> <!-- Accordion Item 3 -->
+                             <button class="skincare-question" aria-expanded="false" aria-controls="skincare-3-answer">
+                                <h3>Skincare is Self-Care</h3>
+                                <span class="skincare-toggle" aria-hidden="true"><i class="fas fa-plus"></i></span>
+                            </button>
+                            <div class="skincare-answer" id="skincare-3-answer" hidden>
+                                <p>We often focus on skincare for our face, but our hands need just as much attention. The <a href="https://www.ahta.com.au/" target="_blank" rel="noopener">Australian Hand Therapy Association</a> emphasizes that regular hand care is essential for maintaining mobility and preventing conditions that affect hand function. Moisturizing regularly, applying SPF, and wearing protective gloves can help maintain soft, youthful skin while supporting overall hand health. YooVee<sup class="trademark">&reg;</sup> gloves provide an added layer of defense without compromising on comfort or style.</p>
+                            </div>
+                        </div>
                         
-                        <h3>The Power of Everyday Protection</h3>
-                        <p>Small habits lead to lasting results. Whether you're working, driving, or enjoying the outdoors, your hands are constantly exposed to UV rays and environmental stressors. According to research highlighted by the <a href="https://australian.physio/" target="_blank" rel="noopener">Australian Physiotherapy Association</a>, proper hand support during repetitive tasks can significantly reduce strain and fatigue. YooVee<sup class="trademark">&reg;</sup> gloves seamlessly integrate into your routine, offering an effortless way to keep your skin looking and feeling its best while supporting proper hand ergonomics.</p>
+                        <div class="skincare-item"> <!-- Accordion Item 4 -->
+                             <button class="skincare-question" aria-expanded="false" aria-controls="skincare-4-answer">
+                                <h3>The Power of Everyday Protection</h3>
+                                <span class="skincare-toggle" aria-hidden="true"><i class="fas fa-plus"></i></span>
+                            </button>
+                            <div class="skincare-answer" id="skincare-4-answer" hidden>
+                                <p>Small habits lead to lasting results. Whether you're working, driving, or enjoying the outdoors, your hands are constantly exposed to UV rays and environmental stressors. According to research highlighted by the <a href="https://australian.physio/" target="_blank" rel="noopener">Australian Physiotherapy Association</a>, proper hand support during repetitive tasks can significantly reduce strain and fatigue. YooVee<sup class="trademark">&reg;</sup> gloves seamlessly integrate into your routine, offering an effortless way to keep your skin looking and feeling its best while supporting proper hand ergonomics.</p>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="skincare-image">
                         <img src="images/Product/glove-2.jpg" alt="YooVee Premium Fingerless Gloves - Hand Protection" class="rounded-image" width="400" height="400">

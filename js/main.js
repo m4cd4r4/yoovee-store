@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize components
     initMobileMenu();
     initFaqAccordion();
+    // Conditionally initialize Skincare Accordion based on screen width
+    if (window.matchMedia("(max-width: 768px)").matches) {
+        initSkincareAccordion();
+    }
     // initCartSidebar(); // Functionality moved to cart.js
     initCheckoutModal();
     initSmoothScroll();
@@ -20,34 +24,48 @@ document.addEventListener('DOMContentLoaded', function() {
 function initMobileMenu() {
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
-    
-    if (!mobileMenuToggle || !navMenu) return;
-    
+    const overlay = document.getElementById('overlay'); // Get the overlay
+
+    if (!mobileMenuToggle || !navMenu || !overlay) return;
+
+    function openMenu() {
+        mobileMenuToggle.classList.add('active');
+        mobileMenuToggle.setAttribute('aria-expanded', 'true');
+        navMenu.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
+    }
+
+    function closeMenu() {
+        mobileMenuToggle.classList.remove('active');
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        navMenu.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = ''; // Restore background scroll
+    }
+
     mobileMenuToggle.addEventListener('click', function() {
-        this.classList.toggle('active');
-        navMenu.classList.toggle('active');
-        
-        // Toggle menu icon
-        const spans = this.querySelectorAll('span');
-        if (this.classList.contains('active')) {
-            spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-            spans[1].style.opacity = '0';
-            spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+        if (navMenu.classList.contains('active')) {
+            closeMenu();
         } else {
-            spans[0].style.transform = 'none';
-            spans[1].style.opacity = '1';
-            spans[2].style.transform = 'none';
+            openMenu();
         }
     });
-    
+
+    // Close mobile menu when clicking on the overlay
+    overlay.addEventListener('click', closeMenu);
+
     // Close mobile menu when clicking on a link
     const navLinks = navMenu.querySelectorAll('a');
     navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (mobileMenuToggle.classList.contains('active')) {
-                mobileMenuToggle.click();
-            }
-        });
+        link.addEventListener('click', closeMenu); // Close menu on link click
+    });
+
+    // Close menu on Escape key press
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+            closeMenu();
+        }
     });
 }
 
@@ -100,6 +118,58 @@ function initFaqAccordion() {
         });
     });
 }
+
+
+/**
+ * Skincare Accordion Functionality (New)
+ */
+function initSkincareAccordion() {
+    const skincareItems = document.querySelectorAll('.skincare-item');
+
+    skincareItems.forEach(item => {
+        const question = item.querySelector('.skincare-question');
+        const answer = item.querySelector('.skincare-answer');
+        const icon = question.querySelector('.skincare-toggle i');
+
+        if (!question || !answer || !icon) return; // Ensure elements exist
+
+        question.addEventListener('click', function() {
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+            // Toggle the current item
+            if (isExpanded) {
+                // Close the current item
+                this.setAttribute('aria-expanded', 'false');
+                answer.hidden = true;
+                item.classList.remove('active'); // Optional: remove active class if used for styling
+                icon.className = 'fas fa-plus';
+            } else {
+                // Open the current item
+                this.setAttribute('aria-expanded', 'true');
+                answer.hidden = false;
+                item.classList.add('active'); // Optional: add active class if used for styling
+                icon.className = 'fas fa-minus';
+
+                // Optional: Close other items if you want only one open at a time
+                skincareItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        const otherQuestion = otherItem.querySelector('.skincare-question');
+                        const otherAnswer = otherItem.querySelector('.skincare-answer');
+                        const otherIcon = otherQuestion.querySelector('.skincare-toggle i');
+
+                        if (otherQuestion.getAttribute('aria-expanded') === 'true') {
+                            otherQuestion.setAttribute('aria-expanded', 'false');
+                            otherAnswer.hidden = true;
+                            otherItem.classList.remove('active');
+                            otherIcon.className = 'fas fa-plus';
+                        }
+                    }
+                });
+            }
+        });
+    });
+}
+
 
 /**
  * Cart Sidebar Functionality
@@ -361,18 +431,6 @@ function initFooterPopups() {
                 
                 <h3>Customer Support</h3>
                 <p>Email: support@yoovee.com.au<br>
-                Phone: +61 2 8888 7777<br>
-                Hours: Monday-Friday, 9am-5pm AEST</p>
-                
-                <h3>Wholesale Inquiries</h3>
-                <p>Email: wholesale@yoovee.com.au<br>
-                Phone: +61 2 8888 7788</p>
-                
-                <h3>Visit Us</h3>
-                <p>YooVee® Headquarters<br>
-                123 Innovation Way<br>
-                Sydney, NSW 2000<br>
-                Australia</p>
                 
                 <p>We aim to respond to all inquiries within 24 hours during business days.</p>
             `
@@ -381,13 +439,13 @@ function initFooterPopups() {
             title: "Shipping Information",
             content: `
                 <h3>Free Express Shipping Australia-wide</h3>
-                <p>All orders within Australia qualify for free express shipping. Orders placed before 2pm AEST on business days are typically dispatched the same day.</p>
+                <p>All orders within Australia qualify for free express shipping.</p>
                 
                 <h3>Estimated Delivery Times</h3>
                 <ul>
-                    <li><strong>Sydney Metro:</strong> 1-2 business days</li>
+                    <li><strong>Perth Metro:</strong> 1-2 business days</li>
                     <li><strong>Other Australian Metro Areas:</strong> 2-3 business days</li>
-                    <li><strong>Regional Australia:</strong> 3-5 business days</li>
+                    <li><strong>Regional Australia:</strong> 2-3 business days</li>
                     <li><strong>International:</strong> 7-14 business days (varies by location)</li>
                 </ul>
                 
@@ -409,7 +467,7 @@ function initFooterPopups() {
                 
                 <h3>Return Process</h3>
                 <ol>
-                    <li>Contact our customer support team at returns@yoovee.com.au to request a return authorization.</li>
+                    <li>Contact our customer support team at support@yoovee.com.au to request a return authorization.</li>
                     <li>Package the unused, unwashed item in its original packaging with all tags attached.</li>
                     <li>Include your order number and return authorization in the package.</li>
                     <li>Ship the package to the address provided by our customer support team.</li>
@@ -458,10 +516,7 @@ function initFooterPopups() {
                 </table>
                 
                 <h3>Between Sizes?</h3>
-                <p>If you're between sizes, we recommend sizing up for a more comfortable fit. Our gloves have some stretch, but they should not feel tight or restrictive.</p>
-                
-                <h3>Still Unsure?</h3>
-                <p>Contact our customer support team at support@yoovee.com.au with your measurements, and we'll help you find the perfect size.</p>
+                <p>If you're between sizes, we recommend sizing down for a more comfortable fit. Our gloves have some stretch, but they should not feel tight or restrictive.</p>
             `
         },
         
