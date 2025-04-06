@@ -416,6 +416,9 @@ img {
     max-width: 700px;
     position: relative;
     z-index: 1;
+    text-align: center; /* Center text elements (h1, p, a) */
+    margin-left: auto; /* Center the container itself */
+    margin-right: auto; /* Center the container itself */
 }
 
 .hero h1 {
@@ -879,7 +882,8 @@ img {
         width: auto; /* Allow button to size based on content */
         flex-grow: 0; /* Prevent growing */
         flex-shrink: 0; /* Prevent shrinking */
-        /* Removed fixed percentage width */
+        /* Adjust padding for desktop inline view */
+        padding: 0.75rem 3rem; /* Adjusted again: Taller (0.75rem) and less wide (3rem) */
     }
 }
 
