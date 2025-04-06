@@ -30,6 +30,7 @@ app.post('/create-payment-intent', async (req, res) => {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount, // Use the amount from the request body
       currency: 'aud', // Change currency if needed
+      // Automatic tax temporarily removed - requires Stripe Tax configuration in Dashboard
       // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
       automatic_payment_methods: {
         enabled: true,

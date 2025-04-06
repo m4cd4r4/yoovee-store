@@ -481,14 +481,15 @@
             // Update cart content
             cartPageContent.innerHTML = cartHTML;
             
-            // Add event listeners
-            addCartPageEventListeners();
+            // Add event listeners, passing the items array
+            addCartPageEventListeners(items); 
         }
 
         /**
          * Add Cart Page Event Listeners
+         * @param {Array} items - The array of cart items
          */
-        function addCartPageEventListeners() {
+        function addCartPageEventListeners(items) { // Accept items as a parameter
             // Quantity buttons
             const minusButtons = document.querySelectorAll('.cart-page-item .minus');
             const plusButtons = document.querySelectorAll('.cart-page-item .plus');
