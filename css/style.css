@@ -883,7 +883,7 @@ img {
         flex-grow: 0; /* Prevent growing */
         flex-shrink: 0; /* Prevent shrinking */
         /* Adjust padding for desktop inline view */
-        padding: 0.75rem 3rem; /* Adjusted again: Taller (0.75rem) and less wide (3rem) */
+        padding: 0.35rem 6.5rem; /* Adjusted again: Shorter (0.35rem) and Wider (6.5rem) */
     }
 }
 
