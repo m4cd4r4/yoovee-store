@@ -868,7 +868,7 @@ img {
 @media (min-width: 768px) {
     .product-actions {
         display: flex;
-        align-items: center; /* Vertically align items */
+        align-items: flex-end; /* Align items to the bottom */
         gap: var(--spacing-3); /* Space between quantity and button */
     }
 
