@@ -254,8 +254,8 @@ img {
 
 .header-content {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-between; /* Revert horizontal centering */
+    align-items: center; /* This handles vertical centering */
     padding: 0.5rem 0; /* Reduced vertical padding for symmetry */
     min-height: 50px;
 }
@@ -303,7 +303,7 @@ img {
 
 /* Navigation Menu - Desktop View */
 .nav-menu {
-    flex: 1;
+    flex: 1; /* Restore flex-grow to push logo/cart apart */
     display: flex;
     justify-content: center;
 }
