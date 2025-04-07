@@ -113,6 +113,8 @@ img {
 }
 
 .shipping-banner {
+    position: relative; /* Needed for pseudo-element */
+    overflow: hidden; /* Contain pseudo-element */
     background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
     color: var(--white);
     text-align: center;
@@ -125,6 +127,22 @@ img {
 
 .shipping-banner p {
     margin: 0;
+    position: relative; /* Ensure text is above pseudo-element */
+    z-index: 1;
+}
+
+/* Add pattern to shipping banner */
+.shipping-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/svg/circle-line-pattern.svg');
+    background-repeat: repeat;
+    opacity: 0.2; /* Adjusted opacity */
+    z-index: 0; /* Behind text */
 }
 
 .section-header {
@@ -238,7 +256,7 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.75rem 0;
+    padding: 0.5rem 0; /* Reduced vertical padding for symmetry */
     min-height: 50px;
 }
 
@@ -406,7 +424,7 @@ img {
 /* 7. Adjust hero section to account for smaller header */
 .hero {
     position: relative;
-    padding: 14rem 0 6rem; /* Reduced top padding (was 12rem) */
+    padding: 10.5rem 0 4.5rem; /* Reduced height by 25% */
     background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
     color: var(--white);
     overflow: hidden;
@@ -422,7 +440,7 @@ img {
 }
 
 .hero h1 {
-    font-size: 2.8rem;
+    font-size: 2.1rem; /* Reduced size by 25% */
     font-weight: 400;
     letter-spacing: 0.02em;
     margin-bottom: var(--spacing-4);
@@ -430,7 +448,7 @@ img {
 }
 
 .hero p {
-    font-size: 1.1rem;
+    font-size: 0.85rem; /* Reduced size by 25% */
     letter-spacing: 0.02em;
     margin-bottom: var(--spacing-5);
     opacity: 0.95;
@@ -448,6 +466,13 @@ img {
     opacity: 0.15; /* Kept the opacity */
     /* Ensure correct pattern is used */
     background-image: url('../images/svg/circle-line-pattern.svg'); 
+}
+
+/* Match Add to Cart button height */
+.hero .btn,
+.cta .btn {
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
 }
 
 /* Removed animation as it might not suit the new pattern */
@@ -640,10 +665,10 @@ img {
 
 .stock-label {
     position: absolute;
-    font-size: 0.65rem;
+    font-size: 0.45rem; /* Reduced size by ~33% */
     background-color: var(--danger);
     color: white;
-    padding: 2px 4px;
+    padding: 1px 3px; /* Reduced padding */
     border-radius: var(--border-radius-sm);
     white-space: nowrap;
     top: -15px;
@@ -1251,13 +1276,31 @@ img {
 
 /* ===== Call-to-Action Section ===== */
 .cta {
+    position: relative; /* Needed for pseudo-element positioning */
     padding: var(--spacing-6) 0;
     background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
     color: var(--white);
     text-align: center;
+    overflow: hidden; /* Prevent pattern overflow */
+}
+
+/* Add hero pattern to CTA */
+.cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/svg/circle-line-pattern.svg');
+    background-repeat: repeat;
+    opacity: 0.15; /* Same opacity as hero */
+    z-index: 0; /* Place behind content */
 }
 
 .cta-content {
+    position: relative; /* Ensure content is above the pattern */
+    z-index: 1;
     max-width: 700px;
     margin: 0 auto;
 }
@@ -1479,7 +1522,7 @@ img {
 /* ===== Responsive Styles ===== */
 @media (max-width: 1200px) {
     .hero h1 {
-        font-size: 2.5rem;
+        font-size: 1.9rem; /* Reduced size by 25% */
     }
 }
 
@@ -1508,11 +1551,11 @@ img {
     }
 
     .hero h1 {
-        font-size: 2rem;
+        font-size: 1.5rem; /* Reduced size by 25% */
     }
     
     .hero p {
-        font-size: 1rem;
+        font-size: 0.75rem; /* Reduced size by 25% */
     }
     
     /* --- MOBILE NAV STYLES --- */
@@ -1726,10 +1769,10 @@ img {
          padding: 0 var(--spacing-2); /* Add padding */
     }
 
-    .stock-label {
+.stock-label {
         /* Reposition slightly for better visibility */
-        font-size: 0.6rem;
-        padding: 2px 5px;
+        font-size: 0.4rem; /* Reduced size by 33% */
+        padding: 1px 3px; /* Reduced padding */
         bottom: -18px; /* Position below the option */
         top: auto;
         left: 50%;
@@ -1868,7 +1911,7 @@ img {
         font-size: 14px; /* Slightly smaller base font */
     }
     .hero h1 {
-        font-size: 1.6rem;
+        font-size: 1.2rem; /* Reduced size by 25% */
     }
     .section-header h2 {
         font-size: 1.6rem;
