@@ -22,7 +22,7 @@ This project is a sophisticated, modern e-commerce website for YooVee® fingerle
 
 ```
 yoovee-store/
-├── .env                # Environment variables (contains STRIPE_SECRET_KEY - DO NOT COMMIT)
+├── .env                # Environment variables (DO NOT COMMIT)
 ├── .gitignore          # Specifies intentionally untracked files that Git should ignore
 ├── css/
 │   ├── cart.css        # Styles specific to the cart page
@@ -135,7 +135,5 @@ The website is compatible with all modern browsers, including:
 - Firefox
 - Safari
 - Edge
-
-## License
 
 All rights reserved. YooVee® is a registered trademark.
