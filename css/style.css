@@ -240,7 +240,7 @@ img {
     position: relative; /* Make header relative initially */
     background-color: var(--white);
     box-shadow: var(--shadow-sm); /* Default shadow */
-    padding: 1rem 0; /* Default padding */
+    padding: 0.7rem 0; /* Default padding - Reduced by 33% */
     transition: padding 0.4s ease, box-shadow 0.4s ease; /* Explicit transitions */
 }
 
@@ -250,7 +250,7 @@ img {
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: 0.5rem 0; /* Scrolled padding */
+    padding: 0.35rem 0; /* Scrolled padding - Reduced by 33% */
     box-shadow: var(--shadow); /* Scrolled shadow */
 }
 
@@ -452,7 +452,7 @@ body:has(.header.scrolled) main#main-content {
 /* 7. Adjust hero section to account for smaller header */
 .hero {
     position: relative;
-    padding: 10rem 0 4.5rem; /* Slightly reduced top padding */
+    padding: 6.7rem 0 3rem; /* Reduced top/bottom padding by 33% */
     background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
     color: var(--white);
     overflow: hidden;
