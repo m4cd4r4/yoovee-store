@@ -637,7 +637,17 @@ body:has(.header.scrolled) main#main-content {
     font-size: 1.5rem;
     font-weight: 400;
     color: var(--primary);
-    margin-bottom: var(--spacing-4);
+    margin-bottom: var(--spacing-1); /* Reduced bottom margin */
+}
+
+/* Add this near .price or .product-details styles */
+.free-shipping-notice {
+    font-size: 0.85rem;
+    color: var(--accent-coral); /* Changed color */
+    margin-top: -1rem; /* Negative margin to bring it closer */
+    margin-bottom: var(--spacing-4); /* Restore spacing below */
+    font-weight: 400;
+    letter-spacing: 0.02em;
 }
 
 .product-description {
