@@ -444,12 +444,15 @@ img {
     transform: translateY(-8px) rotate(-45deg); /* Move up and rotate */
 }
 
-/* Removed main#main-content padding */
+/* Add padding to main content only when header is fixed */
+body:has(.header.scrolled) main#main-content {
+    padding-top: 4.5rem; 
+}
 
-/* 7. Adjust hero section padding - body padding handles top offset */
+/* 7. Adjust hero section to account for smaller header */
 .hero {
     position: relative;
-    padding: 0 0 4.5rem; /* Remove top padding, keep bottom */
+    padding: 10rem 0 4.5rem; /* Slightly reduced top padding */
     background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
     color: var(--white);
     overflow: hidden;
@@ -2076,84 +2079,3 @@ img {
     cursor: pointer;
     color: #777;
 }
-
-</final_file_content>
-
-IMPORTANT: For any future changes to this file, use the final_file_content shown above as your reference. This content reflects the current state of the file, including any auto-formatting (e.g., if you used single quotes but the formatter converted them to double quotes). Always base your SEARCH/REPLACE operations on this final version to ensure accuracy.
-
-<environment_details>
-# VSCode Visible Files
-yoovee-store/css/style.css
-
-# VSCode Open Tabs
-chlann/.gitignore
-yoovee-store/index.html
-yoovee-store/.gitignore
-yoovee-store/css/cart.css
-yoovee-store/css/style.css
-
-# Current Time
-4/12/2025, 11:15:59 PM (Australia/Perth, UTC+8:00)
-# Context Window Usage
-985,120 / 1,048.576K tokens used (94%)
-
-# Current Mode
-ACT MODE
-</environment_details>
-<environment_details>
-# VSCode Visible Files
-yoovee-store/css/style.css
-
-# VSCode Open Tabs
-chlann/.gitignore
-yoovee-store/index.html
-yoovee-store/.gitignore
-yoovee-store/css/cart.css
-yoovee-store/css/style.css
-
-# Current Time
-4/12/2025, 11:35:18 PM (Australia/Perth, UTC+8:00)
-# Context Window Usage
-568,253 / 1,048.576K tokens used (54%)
-
-# Current Mode
-ACT MODE
-</environment_details>
-<environment_details>
-# VSCode Visible Files
-yoovee-store/css/style.css
-
-# VSCode Open Tabs
-chlann/.gitignore
-yoovee-store/index.html
-yoovee-store/.gitignore
-yoovee-store/css/cart.css
-yoovee-store/css/style.css
-
-# Current Time
-4/12/2025, 11:49:36 PM (Australia/Perth, UTC+8:00)
-# Context Window Usage
-802,843 / 1,048.576K tokens used (77%)
-
-# Current Mode
-ACT MODE
-</environment_details>
-<environment_details>
-# VSCode Visible Files
-yoovee-store/css/style.css
-
-# VSCode Open Tabs
-chlann/.gitignore
-yoovee-store/index.html
-yoovee-store/.gitignore
-yoovee-store/css/cart.css
-yoovee-store/css/style.css
-
-# Current Time
-4/12/2025, 11:57:48 PM (Australia/Perth, UTC+8:00)
-# Context Window Usage
-1,042,378 / 1,048.576K tokens used (99%)
-
-# Current Mode
-ACT MODE
-</environment_details>
