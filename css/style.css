@@ -77,6 +77,7 @@ body {
     color: var(--gray-800);
     background-color: var(--white);
     overflow-x: hidden;
+    /* Removed body padding */
 }
 
 /* Style for trademark symbol */
@@ -113,7 +114,7 @@ img {
 }
 
 .shipping-banner {
-    position: relative; /* Needed for pseudo-element */
+    position: relative; /* Revert to relative */
     overflow: hidden; /* Contain pseudo-element */
     background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
     color: var(--white);
@@ -236,18 +237,19 @@ img {
 }
 
 .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    position: relative; /* Make header relative initially */
     background-color: var(--white);
     box-shadow: var(--shadow-sm); /* Default shadow */
-    z-index: 1000;
     padding: 1rem 0; /* Default padding */
     transition: padding 0.4s ease, box-shadow 0.4s ease; /* Explicit transitions */
 }
 
 .header.scrolled {
+    position: fixed; /* Fix header only on scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
     padding: 0.5rem 0; /* Scrolled padding */
     box-shadow: var(--shadow); /* Scrolled shadow */
 }
@@ -282,6 +284,7 @@ img {
 .logo {
     display: flex;
     align-items: center;
+    order: 1; /* Ensure logo is first */
 }
 
 /* Responsive logo size adjustments */
@@ -306,6 +309,7 @@ img {
     flex: 1; /* Restore flex-grow to push logo/cart apart */
     display: flex;
     justify-content: center;
+    order: 2; /* Ensure nav is second */
 }
 
 .nav-menu ul {
@@ -377,11 +381,13 @@ img {
 
 .cart-icon {
     margin-left: 1.5rem;
+    order: 3; /* Ensure cart is third */
 }
 
 .cart-icon a {
-    color: var(--gray-700);
+    color: var(--primary); /* Changed to primary blue */
     font-size: 1.25rem;
+    position: relative; /* Ensure cart count is positioned relative to this */
 }
 
 .cart-icon a:hover {
@@ -410,21 +416,40 @@ img {
     width: 30px;
     height: 21px;
     cursor: pointer;
+    background-color: transparent; /* Added transparent background */
+    border: none; /* Ensure no border */
+    outline: none; /* Ensure no outline */
+    order: 4; /* Ensure toggle is last */
 }
 
 .mobile-menu-toggle span {
     display: block;
     height: 2px;
     width: 100%;
-    background-color: var(--gray-700);
+    background-color: var(--primary); /* Changed to primary blue */
     border-radius: 1px;
     transition: var(--transition-base);
 }
 
-/* 7. Adjust hero section to account for smaller header */
+/* Animation for active (cross) state */
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg); /* Move down and rotate */
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0; /* Fade out middle bar */
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg); /* Move up and rotate */
+}
+
+/* Removed main#main-content padding */
+
+/* 7. Adjust hero section padding - body padding handles top offset */
 .hero {
     position: relative;
-    padding: 10.5rem 0 4.5rem; /* Reduced height by 25% */
+    padding: 0 0 4.5rem; /* Remove top padding, keep bottom */
     background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
     color: var(--white);
     overflow: hidden;
@@ -1689,7 +1714,8 @@ img {
     }
 
     .cart-icon {
-        margin-left: var(--spacing-3); /* Space between cart and menu toggle */
+        margin-left: var(--spacing-3); /* Original space */
+        margin-right: var(--spacing-2); /* Added space between cart and menu toggle */
     }
 
     /* --- Layout Stacking --- */
@@ -2050,3 +2076,84 @@ img {
     cursor: pointer;
     color: #777;
 }
+
+</final_file_content>
+
+IMPORTANT: For any future changes to this file, use the final_file_content shown above as your reference. This content reflects the current state of the file, including any auto-formatting (e.g., if you used single quotes but the formatter converted them to double quotes). Always base your SEARCH/REPLACE operations on this final version to ensure accuracy.
+
+<environment_details>
+# VSCode Visible Files
+yoovee-store/css/style.css
+
+# VSCode Open Tabs
+chlann/.gitignore
+yoovee-store/index.html
+yoovee-store/.gitignore
+yoovee-store/css/cart.css
+yoovee-store/css/style.css
+
+# Current Time
+4/12/2025, 11:15:59 PM (Australia/Perth, UTC+8:00)
+# Context Window Usage
+985,120 / 1,048.576K tokens used (94%)
+
+# Current Mode
+ACT MODE
+</environment_details>
+<environment_details>
+# VSCode Visible Files
+yoovee-store/css/style.css
+
+# VSCode Open Tabs
+chlann/.gitignore
+yoovee-store/index.html
+yoovee-store/.gitignore
+yoovee-store/css/cart.css
+yoovee-store/css/style.css
+
+# Current Time
+4/12/2025, 11:35:18 PM (Australia/Perth, UTC+8:00)
+# Context Window Usage
+568,253 / 1,048.576K tokens used (54%)
+
+# Current Mode
+ACT MODE
+</environment_details>
+<environment_details>
+# VSCode Visible Files
+yoovee-store/css/style.css
+
+# VSCode Open Tabs
+chlann/.gitignore
+yoovee-store/index.html
+yoovee-store/.gitignore
+yoovee-store/css/cart.css
+yoovee-store/css/style.css
+
+# Current Time
+4/12/2025, 11:49:36 PM (Australia/Perth, UTC+8:00)
+# Context Window Usage
+802,843 / 1,048.576K tokens used (77%)
+
+# Current Mode
+ACT MODE
+</environment_details>
+<environment_details>
+# VSCode Visible Files
+yoovee-store/css/style.css
+
+# VSCode Open Tabs
+chlann/.gitignore
+yoovee-store/index.html
+yoovee-store/.gitignore
+yoovee-store/css/cart.css
+yoovee-store/css/style.css
+
+# Current Time
+4/12/2025, 11:57:48 PM (Australia/Perth, UTC+8:00)
+# Context Window Usage
+1,042,378 / 1,048.576K tokens used (99%)
+
+# Current Mode
+ACT MODE
+</environment_details>
