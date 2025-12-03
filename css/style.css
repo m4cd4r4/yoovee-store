@@ -503,6 +503,41 @@ body:has(.header.scrolled) main#main-content {
     padding-bottom: 0.35rem;
 }
 
+/* Hero Social Proof */
+.hero-social-proof {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-4);
+    flex-wrap: wrap;
+}
+
+.hero-rating {
+    color: #FFD700;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.hero-rating i {
+    font-size: 0.85rem;
+}
+
+.hero-reviews {
+    font-size: 0.9rem;
+    opacity: 0.95;
+    letter-spacing: 0.02em;
+}
+
+@media (max-width: 480px) {
+    .hero-social-proof {
+        flex-direction: column;
+        gap: var(--spacing-2);
+    }
+}
+
 /* Removed animation as it might not suit the new pattern */
 
 /* ===== Product Section ===== */
@@ -919,6 +954,49 @@ body:has(.header.scrolled) main#main-content {
     padding: 1rem;
     font-size: 1rem;
     letter-spacing: 0.05em;
+}
+
+/* Trust Badges */
+.trust-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-3);
+    margin-top: var(--spacing-4);
+    padding-top: var(--spacing-4);
+    border-top: 1px solid var(--gray-200);
+}
+
+.trust-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    font-size: 0.8rem;
+    color: var(--gray-600);
+    letter-spacing: 0.02em;
+}
+
+.trust-badge i {
+    color: var(--primary);
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .trust-badges {
+        justify-content: space-around;
+    }
+
+    .trust-badge {
+        flex: 0 0 45%;
+        justify-content: center;
+        margin-bottom: var(--spacing-2);
+    }
+}
+
+@media (max-width: 480px) {
+    .trust-badge {
+        flex: 0 0 100%;
+    }
 }
 
 /* --- Product Actions Layout --- */
@@ -1494,6 +1572,123 @@ body:has(.header.scrolled) main#main-content {
     border-top: 1px solid var(--gray-800);
     font-size: 0.85rem;
     letter-spacing: 0.02em;
+}
+
+/* Footer Newsletter */
+.footer-newsletter {
+    text-align: center;
+    padding-bottom: var(--spacing-5);
+    margin-bottom: var(--spacing-5);
+    border-bottom: 1px solid var(--gray-800);
+    position: relative;
+    z-index: 1;
+}
+
+.footer-newsletter h3 {
+    color: var(--white);
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: var(--spacing-2);
+    letter-spacing: 0.03em;
+}
+
+.footer-newsletter > p {
+    color: var(--gray-400);
+    margin-bottom: var(--spacing-3);
+    font-size: 0.95rem;
+}
+
+.newsletter-form {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-2);
+    max-width: 450px;
+    margin: 0 auto var(--spacing-2);
+}
+
+.newsletter-form input[type="email"] {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--gray-700);
+    border-radius: var(--border-radius);
+    background-color: var(--gray-800);
+    color: var(--white);
+    font-size: 0.9rem;
+    transition: var(--transition-base);
+}
+
+.newsletter-form input[type="email"]::placeholder {
+    color: var(--gray-500);
+}
+
+.newsletter-form input[type="email"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(30, 144, 255, 0.2);
+}
+
+.newsletter-form .btn {
+    padding: 0.75rem 1.5rem;
+    white-space: nowrap;
+}
+
+.newsletter-disclaimer {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    margin: 0;
+}
+
+@media (max-width: 480px) {
+    .newsletter-form {
+        flex-direction: column;
+    }
+
+    .newsletter-form input[type="email"],
+    .newsletter-form .btn {
+        width: 100%;
+    }
+}
+
+/* Footer Payment Methods */
+.footer-payments {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-3);
+    margin-top: var(--spacing-4);
+    margin-bottom: var(--spacing-4);
+    position: relative;
+    z-index: 1;
+}
+
+.footer-payments span {
+    font-size: 0.85rem;
+    color: var(--gray-500);
+}
+
+.footer-payments i {
+    font-size: 1.8rem;
+    color: var(--gray-400);
+    transition: var(--transition-base);
+}
+
+.footer-payments i:hover {
+    color: var(--white);
+}
+
+@media (max-width: 480px) {
+    .footer-payments {
+        flex-wrap: wrap;
+    }
+
+    .footer-payments span {
+        width: 100%;
+        margin-bottom: var(--spacing-2);
+    }
+
+    .footer-payments i {
+        font-size: 1.5rem;
+    }
 }
 
 /* ===== Modal & Sidebar ===== */
