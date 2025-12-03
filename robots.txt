@@ -1,0 +1,20 @@
+# robots.txt for YooVee Australia
+# https://yoovee.com.au
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://yoovee.com.au/sitemap.xml
+
+# Disallow admin/server files
+Disallow: /server.js
+Disallow: /.env
+Disallow: /node_modules/
+
+# Allow search engines to crawl all public content
+Allow: /index.html
+Allow: /cart.html
+Allow: /css/
+Allow: /js/
+Allow: /images/
