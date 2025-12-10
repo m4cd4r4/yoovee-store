@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollReveal();
     initScrollProgress();
     initStickyAddToCart();
+    initQuickAddFab();
+    initCartAnimations();
 });
 
 /**
@@ -981,4 +983,122 @@ function initStickyAddToCart() {
 
     // Initial check
     updateStickyVisibility();
+}
+
+/**
+ * Quick Add to Cart Floating Action Button (Mobile)
+ */
+function initQuickAddFab() {
+    // Only initialize on mobile/tablet
+    if (window.innerWidth >= 992) return;
+
+    const productSection = document.getElementById('product');
+    const addToCartBtn = document.querySelector('.add-to-cart');
+
+    if (!productSection || !addToCartBtn) return;
+
+    // Create FAB
+    const fab = document.createElement('button');
+    fab.className = 'quick-add-fab';
+    fab.setAttribute('aria-label', 'Quick add to cart');
+    fab.innerHTML = `
+        <i class="fas fa-cart-plus" aria-hidden="true"></i>
+        <span class="tooltip">Add to Cart</span>
+    `;
+    document.body.appendChild(fab);
+
+    // Click handler
+    fab.addEventListener('click', function() {
+        addToCartBtn.click();
+
+        // Success animation
+        this.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i>';
+        this.style.background = 'linear-gradient(135deg, #4CAF50, #388E3C)';
+
+        setTimeout(() => {
+            this.innerHTML = `
+                <i class="fas fa-cart-plus" aria-hidden="true"></i>
+                <span class="tooltip">Add to Cart</span>
+            `;
+            this.style.background = '';
+        }, 1500);
+    });
+
+    // Show/hide FAB based on scroll position
+    function updateFabVisibility() {
+        const productRect = productSection.getBoundingClientRect();
+        const addToCartRect = addToCartBtn.getBoundingClientRect();
+
+        // Show when in product section but add to cart is not visible
+        const productInView = productRect.top < window.innerHeight && productRect.bottom > 0;
+        const addToCartVisible = addToCartRect.top < window.innerHeight - 50 && addToCartRect.bottom > 50;
+
+        if (productInView && !addToCartVisible) {
+            fab.classList.add('visible');
+        } else {
+            fab.classList.remove('visible');
+        }
+    }
+
+    // Throttle scroll event
+    let fabTicking = false;
+    window.addEventListener('scroll', function() {
+        if (!fabTicking) {
+            window.requestAnimationFrame(function() {
+                updateFabVisibility();
+                fabTicking = false;
+            });
+            fabTicking = true;
+        }
+    });
+
+    // Handle resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 992) {
+            fab.classList.remove('visible');
+        }
+    });
+
+    // Initial check
+    updateFabVisibility();
+}
+
+/**
+ * Cart Add Success Animations
+ */
+function initCartAnimations() {
+    const addToCartBtn = document.querySelector('.add-to-cart');
+    const cartIcon = document.querySelector('.cart-icon');
+    const taskbarCart = document.querySelector('.taskbar-cart');
+
+    if (!addToCartBtn) return;
+
+    // Listen for add to cart clicks
+    addToCartBtn.addEventListener('click', function() {
+        // Animate cart icons
+        if (cartIcon) {
+            cartIcon.classList.add('added');
+            setTimeout(() => cartIcon.classList.remove('added'), 600);
+        }
+        if (taskbarCart) {
+            taskbarCart.classList.add('added');
+            setTimeout(() => taskbarCart.classList.remove('added'), 600);
+        }
+
+        // Button loading state
+        const originalText = this.textContent;
+        this.classList.add('loading');
+        this.textContent = '';
+
+        setTimeout(() => {
+            this.classList.remove('loading');
+            this.textContent = 'Added!';
+            this.style.background = 'linear-gradient(135deg, #4CAF50, #388E3C)';
+
+            setTimeout(() => {
+                this.textContent = originalText;
+                this.style.background = '';
+            }, 1500);
+        }, 300);
+    });
 }
