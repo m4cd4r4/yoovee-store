@@ -209,7 +209,7 @@
         </div>
     </div>
     
-    <!-- Header & Navigation -->
+    <!-- Header - Simplified with logo only -->
     <header class="header" role="banner">
         <div class="container">
             <div class="header-content">
@@ -218,7 +218,8 @@
                         <img src="images/logo-header-transparent.svg" alt="YooVee Logo" width="130" height="40">
                     </a>
                 </div>
-                <nav class="nav-menu" role="navigation" aria-label="Main navigation">
+                <!-- Desktop Navigation (hidden on mobile) -->
+                <nav class="nav-menu desktop-nav" role="navigation" aria-label="Main navigation">
                     <ul>
                         <li><a href="#home" class="active">Home</a></li>
                         <li><a href="#product">Product</a></li>
@@ -226,20 +227,40 @@
                         <li><a href="#faq">FAQ</a></li>
                     </ul>
                 </nav>
-                <div class="cart-icon">
+                <div class="cart-icon desktop-cart">
                     <a href="cart.html" aria-label="Shopping cart">
                         <i class="fas fa-shopping-cart" aria-hidden="true"></i>
                         <span class="cart-count" aria-label="0 items in cart">0</span>
                     </a>
                 </div>
-                <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
             </div>
         </div>
     </header>
+
+    <!-- App-like Bottom Taskbar Navigation -->
+    <nav class="taskbar" role="navigation" aria-label="Main navigation">
+        <a href="#home" class="taskbar-item active" data-section="home">
+            <i class="fas fa-home" aria-hidden="true"></i>
+            <span>Home</span>
+        </a>
+        <a href="#product" class="taskbar-item" data-section="product">
+            <i class="fas fa-shopping-bag" aria-hidden="true"></i>
+            <span>Shop</span>
+        </a>
+        <a href="#skincare" class="taskbar-item" data-section="skincare">
+            <i class="fas fa-spa" aria-hidden="true"></i>
+            <span>Care</span>
+        </a>
+        <a href="#faq" class="taskbar-item" data-section="faq">
+            <i class="fas fa-question-circle" aria-hidden="true"></i>
+            <span>FAQ</span>
+        </a>
+        <a href="cart.html" class="taskbar-item taskbar-cart">
+            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+            <span>Cart</span>
+            <span class="taskbar-cart-count">0</span>
+        </a>
+    </nav>
     
     <main id="main-content">
 
