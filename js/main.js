@@ -16,6 +16,14 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScroll();
     initHeaderScroll();
     initFooterPopups();
+
+    // New features
+    initTaskbar();
+    initScrollReveal();
+    initScrollProgress();
+    initStickyAddToCart();
+    initQuickAddFab();
+    initCartAnimations();
 });
 
 /**
@@ -684,24 +692,24 @@ function initFooterPopups() {
 function showNotification(message) {
     // Check if notification container exists, if not create it
     let notificationContainer = document.querySelector('.notification-container');
-    
+
     if (!notificationContainer) {
         notificationContainer = document.createElement('div');
         notificationContainer.className = 'notification-container';
         document.body.appendChild(notificationContainer);
-        
+
         // Add styles
         notificationContainer.style.position = 'fixed';
         notificationContainer.style.top = '20px';
         notificationContainer.style.right = '20px';
         notificationContainer.style.zIndex = '9999';
     }
-    
+
     // Create notification
     const notification = document.createElement('div');
     notification.className = 'notification';
     notification.textContent = message;
-    
+
     // Add styles
     notification.style.backgroundColor = 'var(--primary)';
     notification.style.color = 'white';
@@ -712,23 +720,385 @@ function showNotification(message) {
     notification.style.opacity = '0';
     notification.style.transform = 'translateX(50px)';
     notification.style.transition = 'all 0.3s ease-in-out';
-    
+
     // Add to container
     notificationContainer.appendChild(notification);
-    
+
     // Animate in
     setTimeout(() => {
         notification.style.opacity = '1';
         notification.style.transform = 'translateX(0)';
     }, 10);
-    
+
     // Remove after 3 seconds
     setTimeout(() => {
         notification.style.opacity = '0';
         notification.style.transform = 'translateX(50px)';
-        
+
         setTimeout(() => {
             notification.remove();
         }, 300);
     }, 3000);
+}
+
+/**
+ * App-like Bottom Taskbar Navigation
+ */
+function initTaskbar() {
+    const taskbar = document.querySelector('.taskbar');
+    const taskbarItems = document.querySelectorAll('.taskbar-item[data-section]');
+    const sections = document.querySelectorAll('section[id]');
+    const taskbarCartCount = document.querySelector('.taskbar-cart-count');
+    const headerCartCount = document.querySelector('.cart-count');
+
+    if (!taskbar || !taskbarItems.length) return;
+
+    // Update active taskbar item based on scroll position
+    function updateActiveSection() {
+        const scrollPosition = window.scrollY + window.innerHeight / 3;
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                taskbarItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.dataset.section === sectionId) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+        });
+    }
+
+    // Throttle scroll event for performance
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                updateActiveSection();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+
+    // Handle taskbar item clicks with smooth scroll
+    taskbarItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            const sectionId = this.dataset.section;
+            if (sectionId) {
+                e.preventDefault();
+                const target = document.getElementById(sectionId);
+                if (target) {
+                    const headerHeight = document.querySelector('.header').offsetHeight;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+
+                    // Update active state immediately
+                    taskbarItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            }
+        });
+    });
+
+    // Sync cart count between header and taskbar
+    function syncCartCount() {
+        if (headerCartCount && taskbarCartCount) {
+            const count = headerCartCount.textContent || '0';
+            taskbarCartCount.textContent = count;
+            taskbarCartCount.dataset.count = count;
+        }
+    }
+
+    // Initial sync
+    syncCartCount();
+
+    // Observe cart count changes
+    if (headerCartCount) {
+        const observer = new MutationObserver(syncCartCount);
+        observer.observe(headerCartCount, { childList: true, characterData: true, subtree: true });
+    }
+
+    // Initial active state
+    updateActiveSection();
+}
+
+/**
+ * Scroll Reveal Animations
+ */
+function initScrollReveal() {
+    // Add reveal classes to elements
+    const elementsToReveal = [
+        { selector: '.section-header', class: 'reveal' },
+        { selector: '.product-gallery', class: 'reveal-left' },
+        { selector: '.product-details', class: 'reveal-right' },
+        { selector: '.skincare-text', class: 'reveal-left' },
+        { selector: '.skincare-image', class: 'reveal-right' },
+        { selector: '.faq-item', class: 'reveal' },
+        { selector: '.trust-badge', class: 'reveal-scale' },
+        { selector: '.footer-newsletter', class: 'reveal' },
+        { selector: '.cta-content', class: 'reveal' }
+    ];
+
+    elementsToReveal.forEach(({ selector, class: className }) => {
+        document.querySelectorAll(selector).forEach((el, index) => {
+            if (!el.classList.contains('reveal') &&
+                !el.classList.contains('reveal-left') &&
+                !el.classList.contains('reveal-right') &&
+                !el.classList.contains('reveal-scale')) {
+                el.classList.add(className);
+                // Add staggered delay for multiple items
+                if (index > 0 && index < 5) {
+                    el.classList.add(`reveal-delay-${index}`);
+                }
+            }
+        });
+    });
+
+    // Intersection Observer for reveal animations
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+
+    if (revealElements.length === 0) return;
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                // Optionally unobserve after revealing
+                // revealObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+}
+
+/**
+ * Scroll Progress Indicator
+ */
+function initScrollProgress() {
+    // Create progress bar element
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress';
+    progressBar.style.width = '0%';
+    document.body.prepend(progressBar);
+
+    function updateProgress() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        progressBar.style.width = scrollPercent + '%';
+    }
+
+    // Throttle for performance
+    let progressTicking = false;
+    window.addEventListener('scroll', function() {
+        if (!progressTicking) {
+            window.requestAnimationFrame(function() {
+                updateProgress();
+                progressTicking = false;
+            });
+            progressTicking = true;
+        }
+    });
+
+    // Initial update
+    updateProgress();
+}
+
+/**
+ * Sticky Add to Cart Bar (Mobile)
+ */
+function initStickyAddToCart() {
+    // Only initialize on mobile/tablet
+    if (window.innerWidth >= 992) return;
+
+    const productSection = document.getElementById('product');
+    const addToCartBtn = document.querySelector('.add-to-cart');
+    const priceElement = document.querySelector('.price');
+
+    if (!productSection || !addToCartBtn || !priceElement) return;
+
+    // Create sticky bar
+    const stickyBar = document.createElement('div');
+    stickyBar.className = 'sticky-add-to-cart';
+    stickyBar.innerHTML = `
+        <span class="sticky-price">${priceElement.textContent}</span>
+        <button class="btn btn-primary sticky-btn">Add to Cart</button>
+    `;
+    document.body.appendChild(stickyBar);
+
+    const stickyBtn = stickyBar.querySelector('.sticky-btn');
+
+    // Mirror click event from main add to cart button
+    stickyBtn.addEventListener('click', function() {
+        addToCartBtn.click();
+    });
+
+    // Show/hide sticky bar based on scroll position
+    function updateStickyVisibility() {
+        const productRect = productSection.getBoundingClientRect();
+        const addToCartRect = addToCartBtn.getBoundingClientRect();
+
+        // Show when product section is in view but add to cart button is not visible
+        const productInView = productRect.top < window.innerHeight && productRect.bottom > 0;
+        const addToCartVisible = addToCartRect.top < window.innerHeight - 100 && addToCartRect.bottom > 100;
+
+        if (productInView && !addToCartVisible) {
+            stickyBar.classList.add('visible');
+        } else {
+            stickyBar.classList.remove('visible');
+        }
+    }
+
+    // Throttle scroll event
+    let stickyTicking = false;
+    window.addEventListener('scroll', function() {
+        if (!stickyTicking) {
+            window.requestAnimationFrame(function() {
+                updateStickyVisibility();
+                stickyTicking = false;
+            });
+            stickyTicking = true;
+        }
+    });
+
+    // Handle resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 992) {
+            stickyBar.classList.remove('visible');
+        }
+    });
+
+    // Initial check
+    updateStickyVisibility();
+}
+
+/**
+ * Quick Add to Cart Floating Action Button (Mobile)
+ */
+function initQuickAddFab() {
+    // Only initialize on mobile/tablet
+    if (window.innerWidth >= 992) return;
+
+    const productSection = document.getElementById('product');
+    const addToCartBtn = document.querySelector('.add-to-cart');
+
+    if (!productSection || !addToCartBtn) return;
+
+    // Create FAB
+    const fab = document.createElement('button');
+    fab.className = 'quick-add-fab';
+    fab.setAttribute('aria-label', 'Quick add to cart');
+    fab.innerHTML = `
+        <i class="fas fa-cart-plus" aria-hidden="true"></i>
+        <span class="tooltip">Add to Cart</span>
+    `;
+    document.body.appendChild(fab);
+
+    // Click handler
+    fab.addEventListener('click', function() {
+        addToCartBtn.click();
+
+        // Success animation
+        this.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i>';
+        this.style.background = 'linear-gradient(135deg, #4CAF50, #388E3C)';
+
+        setTimeout(() => {
+            this.innerHTML = `
+                <i class="fas fa-cart-plus" aria-hidden="true"></i>
+                <span class="tooltip">Add to Cart</span>
+            `;
+            this.style.background = '';
+        }, 1500);
+    });
+
+    // Show/hide FAB based on scroll position
+    function updateFabVisibility() {
+        const productRect = productSection.getBoundingClientRect();
+        const addToCartRect = addToCartBtn.getBoundingClientRect();
+
+        // Show when in product section but add to cart is not visible
+        const productInView = productRect.top < window.innerHeight && productRect.bottom > 0;
+        const addToCartVisible = addToCartRect.top < window.innerHeight - 50 && addToCartRect.bottom > 50;
+
+        if (productInView && !addToCartVisible) {
+            fab.classList.add('visible');
+        } else {
+            fab.classList.remove('visible');
+        }
+    }
+
+    // Throttle scroll event
+    let fabTicking = false;
+    window.addEventListener('scroll', function() {
+        if (!fabTicking) {
+            window.requestAnimationFrame(function() {
+                updateFabVisibility();
+                fabTicking = false;
+            });
+            fabTicking = true;
+        }
+    });
+
+    // Handle resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 992) {
+            fab.classList.remove('visible');
+        }
+    });
+
+    // Initial check
+    updateFabVisibility();
+}
+
+/**
+ * Cart Add Success Animations
+ */
+function initCartAnimations() {
+    const addToCartBtn = document.querySelector('.add-to-cart');
+    const cartIcon = document.querySelector('.cart-icon');
+    const taskbarCart = document.querySelector('.taskbar-cart');
+
+    if (!addToCartBtn) return;
+
+    // Listen for add to cart clicks
+    addToCartBtn.addEventListener('click', function() {
+        // Animate cart icons
+        if (cartIcon) {
+            cartIcon.classList.add('added');
+            setTimeout(() => cartIcon.classList.remove('added'), 600);
+        }
+        if (taskbarCart) {
+            taskbarCart.classList.add('added');
+            setTimeout(() => taskbarCart.classList.remove('added'), 600);
+        }
+
+        // Button loading state
+        const originalText = this.textContent;
+        this.classList.add('loading');
+        this.textContent = '';
+
+        setTimeout(() => {
+            this.classList.remove('loading');
+            this.textContent = 'Added!';
+            this.style.background = 'linear-gradient(135deg, #4CAF50, #388E3C)';
+
+            setTimeout(() => {
+                this.textContent = originalText;
+                this.style.background = '';
+            }, 1500);
+        }, 300);
+    });
 }

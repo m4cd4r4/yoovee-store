@@ -219,22 +219,24 @@
 <body>
     
     
-    <!-- Header & Navigation -->
-    <header class="header">
-        <!-- Shipping Banner -->
-        <div class="shipping-banner">
-            <div class="container">
-                <p>Free Express Shipping Australia-wide</p>
-            </div>
+    <!-- Shipping Banner -->
+    <div class="shipping-banner">
+        <div class="container">
+            <p>Free Express Shipping Australia-wide</p>
         </div>
+    </div>
+
+    <!-- Header - Simplified with logo only -->
+    <header class="header">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
                     <a href="index.html">
-                        <img src="images/logo-header-transparent.svg" alt="YooVee Logo" width="150" height="40">
+                        <img src="images/logo-header-transparent.svg" alt="YooVee Logo" width="130" height="40">
                     </a>
                 </div>
-                <nav class="nav-menu">
+                <!-- Desktop Navigation (hidden on mobile) -->
+                <nav class="nav-menu desktop-nav">
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="index.html#product">Product</a></li>
@@ -242,20 +244,40 @@
                         <li><a href="index.html#faq">FAQ</a></li>
                     </ul>
                 </nav>
-                <div class="cart-icon">
+                <div class="cart-icon desktop-cart">
                     <a href="cart.html" class="active">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count">0</span>
                     </a>
                 </div>
-                <div class="mobile-menu-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
             </div>
         </div>
     </header>
+
+    <!-- App-like Bottom Taskbar Navigation -->
+    <nav class="taskbar" role="navigation" aria-label="Main navigation">
+        <a href="index.html#home" class="taskbar-item">
+            <i class="fas fa-home" aria-hidden="true"></i>
+            <span>Home</span>
+        </a>
+        <a href="index.html#product" class="taskbar-item">
+            <i class="fas fa-shopping-bag" aria-hidden="true"></i>
+            <span>Shop</span>
+        </a>
+        <a href="index.html#skincare" class="taskbar-item">
+            <i class="fas fa-spa" aria-hidden="true"></i>
+            <span>Care</span>
+        </a>
+        <a href="index.html#faq" class="taskbar-item">
+            <i class="fas fa-question-circle" aria-hidden="true"></i>
+            <span>FAQ</span>
+        </a>
+        <a href="cart.html" class="taskbar-item taskbar-cart active">
+            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+            <span>Cart</span>
+            <span class="taskbar-cart-count">0</span>
+        </a>
+    </nav>
 
     <!-- Cart Page Content -->
     <section class="cart-page">

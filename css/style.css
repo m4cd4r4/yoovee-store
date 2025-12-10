@@ -2284,3 +2284,882 @@ body:has(.header.scrolled) main#main-content {
     cursor: pointer;
     color: #777;
 }
+
+/* ===== APP-LIKE BOTTOM TASKBAR NAVIGATION ===== */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 var(--spacing-2);
+    box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.taskbar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--gray-500);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 8px 12px;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    min-width: 60px;
+}
+
+.taskbar-item i {
+    font-size: 1.25rem;
+    margin-bottom: 4px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.taskbar-item span {
+    transition: all 0.3s ease;
+}
+
+.taskbar-item:hover {
+    color: var(--primary);
+    background: rgba(30, 144, 255, 0.08);
+}
+
+.taskbar-item:hover i {
+    transform: translateY(-2px);
+}
+
+.taskbar-item.active {
+    color: var(--primary);
+}
+
+.taskbar-item.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-light), var(--primary));
+    border-radius: 0 0 3px 3px;
+}
+
+.taskbar-item.active i {
+    transform: scale(1.1);
+}
+
+/* Taskbar Cart Badge */
+.taskbar-cart {
+    position: relative;
+}
+
+.taskbar-cart-count {
+    position: absolute;
+    top: 2px;
+    right: 8px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--white);
+    font-size: 0.6rem;
+    font-weight: 600;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    box-shadow: 0 2px 8px rgba(30, 144, 255, 0.4);
+    animation: pulse-badge 2s infinite;
+}
+
+.taskbar-cart-count:empty,
+.taskbar-cart-count[data-count="0"] {
+    display: none;
+}
+
+@keyframes pulse-badge {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Add padding to body to account for taskbar */
+body {
+    padding-bottom: 70px;
+}
+
+/* Hide taskbar on desktop, show on mobile/tablet */
+@media (min-width: 992px) {
+    .taskbar {
+        display: none;
+    }
+
+    body {
+        padding-bottom: 0;
+    }
+
+    .desktop-nav,
+    .desktop-cart {
+        display: flex;
+    }
+}
+
+@media (max-width: 991px) {
+    .desktop-nav,
+    .desktop-cart {
+        display: none !important;
+    }
+
+    .mobile-menu-toggle {
+        display: none !important;
+    }
+
+    .header-content {
+        justify-content: center;
+    }
+
+    .logo {
+        margin-right: 0;
+    }
+}
+
+/* Smaller taskbar on very small screens */
+@media (max-width: 380px) {
+    .taskbar {
+        height: 65px;
+        padding: 0;
+    }
+
+    .taskbar-item {
+        min-width: 50px;
+        padding: 6px 8px;
+        font-size: 0.55rem;
+    }
+
+    .taskbar-item i {
+        font-size: 1.1rem;
+    }
+
+    body {
+        padding-bottom: 65px;
+    }
+}
+
+/* ===== PARALLAX & SCROLL ANIMATIONS ===== */
+
+/* Scroll reveal animation classes */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-left.revealed {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.reveal-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-right.revealed {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.reveal-scale {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-scale.revealed {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Staggered animation delays */
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* Parallax hero background */
+.hero {
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+/* Hero content animation */
+.hero-content {
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Floating animation for elements */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.float-animation {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Image hover effects */
+.product-gallery .main-image img {
+    transition: transform 0.5s ease;
+}
+
+.product-gallery .main-image:hover img {
+    transform: scale(1.02);
+}
+
+/* Card hover lift effect */
+.trust-badge,
+.faq-item,
+.skincare-item {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.trust-badge:hover {
+    transform: translateY(-3px);
+}
+
+.faq-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+/* Button press effect */
+.btn:active {
+    transform: scale(0.98) !important;
+}
+
+/* Smooth section transitions */
+section {
+    transition: opacity 0.3s ease;
+}
+
+/* Glass morphism effect for modals */
+.modal-content,
+.footer-popup-modal {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Gradient text effect for headings (optional) */
+.gradient-text {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Smooth image loading */
+img {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+img[data-src] {
+    opacity: 0;
+}
+
+img.loaded {
+    opacity: 1;
+}
+
+/* Enhanced CTA section with subtle animation */
+.cta {
+    position: relative;
+    overflow: hidden;
+}
+
+.cta::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 70%
+    );
+    animation: shimmer 8s infinite linear;
+    pointer-events: none;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+/* Sticky Add to Cart Bar (mobile) */
+.sticky-add-to-cart {
+    position: fixed;
+    bottom: 70px; /* Above taskbar */
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 12px var(--spacing-3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-3);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.sticky-add-to-cart.visible {
+    transform: translateY(0);
+}
+
+.sticky-add-to-cart .sticky-price {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--primary);
+}
+
+.sticky-add-to-cart .sticky-btn {
+    flex: 1;
+    max-width: 200px;
+    padding: 12px 24px;
+    font-size: 0.9rem;
+}
+
+@media (min-width: 992px) {
+    .sticky-add-to-cart {
+        display: none;
+    }
+}
+
+/* Enhanced scroll indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--white);
+    opacity: 0.8;
+    animation: bounce 2s infinite;
+}
+
+.scroll-indicator i {
+    font-size: 1.5rem;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+    40% { transform: translateX(-50%) translateY(-10px); }
+    60% { transform: translateX(-50%) translateY(-5px); }
+}
+
+/* Progress indicator for page scroll */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-light), var(--primary));
+    z-index: 1001;
+    transition: width 0.1s ease;
+}
+
+/* Enhanced product option selections */
+.color-option,
+.size-option {
+    position: relative;
+    overflow: hidden;
+}
+
+.color-option::after,
+.size-option::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(30, 144, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+}
+
+.color-option:active::after,
+.size-option:active::after {
+    width: 200%;
+    height: 200%;
+}
+
+/* Smooth focus states for accessibility */
+.taskbar-item:focus-visible,
+.btn:focus-visible,
+a:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* ===== SOCIAL PROOF BADGE ===== */
+.social-proof-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+    border: 1px solid #ffcdd2;
+    border-radius: 20px;
+    padding: 8px 16px;
+    margin-bottom: var(--spacing-4);
+    font-size: 0.85rem;
+    color: #c62828;
+    animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+.social-proof-badge i {
+    color: #ff5722;
+    font-size: 0.9rem;
+    animation: flame 1s ease-in-out infinite alternate;
+}
+
+@keyframes flame {
+    0% { transform: scale(1); opacity: 0.9; }
+    100% { transform: scale(1.1); opacity: 1; }
+}
+
+@keyframes pulse-subtle {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 87, 34, 0); }
+    50% { box-shadow: 0 0 0 4px rgba(255, 87, 34, 0.1); }
+}
+
+/* ===== CUSTOMER REVIEWS SECTION ===== */
+.reviews {
+    padding: var(--spacing-6) 0;
+    background-color: var(--gray-100);
+}
+
+.reviews-summary {
+    text-align: center;
+    margin-bottom: var(--spacing-5);
+}
+
+.reviews-rating {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    padding: var(--spacing-4) var(--spacing-5);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.rating-number {
+    font-size: 3rem;
+    font-weight: 500;
+    color: var(--gray-900);
+    line-height: 1;
+}
+
+.rating-stars {
+    color: #FFD700;
+    font-size: 1.25rem;
+    display: flex;
+    gap: 2px;
+}
+
+.rating-count {
+    font-size: 0.85rem;
+    color: var(--gray-600);
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-4);
+}
+
+.review-card {
+    background: var(--white);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-4);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+}
+
+.review-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-3);
+    position: relative;
+}
+
+.reviewer-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.reviewer-info {
+    flex: 1;
+}
+
+.reviewer-name {
+    display: block;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--gray-900);
+    margin-bottom: 2px;
+}
+
+.review-location {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--gray-500);
+    margin-bottom: 4px;
+}
+
+.review-stars {
+    color: #FFD700;
+    font-size: 0.85rem;
+    display: flex;
+    gap: 1px;
+}
+
+.review-stars .far {
+    color: var(--gray-300);
+}
+
+.verified-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 0.7rem;
+    color: #4CAF50;
+    background: #e8f5e9;
+    padding: 4px 8px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.verified-badge i {
+    font-size: 0.65rem;
+}
+
+.review-text {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--gray-700);
+    margin-bottom: var(--spacing-3);
+    font-style: italic;
+}
+
+.review-date {
+    font-size: 0.75rem;
+    color: var(--gray-400);
+}
+
+@media (max-width: 768px) {
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .rating-number {
+        font-size: 2.5rem;
+    }
+
+    .review-card {
+        padding: var(--spacing-3);
+    }
+
+    .reviewer-avatar {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* ===== QUICK ADD TO CART FLOATING BUTTON ===== */
+.quick-add-fab {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--white);
+    border: none;
+    box-shadow: 0 4px 20px rgba(30, 144, 255, 0.4);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    z-index: 998;
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quick-add-fab.visible {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.quick-add-fab:hover {
+    box-shadow: 0 6px 24px rgba(30, 144, 255, 0.5);
+    transform: scale(1.1);
+}
+
+.quick-add-fab:active {
+    transform: scale(0.95);
+}
+
+.quick-add-fab .tooltip {
+    position: absolute;
+    right: 70px;
+    background: var(--gray-900);
+    color: var(--white);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.quick-add-fab:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.quick-add-fab .tooltip::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-left-color: var(--gray-900);
+}
+
+@media (min-width: 992px) {
+    .quick-add-fab {
+        display: none;
+    }
+}
+
+@media (max-width: 380px) {
+    .quick-add-fab {
+        bottom: 85px;
+        right: 15px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.1rem;
+    }
+}
+
+/* ===== ENHANCED PARALLAX EFFECTS ===== */
+/* Parallax depth layers */
+.parallax-layer-1 {
+    transform: translateZ(-1px) scale(2);
+}
+
+.parallax-layer-2 {
+    transform: translateZ(-2px) scale(3);
+}
+
+/* Hero parallax enhancement */
+@media (min-width: 768px) {
+    .hero {
+        background-attachment: fixed;
+        position: relative;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: inherit;
+        background-attachment: fixed;
+        z-index: -1;
+    }
+}
+
+/* Disable parallax on mobile for performance */
+@media (max-width: 767px) {
+    .hero {
+        background-attachment: scroll;
+    }
+}
+
+/* ===== MICRO-INTERACTION ENHANCEMENTS ===== */
+
+/* Ripple effect on buttons */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Enhanced quantity button interactions */
+.quantity-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.quantity-btn:active {
+    transform: scale(0.9);
+}
+
+/* Thumbnail selection animation */
+.thumbnail {
+    position: relative;
+}
+
+.thumbnail::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px solid transparent;
+    border-radius: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.thumbnail.active::before {
+    border-color: var(--primary);
+    animation: thumbnail-select 0.3s ease;
+}
+
+@keyframes thumbnail-select {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Icon bounce on taskbar tap */
+.taskbar-item:active i {
+    animation: icon-bounce 0.3s ease;
+}
+
+@keyframes icon-bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.8); }
+    100% { transform: scale(1.1); }
+}
+
+/* Cart add success animation */
+@keyframes cart-success {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.2); }
+    50% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+.cart-icon.added i,
+.taskbar-cart.added i {
+    animation: cart-success 0.5s ease;
+    color: #4CAF50;
+}
+
+/* Loading state for add to cart */
+.add-to-cart.loading {
+    pointer-events: none;
+    position: relative;
+}
+
+.add-to-cart.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--white);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
