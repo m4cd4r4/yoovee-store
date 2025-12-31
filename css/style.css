@@ -1880,3 +1880,112 @@ p {
         line-height: 1.5;
     }
 }
+
+/* ===== Enhanced Animations ===== */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes cartBounce {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.2); }
+    50% { transform: scale(0.95); }
+    75% { transform: scale(1.05); }
+}
+
+/* Hero entrance animations */
+.hero__gallery { animation: fadeInScale 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both; }
+.hero__badge { animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both; }
+.hero__title { animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both; }
+.hero__tagline { animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both; }
+.hero__price { animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.45s both; }
+.hero__description { animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both; }
+.hero__options { animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.55s both; }
+.hero__actions { animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.6s both; }
+
+/* Staggered thumbnails */
+.hero__thumbnail { animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) both; }
+.hero__thumbnail:nth-child(1) { animation-delay: 0.5s; }
+.hero__thumbnail:nth-child(2) { animation-delay: 0.55s; }
+.hero__thumbnail:nth-child(3) { animation-delay: 0.6s; }
+.hero__thumbnail:nth-child(4) { animation-delay: 0.65s; }
+.hero__thumbnail:nth-child(5) { animation-delay: 0.7s; }
+
+/* Button micro-interactions */
+.btn { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0) scale(0.98); }
+
+/* Cart bounce on add */
+.header__cart.bounce .header__cart-icon { animation: cartBounce 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* Section headers fade in */
+.lifestyle__header, .details__header, .testimonials__header, .faq__header {
+    animation: fadeInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Benefits stagger */
+.benefits__item { animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) both; }
+.benefits__item:nth-child(1) { animation-delay: 0.1s; }
+.benefits__item:nth-child(2) { animation-delay: 0.2s; }
+.benefits__item:nth-child(3) { animation-delay: 0.3s; }
+
+/* Option hover effects */
+.color-option:hover:not(.out-of-stock) { transform: scale(1.1); }
+.size-option:hover:not(.out-of-stock) { transform: translateY(-2px); }
+
+/* Lifestyle card lift */
+.lifestyle__item {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lifestyle__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Header scroll shadow */
+.header.scrolled { box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06); }
+
+/* Smooth accordion */
+.accordion-content, .faq-answer { transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* Sidebar slide */
+.sidebar { transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* Footer link underline slide */
+.footer__column ul li a { position: relative; }
+.footer__column ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--white);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.footer__column ul li a:hover::after { width: 100%; }
+
+/* Testimonial cards */
+.testimonial {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.testimonial:hover {
+    transform: translateY(-3px);
+}
+
+/* Newsletter input focus glow */
+.newsletter__input:focus {
+    box-shadow: 0 0 0 3px rgba(168, 153, 138, 0.15);
+}
+
+/* Gallery nav fade */
+.hero__gallery-nav {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}

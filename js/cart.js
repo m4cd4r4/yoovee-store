@@ -82,6 +82,12 @@ function initCartFunctionality() {
             // Add to cart
             cart.addItem(product);
 
+            // Trigger cart icon bounce animation
+            if (cartIcon) {
+                cartIcon.classList.add('bounce');
+                setTimeout(() => cartIcon.classList.remove('bounce'), 500);
+            }
+
             // Show notification
             if (typeof showNotification === 'function') {
                 showNotification('Added to bag');
