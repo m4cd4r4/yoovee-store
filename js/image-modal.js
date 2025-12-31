@@ -1,113 +1,100 @@
-// Image Modal with Navigation
+/**
+ * YooVee - Image Modal
+ * Minimalist Redesign
+ */
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Select images that should trigger the modal (product gallery only now)
-    const productImages = document.querySelectorAll('.main-image img, .thumbnail img');
-    
-    // Exit if no product images found
-    if (!productImages || productImages.length === 0) {
-        console.warn('No product images found for image modal');
-        return;
-    }
-    
-    // Select the modal elements from the HTML
+    const productImages = document.querySelectorAll('.hero__main-image img, .hero__thumbnail img');
+
+    if (!productImages || productImages.length === 0) return;
+
     const modal = document.getElementById('image-modal');
-    const modalImg = modal.querySelector('.image-modal-content');
-    const closeBtn = modal.querySelector('.close-image-modal');
-    const prevBtn = modal.querySelector('.modal-prev');
-    const nextBtn = modal.querySelector('.modal-next');
-    
-    // Exit if modal elements aren't found
-    if (!modal || !modalImg || !closeBtn || !prevBtn || !nextBtn) {
-        console.error('Image modal elements not found in the HTML.');
-        return;
-    }
-    
+    const modalImg = modal ? modal.querySelector('.image-modal-content') : null;
+    const closeBtn = modal ? modal.querySelector('.close-image-modal') : null;
+    const prevBtn = modal ? modal.querySelector('.modal-prev') : null;
+    const nextBtn = modal ? modal.querySelector('.modal-next') : null;
+
+    if (!modal || !modalImg || !closeBtn || !prevBtn || !nextBtn) return;
+
     let currentImageIndex = 0;
-    // Create an array of image sources from the selected product images
     const imageUrls = Array.from(productImages).map(img => img.src);
-    
-    // Function to open modal with specific image
+
     function openModal(index) {
-        modal.style.display = 'block';
+        modal.style.display = 'flex';
+        modal.classList.add('active');
         modalImg.src = imageUrls[index];
         currentImageIndex = index;
-        document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        document.body.style.overflow = 'hidden';
     }
-    
-    // Add click event to all product images
+
+    function closeModal() {
+        modal.style.display = 'none';
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function showPrev() {
+        currentImageIndex = (currentImageIndex === 0) ? imageUrls.length - 1 : currentImageIndex - 1;
+        modalImg.src = imageUrls[currentImageIndex];
+    }
+
+    function showNext() {
+        currentImageIndex = (currentImageIndex === imageUrls.length - 1) ? 0 : currentImageIndex + 1;
+        modalImg.src = imageUrls[currentImageIndex];
+    }
+
+    // Add click events to images
     productImages.forEach((img, index) => {
+        img.style.cursor = 'zoom-in';
         img.addEventListener('click', function() {
             openModal(index);
         });
     });
-    
-    // Close modal functionality
-    closeBtn.addEventListener('click', function() {
-        modal.style.display = 'none';
-        document.body.style.overflow = ''; // Restore scrolling
-    });
-    
-    // Close when clicking outside the image
+
+    // Close modal
+    closeBtn.addEventListener('click', closeModal);
+
     modal.addEventListener('click', function(e) {
         if (e.target === modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
+            closeModal();
         }
     });
-    
-    // Navigation functionality
+
+    // Navigation
     prevBtn.addEventListener('click', function(e) {
         e.stopPropagation();
-        currentImageIndex = (currentImageIndex === 0) ? imageUrls.length - 1 : currentImageIndex - 1;
-        modalImg.src = imageUrls[currentImageIndex];
+        showPrev();
     });
-    
+
     nextBtn.addEventListener('click', function(e) {
         e.stopPropagation();
-        currentImageIndex = (currentImageIndex === imageUrls.length - 1) ? 0 : currentImageIndex + 1;
-        modalImg.src = imageUrls[currentImageIndex];
+        showNext();
     });
-    
+
     // Keyboard navigation
     document.addEventListener('keydown', function(e) {
-        if (modal.style.display === 'block') {
-            if (e.key === 'ArrowLeft') {
-                currentImageIndex = (currentImageIndex === 0) ? imageUrls.length - 1 : currentImageIndex - 1;
-                modalImg.src = imageUrls[currentImageIndex];
-            } else if (e.key === 'ArrowRight') {
-                currentImageIndex = (currentImageIndex === imageUrls.length - 1) ? 0 : currentImageIndex + 1;
-                modalImg.src = imageUrls[currentImageIndex];
-            } else if (e.key === 'Escape') {
-                modal.style.display = 'none';
-                document.body.style.overflow = '';
-            }
+        if (modal.style.display === 'flex' || modal.classList.contains('active')) {
+            if (e.key === 'ArrowLeft') showPrev();
+            else if (e.key === 'ArrowRight') showNext();
+            else if (e.key === 'Escape') closeModal();
         }
     });
-    
-    // Touch swipe functionality for modal
+
+    // Touch swipe
     let touchStartX = 0;
     let touchEndX = 0;
-    
-    modal.addEventListener('touchstart', function(event) {
-        touchStartX = event.changedTouches[0].screenX;
-    }, false);
-    
-    modal.addEventListener('touchend', function(event) {
-        touchEndX = event.changedTouches[0].screenX;
-        handleSwipe();
-    }, false);
-    
-    function handleSwipe() {
-        if (touchEndX < touchStartX - 50) {
-            // Swipe left - show next image
-            currentImageIndex = (currentImageIndex === imageUrls.length - 1) ? 0 : currentImageIndex + 1;
-            modalImg.src = imageUrls[currentImageIndex];
+
+    modal.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    modal.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        const swipeDistance = touchEndX - touchStartX;
+
+        if (Math.abs(swipeDistance) > 50) {
+            if (swipeDistance < 0) showNext();
+            else showPrev();
         }
-        
-        if (touchEndX > touchStartX + 50) {
-            // Swipe right - show previous image
-            currentImageIndex = (currentImageIndex === 0) ? imageUrls.length - 1 : currentImageIndex - 1;
-            modalImg.src = imageUrls[currentImageIndex];
-        }
-    }
+    }, { passive: true });
 });

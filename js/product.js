@@ -1,79 +1,74 @@
 /**
- * YooVee® Premium Fingerless Gloves - Product JavaScript
- * Version: 1.0
+ * YooVee - Product JavaScript
+ * Minimalist Redesign
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize product components
     initProductGallery();
     initColorOptions();
     initSizeOptions();
     initQuantitySelector();
-    initAddToCart();
 });
 
 /**
- * Product Gallery Functionality
+ * Product Gallery
  */
 function initProductGallery() {
-    const mainImageContainer = document.querySelector('.main-image'); // Target container for touch events
+    const mainImageContainer = document.querySelector('.hero__main-image');
     const mainImage = document.getElementById('main-product-image');
-    const thumbnails = document.querySelectorAll('.thumbnail');
-    const prevBtn = document.querySelector('.product-gallery-prev');
-    const nextBtn = document.querySelector('.product-gallery-next');
+    const thumbnails = document.querySelectorAll('.hero__thumbnail');
+    const prevBtn = document.querySelector('.hero__gallery-nav--prev');
+    const nextBtn = document.querySelector('.hero__gallery-nav--next');
 
-    if (!mainImageContainer || !mainImage || thumbnails.length === 0 || !prevBtn || !nextBtn) return;
+    if (!mainImageContainer || !mainImage || thumbnails.length === 0) return;
 
     let currentImageIndex = 0;
     let touchStartX = 0;
     let touchEndX = 0;
-    const swipeThreshold = 50; // Minimum pixels to count as a swipe
-    
-    // Function to update the gallery based on index
+    const swipeThreshold = 50;
+
     function updateGallery(index) {
-        // Ensure index is within bounds
         currentImageIndex = (index + thumbnails.length) % thumbnails.length;
-        
-        // Update active thumbnail
+
         thumbnails.forEach((t, i) => {
             t.classList.toggle('active', i === currentImageIndex);
+            t.setAttribute('aria-checked', i === currentImageIndex ? 'true' : 'false');
         });
-        
-        // Get image filename from the new active thumbnail
+
         const activeThumbnail = thumbnails[currentImageIndex];
         const imageFile = activeThumbnail.getAttribute('data-image');
-        
-        // Update main image
         updateMainImage(imageFile);
     }
 
-    // Add click listeners to thumbnails
     thumbnails.forEach((thumbnail, index) => {
         thumbnail.addEventListener('click', function() {
             updateGallery(index);
         });
-        // Add keydown listener for accessibility
+
         thumbnail.addEventListener('keydown', function(e) {
-             if (e.key === 'Enter' || e.key === ' ') {
-                 e.preventDefault();
-                 updateGallery(index);
-             }
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                updateGallery(index);
+            }
         });
     });
 
-    // Add click listeners to navigation arrows
-    prevBtn.addEventListener('click', function() {
-        updateGallery(currentImageIndex - 1);
-    });
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            updateGallery(currentImageIndex - 1);
+        });
+    }
 
-    nextBtn.addEventListener('click', function() {
-        updateGallery(currentImageIndex + 1);
-    });
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            updateGallery(currentImageIndex + 1);
+        });
+    }
 
-    // --- Touch Swipe Functionality ---
+    // Touch swipe
     mainImageContainer.addEventListener('touchstart', function(e) {
         touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true }); // Use passive for better scroll performance if not preventing default
+    }, { passive: true });
 
     mainImageContainer.addEventListener('touchend', function(e) {
         touchEndX = e.changedTouches[0].screenX;
@@ -85,85 +80,110 @@ function initProductGallery() {
 
         if (Math.abs(swipeDistance) > swipeThreshold) {
             if (swipeDistance < 0) {
-                // Swiped Left (Next Image)
                 updateGallery(currentImageIndex + 1);
             } else {
-                // Swiped Right (Previous Image)
                 updateGallery(currentImageIndex - 1);
             }
         }
-        // Reset touch coordinates
         touchStartX = 0;
         touchEndX = 0;
     }
-    // --- End Touch Swipe Functionality ---
 
-    // Function to update main image (with fade effect)
     function updateMainImage(imageFile) {
         if (!imageFile) return;
-        
-        // Add fade effect
+
         mainImage.style.opacity = '0';
-        
-        // Update image source
+        mainImage.style.transition = 'opacity 0.2s ease';
+
         setTimeout(() => {
             mainImage.src = `images/${imageFile}`;
             mainImage.style.opacity = '1';
-        }, 50);
+        }, 100);
     }
-    
-} // Added the missing closing brace for the outer initProductGallery
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        const heroSection = document.querySelector('.hero');
+        const isHeroInView = heroSection && heroSection.getBoundingClientRect().top < window.innerHeight;
+
+        if (isHeroInView) {
+            if (e.key === 'ArrowLeft') {
+                updateGallery(currentImageIndex - 1);
+            } else if (e.key === 'ArrowRight') {
+                updateGallery(currentImageIndex + 1);
+            }
+        }
+    });
+}
 
 /**
- * Color Options Functionality
+ * Color Options
  */
 function initColorOptions() {
     const colorOptions = document.querySelectorAll('.color-option');
-    
+
     if (colorOptions.length === 0) return;
-    
+
     colorOptions.forEach(option => {
         option.addEventListener('click', function() {
-            // Only allow clicking on options that are not out of stock
             if (!this.classList.contains('out-of-stock')) {
-                // Update active color
-                colorOptions.forEach(o => o.classList.remove('active'));
+                colorOptions.forEach(o => {
+                    o.classList.remove('active');
+                    o.setAttribute('aria-checked', 'false');
+                });
                 this.classList.add('active');
+                this.setAttribute('aria-checked', 'true');
+            }
+        });
+
+        option.addEventListener('keydown', function(e) {
+            if ((e.key === 'Enter' || e.key === ' ') && !this.classList.contains('out-of-stock')) {
+                e.preventDefault();
+                this.click();
             }
         });
     });
 }
 
 /**
- * Size Options Functionality
+ * Size Options
  */
 function initSizeOptions() {
     const sizeOptions = document.querySelectorAll('.size-option');
-    
+
     if (sizeOptions.length === 0) return;
-    
+
     sizeOptions.forEach(option => {
         option.addEventListener('click', function() {
-            // Only allow clicking on options that are not out of stock
             if (!this.classList.contains('out-of-stock')) {
-                // Update active size
-                sizeOptions.forEach(o => o.classList.remove('active'));
+                sizeOptions.forEach(o => {
+                    o.classList.remove('active');
+                    o.setAttribute('aria-checked', 'false');
+                });
                 this.classList.add('active');
+                this.setAttribute('aria-checked', 'true');
+            }
+        });
+
+        option.addEventListener('keydown', function(e) {
+            if ((e.key === 'Enter' || e.key === ' ') && !this.classList.contains('out-of-stock')) {
+                e.preventDefault();
+                this.click();
             }
         });
     });
 }
 
 /**
- * Quantity Selector Functionality
+ * Quantity Selector
  */
 function initQuantitySelector() {
-    const minusBtn = document.querySelector('.quantity-selector .minus');
-    const plusBtn = document.querySelector('.quantity-selector .plus');
-    const quantityInput = document.querySelector('.quantity-selector .quantity-input');
-    
+    const minusBtn = document.querySelector('.quantity-selector__btn.minus');
+    const plusBtn = document.querySelector('.quantity-selector__btn.plus');
+    const quantityInput = document.querySelector('.quantity-selector__input');
+
     if (!minusBtn || !plusBtn || !quantityInput) return;
-    
+
     minusBtn.addEventListener('click', function() {
         let quantity = parseInt(quantityInput.value);
         if (quantity > 1) {
@@ -171,7 +191,7 @@ function initQuantitySelector() {
             quantityInput.value = quantity;
         }
     });
-    
+
     plusBtn.addEventListener('click', function() {
         let quantity = parseInt(quantityInput.value);
         if (quantity < 10) {
@@ -179,7 +199,7 @@ function initQuantitySelector() {
             quantityInput.value = quantity;
         }
     });
-    
+
     quantityInput.addEventListener('change', function() {
         let quantity = parseInt(this.value);
         if (isNaN(quantity) || quantity < 1) {
@@ -188,29 +208,4 @@ function initQuantitySelector() {
             this.value = 10;
         }
     });
-}
-
-/**
- * Add to Cart Functionality
- * Note: This functionality has been moved to cart.js
- */
-function initAddToCart() {
-    // This function is now handled by cart.js
-    console.log('Add to cart functionality moved to cart.js');
-}
-
-/**
- * Related Products Functionality
- */
-function initRelatedProducts() {
-    // This would be implemented if there were related products in the design
-    // For now, it's just a placeholder for future implementation
-}
-
-/**
- * Product Reviews Functionality
- */
-function initProductReviews() {
-    // This would be implemented if there were product reviews in the design
-    // For now, it's just a placeholder for future implementation
 }
