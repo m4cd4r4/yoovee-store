@@ -54,6 +54,7 @@
     font-size: 3rem;
     margin-bottom: var(--spacing-3);
     opacity: 0.5;
+    display: none !important; /* Force hide the icon to prevent rogue display */
 }
 
 .cart-item {
