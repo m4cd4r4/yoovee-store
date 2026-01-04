@@ -10,31 +10,28 @@ A modern, responsive single-product e-commerce website for YooVee® Premium Fing
 
 This project is a sophisticated, modern e-commerce website for YooVee® fingerless gloves that combines elegant aesthetics with robust functionality. The single-product store focuses on showcasing premium fingerless gloves while guiding visitors through a seamless shopping experience, including secure online payments via Stripe.
 
-## Recent Updates - December 2025
+## Recent Updates - January 2026
 
-### Mobile-First Navigation Redesign
-- **App-Like Taskbar:** Redesigned bottom navigation with glass morphism effect and backdrop blur
+### Minimalist Scandinavian Redesign
+- **Complete Visual Overhaul:** Clean, elegant aesthetic inspired by Scandinavian design principles
+- **Neutral Color Palette:** Soft whites, warm grays, and subtle accent colors
+- **Typography Refresh:** Modern, refined typography for improved readability
+- **Streamlined Layout:** Focused product presentation with generous whitespace
+- **Premium Feel:** Design language that reflects the quality of the product
+
+### Mobile-First Navigation
+- **App-Like Taskbar:** Bottom navigation with glass morphism effect
 - **Smart Scroll Interactions:** Scroll-based active states and progress indicator
-- **Sticky Add-to-Cart:** Mobile-optimized floating add-to-cart bar that follows user scroll
-- **Responsive Design:** Seamless experience across mobile, tablet, and desktop devices
+- **Sticky Add-to-Cart:** Mobile-optimized floating add-to-cart bar
+- **Responsive Design:** Seamless experience across all devices
 
 ### Social Proof & Trust Elements
-- **Sales Counter:** Dynamic "813 sold" badge with animated fire icon
-- **Customer Reviews:** Authentic testimonials section featuring 5 verified Australian customers
-- **Verified Badges:** Visual trust indicators with location details
-- **Enhanced Credibility:** Real customer feedback showcasing product quality and satisfaction
-
-### Enhanced User Experience
-- **Quick Add-to-Cart:** Floating action button for instant cart access on mobile
-- **Cart Success Animations:** Visual feedback with celebratory animations on item addition
-- **Micro-Interactions:** Enhanced button ripple effects and hover states
-- **Thumbnail Selection:** Smooth animations for product image gallery navigation
-- **Parallax Effects:** Subtle depth effects on hero and CTA sections with mobile performance optimization
-- **Shimmer Effects:** Eye-catching visual enhancements on key conversion elements
-- **Scroll Reveal:** Progressive section animations as users navigate the page
+- **Customer Reviews:** Authentic testimonials from verified Australian customers
+- **Trust Badges:** Free Shipping, 30-Day Returns, Secure Checkout, Australian Owned
+- **Sales Counter:** Dynamic social proof indicators
 
 ### Performance Optimizations
-- **Mobile-Optimized Parallax:** Reduced motion for better performance on smaller devices
+- **Mobile-Optimized:** Reduced motion for better performance on smaller devices
 - **Efficient Animations:** Hardware-accelerated transforms for smooth 60fps interactions
 - **Smart Loading:** Optimized resource delivery for faster page load times
 
@@ -42,7 +39,7 @@ This project is a sophisticated, modern e-commerce website for YooVee® fingerle
 
 ### Frontend
 - **Responsive Design:** Mobile-first layout optimized for all devices
-- **Modern UI:** Clean aesthetic with gradient blues (#87CEFA to #1E90FF)
+- **Scandinavian UI:** Minimalist aesthetic with neutral tones and generous whitespace
 - **Product Gallery:** Interactive gallery with thumbnails, navigation arrows, and zoom modal
 - **Shopping Cart:** Persistent cart using localStorage
 - **Accessibility:** Full ARIA support, keyboard navigation, semantic HTML
@@ -216,13 +213,22 @@ Additional documentation available in `/docs`:
 
 ## Deployment
 
-### Static Hosting (Netlify, Vercel, GitHub Pages)
-The frontend can be deployed to any static host. The Stripe backend requires a Node.js server.
+This project is deployed on **Vercel** with automatic deployments from the `main` branch.
 
-### Full Stack (Railway, Render, Heroku)
-1. Set environment variables in hosting platform
-2. Ensure `npm start` command runs `server.js`
-3. Configure domain and SSL
+### Production Setup
+- **Hosting:** [Vercel](https://vercel.com) (free tier)
+- **Domain:** yoovee.com.au (registered at CrazyDomains)
+- **Branch:** `main` (production)
+- **Auto-deploy:** Every push to `main` triggers automatic deployment
+
+### Deploy Your Own
+1. Fork this repository
+2. Import to Vercel: [vercel.com/import](https://vercel.com/import)
+3. Configure environment variables for Stripe
+4. Add your custom domain
+
+### Alternative Hosting
+The frontend can be deployed to any static host (Netlify, GitHub Pages, etc.). The Stripe backend requires a Node.js server or serverless functions.
 
 ## Security Notes
 
