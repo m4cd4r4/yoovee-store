@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(whois:*)",
+      "Bash(curl:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(claude mcp list:*)",
+      "Bash(python -m json.tool:*)",
+      "Bash(git log:*)",
+      "Bash(grep:*)",
+      "Bash(nslookup:*)",
+      "Bash(host:*)",
+      "Bash(dig:*)",
+      "Bash(gh run view:*)",
+      "Bash(gh run list:*)"
+    ]
+  }
+}
