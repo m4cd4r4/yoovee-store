@@ -1,6 +1,6 @@
 # YooVee® Premium Fingerless Gloves - E-commerce Website
 
-![YooVee Logo](images/logo-header-transparent.svg)
+![YooVee Website Screenshot](images/website-screenshot.png)
 
 A modern, responsive single-product e-commerce website for YooVee® Premium Fingerless Gloves, featuring a Node.js backend for Stripe payment processing.
 
